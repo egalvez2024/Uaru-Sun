@@ -30,16 +30,34 @@
                 </li>
             
                 @auth
-                @if(Auth::user()->role === 'admin')
+                    @if(Auth::user()->role === 'admin')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.especies.index') ? 'active' : '' }}" 
+                               href="{{ route('admin.especies.index') }}">
+                                <i class="fas fa-cog me-1"></i>Administrar Publicaciones
+                            </a>
+                        </li>
+                    @endif
+            
+                    @if(Auth::user()->role === 'user')
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.especies.index') ? 'active' : '' }}" 
-                           href="{{ route('admin.especies.index') }}">
-                            <i class="fas fa-cog me-1"></i>Administrar Publicaciones
+                        <a class="nav-link {{ request()->routeIs('UsuarioPost.create') ? 'active' : '' }}" 
+                           href="{{ route('UsuarioPost.create') }}">
+                            <i class="fas fa-plus-circle me-1"></i>Crear Publicación
                         </a>
                     </li>
-                @endif
+                    @endif
+                    @if(Auth::user()->role === 'user')
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('favoritos.index') ? 'active' : '' }}" 
+                           href="{{ route('favoritos.index') }}">
+                            <i class="fas fa-plus-circle me-1"></i>Favoritos
+                        </a>
+                    </li>
+                    @endif
                 @endauth
             </ul>
+            
             
 
             <!-- Menú Derecho -->
@@ -79,5 +97,5 @@
 
             </ul>
         </div>
-    </div>
+    </div>
 </nav>

@@ -9,7 +9,7 @@
     <div class="species-grid">
         @foreach($species as $specie)
         <a href="{{ route('species.show', $specie->id) }}" class="species-card">
-            <img src="{{ asset('storage/' . $specie->image_path) }}" alt="{{ $specie->nombre }}">
+            <img src="{{ asset('storage/public/especies' . $specie->image_path) }}" alt="{{ $specie->nombre }}">
             <h3>{{ $specie->nombre }}</h3>
         </a>
         @endforeach

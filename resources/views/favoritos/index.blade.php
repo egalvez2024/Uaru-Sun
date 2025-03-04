@@ -1,27 +1,20 @@
 @extends('layouts.app')
 
-@section('title', 'Inicio - Flora y Fauna de Honduras')
+@section('title', 'Mis Favoritos - Flora y Fauna de Honduras')
 
 @section('content')
 <div class="container mt-5">
-    <div class="text-center mb-4">
-        <h1 class="display-4 text-success">
-            <i class="fas fa-leaf"></i> Biodiversidad Hondureña
-        </h1>
-        <p class="lead">Descubre nuestra riqueza natural</p>
-    </div>
-
     <div class="kb-gallery-container">
-        @foreach($species as $specie)
-        <a href="{{ route('catalogo.show', $specie->id) }}" class="kb-gallery-item">
-            <img src="{{ asset('storage/' . $specie->image_path) }}" alt="{{ $specie->nombre }}">
+        @foreach($favoritos as $favorito)
+        <a href="{{ route('catalogo.show', $favorito->species->id) }}" class="kb-gallery-item">
+            <img src="{{ asset('storage/' . $favorito->species->image_path) }}" alt="{{ $favorito->species->nombre }}">
             <figcaption>
-                <strong>{{ $specie->nombre }}</strong>
+                <strong>{{ $favorito->species->nombre }}</strong>
                 <br>
-                <em>{{ $specie->nombre_cientifico }}</em>
-                @if ($specie->category)
+                <em>{{ $favorito->species->nombre_cientifico }}</em>
+                @if ($favorito->species->category)
                     <span class="badge bg-success">
-                        {{ $specie->category->nombre }} ({{ $specie->category->tipo }})
+                        {{ $favorito->species->category->nombre }} ({{ $favorito->species->category->tipo }})
                     </span>
                 @else
                     <span class="badge bg-warning">Sin categoría</span>
