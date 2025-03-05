@@ -30,15 +30,16 @@
                 <td>{{ $specie->nombre }}</td>
                 <td>
                     <a href="{{ route('admin.especies.edit', $specie->id) }}" class="btn btn-sm btn-primary">
-                        <i class="fas fa-edit"></i>
+                        <i class="fas fa-edit">Editar</i>
                     </a>
                     <form action="{{ route('admin.especies.destroy', $specie->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar especie?')">
-                            <i class="fas fa-trash"></i>
+                            <i class="fas fa-trash">Eliminar</i>
                         </button>
                     </form>
+                    <a href="{{ route('comentarios.create', $specie->id) }}" class="btn btn-sm btn-primary">Agregar comentarios</a>
                 </td>
             </tr>
             @endforeach

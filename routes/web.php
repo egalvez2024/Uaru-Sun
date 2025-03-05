@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EspeciesController;
 use App\Http\Controllers\AdminSpeciesController;
+use App\Http\Controllers\ComentarioController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioPostController;
 use App\Http\Controllers\FavoritoController;
@@ -30,12 +31,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/favoritos/{id}', [FavoritoController::class, 'destroy'])->name('favoritos.destroy');
 });
 
+Route::resource('/comentarios', ComentarioController::class);
+Route::get('/comentarios/create/{id}', [ComentarioController::class, 'create'])->name('comentarios.create');
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/favoritos', [FavoritoController::class, 'index'])->name('favoritos.index');
     Route::post('/favoritos', [FavoritoController::class, 'store'])->name('favoritos.store');
     Route::delete('/favoritos/{id}', [FavoritoController::class, 'destroy'])->name('favoritos.destroy');
 });
-   
+
 });
 
 // Proteger rutas de admin

@@ -21,4 +21,9 @@ class Species extends Model
     {
         return $this->belongsTo(Categoria::class, 'category_id');
     }
+
+    public function comentarios()
+    {
+        return $this->hasMany(Comentario::class);
+    }
 }
