@@ -21,5 +21,15 @@ class AdminUserSeeder extends Seeder
                 'email_verified_at' => now()
             ]
         );
+
+        \App\Models\User::updateOrCreate(
+            ['email' => 'felipejimenezfortin@gmail.com'],
+            [
+                'role' => 'admin',
+                'name' => 'Felipe',
+                'password' => bcrypt('12345678'),
+                'email_verified_at' => now()
+            ]
+        );
     }
 }

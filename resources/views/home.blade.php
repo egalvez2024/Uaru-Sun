@@ -14,7 +14,7 @@
     <div class="kb-gallery-container">
         @foreach($species as $specie)
         <a href="{{ route('catalogo.show', $specie->id) }}" class="kb-gallery-item">
-            <img src="{{ asset('storage/' . $specie->image_path) }}" alt="{{ $specie->nombre }}">
+            <img src="{{ asset('storage/' . $specie->image_path) }}" alt="{{ $specie->nombre }}" height="100%">
             <figcaption>
                 <strong>{{ $specie->nombre }}</strong>
                 <br>

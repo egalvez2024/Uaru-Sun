@@ -26,7 +26,7 @@
                     <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" 
                        href="{{ route('home') }}">
                         <i class="fas fa-home me-1"></i>Inicio
-                    </a>
+                      </a>
                 </li>
             
                 @auth
@@ -47,7 +47,7 @@
                         </a>
                     </li>
                     @endif
-                    @if(Auth::user()->role === 'user')
+                    @if(Auth::user()->role === 'user'||Auth::user()->role === 'admin')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('favoritos.index') ? 'active' : '' }}" 
                            href="{{ route('favoritos.index') }}">
