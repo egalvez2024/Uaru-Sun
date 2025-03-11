@@ -3,9 +3,10 @@
     <div class="container">
         <!-- Logo -->
         <a class="navbar-brand" href="{{ route('home') }}">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="d-inline-block align-text-top" width="40" height="40">
-            Biodiversidad HN
-        </a>
+    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="d-inline-block align-text-top" width="40" height="40">
+    Biodiversidad HN
+    </a>
+
 
         <!-- Menú Hamburguesa -->
         <button class="navbar-toggler" 
