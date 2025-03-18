@@ -7,6 +7,8 @@ use App\Http\Controllers\ComentarioController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioPostController;
 use App\Http\Controllers\FavoritoController;
+use App\Http\Controllers\StoreController;
+use App\Http\Controllers\CourseController;
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -59,6 +61,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/perfil', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/store', [StoreController::class, 'index'])->name('store.index');
+    Route::get('/courses', [CourseController::class, 'index'])->name('course.index');
 });
 
 require __DIR__.'/auth.php';

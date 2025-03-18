@@ -8,7 +8,7 @@
         <h1 class="display-4 text-success">
             <i class="fas fa-leaf"></i> Biodiversidad Hondureña
         </h1>
-        <p class="lead">Descubre nuestra riqueza natural</p>
+        <p class="lead" style="color: white;">Descubre nuestra riqueza natural</p>
     </div>
 
     <div class="kb-gallery-container">
