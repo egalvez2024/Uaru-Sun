@@ -3,18 +3,17 @@
     <div class="container">
         <!-- Logo -->
         <a class="navbar-brand" href="{{ route('home') }}">
-    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="d-inline-block align-text-top" width="40" height="40">
-    Biodiversidad HN
-    </a>
-
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="d-inline-block align-text-top" width="40" height="40">
+            Biodiversidad HN
+        </a>
 
         <!-- Menú Hamburguesa -->
-        <button class="navbar-toggler" 
-                type="button" 
-                data-bs-toggle="collapse" 
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
                 data-bs-target="#mainNavbar"
-                aria-controls="mainNavbar" 
-                aria-expanded="false" 
+                aria-controls="mainNavbar"
+                aria-expanded="false"
                 aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -24,33 +23,43 @@
             <!-- Menú Izquierdo -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" 
+                    <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}"
                        href="{{ route('home') }}">
                         <i class="fas fa-home me-1"></i>Inicio
                       </a>
                 </li>
-            
+
                 @auth
-                    @if(Auth::user()->role === 'admin')
+                    @if(Auth::user()->role === 'admin' || Auth::user()->role === 'user')
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('admin.especies.index') ? 'active' : '' }}" 
+                            <a class="nav-link {{ request()->routeIs('admin.especies.index') ? 'active' : '' }}"
                                href="{{ route('admin.especies.index') }}">
                                 <i class="fas fa-cog me-1"></i>Administrar Publicaciones
                             </a>
                         </li>
                     @endif
-            
+
+
+
                     @if(Auth::user()->role === 'user')
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('UsuarioPost.create') ? 'active' : '' }}" 
+                        <a class="nav-link {{ request()->routeIs('UsuarioPost.create') ? 'active' : '' }}"
                            href="{{ route('UsuarioPost.create') }}">
                             <i class="fas fa-plus-circle me-1"></i>Crear Publicación
                         </a>
                     </li>
                     @endif
+                    @if(Auth::user()->role === 'admin' || Auth::user()->role === 'user')
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('paisajes.index') ? 'active' : '' }}"
+                           href="{{ route('paisajes.index') }}">
+                            <i class="fas fa-cog me-1"></i>Paisajes
+                        </a>
+                    </li>
+                @endif
                     @if(Auth::user()->role === 'user'||Auth::user()->role === 'admin')
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('favoritos.index') ? 'active' : '' }}" 
+                        <a class="nav-link {{ request()->routeIs('favoritos.index') ? 'active' : '' }}"
                            href="{{ route('favoritos.index') }}">
                             <i class="fas fa-plus-circle me-1"></i>Favoritos
                         </a>
@@ -58,14 +67,14 @@
                     @endif
                 @endauth
             </ul>
-            
-            
+
+
 
             <!-- Menú Derecho -->
             <ul class="navbar-nav ms-auto">
                 @guest
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('login') ? 'active' : '' }}" 
+                    <a class="nav-link {{ request()->routeIs('login') ? 'active' : '' }}"
                        href="{{ route('login') }}">
                         <i class="fas fa-sign-in-alt me-1"></i>Ingresar
                     </a>
@@ -79,7 +88,7 @@
                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
                      <i class="fas fa-user-circle me-1"></i>{{ Auth::user()->name }}
                  </a>
-                 
+
                  <ul class="dropdown-menu dropdown-menu-end" id="dropdownMenu">
                      <li><hr class="dropdown-divider"></li>
                      <li>
@@ -91,12 +100,12 @@
                          </form>
                      </li>
                  </ul>
-                 
+
                 </li>
                 @endauth
 
 
             </ul>
         </div>
-    </div>
+    </div>
 </nav>

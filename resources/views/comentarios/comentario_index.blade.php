@@ -27,7 +27,7 @@
                     @endphp
             @endif
                 <div class="comentario-burbuja" style="background-color: #f0f2f5; padding: 10px 15px; border-radius: 20px; width: 100%; box-sizing: border-box; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); position: relative; border: 1px solid #ccc;">
-                    <p style="margin: 0; color: #1877f2; font-weight: bold;">{{$user->email}}</p>
+                    <p style="margin: 0; color: #1877f2; font-weight: bold;">{{$comentario->user->email}}</p>
                     <p style="margin: 0; color: #050505;">{{ $texto_limitado }}</p>
                     <div style="margin-top: 20px">
                         <p style="margin: 20px 0 0 0; font-size: 0.75rem; color: #65676b; position: absolute; bottom: 5px; right: 10px;">{{ date('d-m-Y', strtotime($comentario->fecha)) }}</p>

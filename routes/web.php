@@ -7,6 +7,7 @@ use App\Http\Controllers\ComentarioController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioPostController;
 use App\Http\Controllers\FavoritoController;
+use App\Http\Controllers\PaisajeController;
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -33,6 +34,9 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('/comentarios', ComentarioController::class);
 Route::get('/comentarios/create/{id}', [ComentarioController::class, 'create'])->name('comentarios.create');
+
+Route::resource('/paisajes', PaisajeController::class);
+Route::get('/index', [PaisajeController::class, 'index'])->name('paisajes.index_paisaje');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/favoritos', [FavoritoController::class, 'index'])->name('favoritos.index');

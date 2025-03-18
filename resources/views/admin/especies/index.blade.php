@@ -11,6 +11,23 @@
         </a>
     </div>
 
+    <form method="GET" action="{{ route('admin.especies.index') }}">
+        <div class="row">
+            <div class="col-2">
+                <select class="form-select" name="filtro">
+                    <option value="nombre_comun" {{ request('filtro') == 'nombre_comun' ? 'selected' : '' }}>Nombre Común</option>
+                    <option value="habitat" {{ request('filtro') == 'habitat' ? 'selected' : '' }}>Hábitat</option>
+                </select>
+            </div>
+            <div class="col-9">
+                <input type="text" class="form-control" name="query" value="{{ request('query') }}" placeholder="Buscar especie">
+            </div>
+            <div class="col-1">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+    </form>
+
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
@@ -20,14 +37,16 @@
             <tr>
                 <th>Imagen</th>
                 <th>Nombre Común</th>
+                <th>Habitat</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($species as $specie)
+            @forelse($species as $specie)
             <tr>
                 <td><img src="{{ asset('storage/' . $specie->image_path) }}" width="80"></td>
                 <td>{{ $specie->nombre }}</td>
+                <td>{{ $specie->habitat }}</td>
                 <td>
                     <a href="{{ route('admin.especies.edit', $specie->id) }}" class="btn btn-sm btn-primary">
                         <i class="fas fa-edit">Editar</i>
@@ -42,10 +61,12 @@
                     <a href="{{ route('comentarios.create', $specie->id) }}" class="btn btn-sm btn-primary">Agregar comentarios</a>
                 </td>
             </tr>
-            @endforeach
+            @empty
+                <td colspan="4" style="text-align: center">No hay especies.</td>
+            @endforelse
         </tbody>
     </table>
 
-    {{ $species->links() }}
+    {{ $species->appends(request()->query())->links() }}
 </div>
 @endsection

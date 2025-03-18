@@ -9,12 +9,26 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminSpeciesController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $species = Species::latest()->paginate(10);
-        return view('admin.especies.index', compact('species'));
-    }
+        $query = $request->input('query');
+        $filtro = $request->input('filtro');
+        if($filtro == 'nombre_comun'){
+            $species = Species::where('nombre', 'like', "%$query%")
+                    ->paginate(10);
+        }
+        else if($filtro == 'habitat'){
+            $species = Species::where('habitat', 'like', "%$query%")
+                    ->paginate(10);
+        }
+        else{
+            $species = Species::Paginate(10);
+        }
 
+        // Paginación opcional
+
+        return view('admin.especies.index', compact('species', 'query'));
+    }
     public function create()
 {
     $categories = Categoria::all();

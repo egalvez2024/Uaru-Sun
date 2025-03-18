@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             //SpeciesSeeder::class,
             CategorySeeder::class,
             AdminUserSeeder::class,
+            PaisajeSeeder::class,
         ]);
 
         User::factory()->create([
