@@ -19,7 +19,7 @@ class CategoriaFactory extends Factory
     {
         return [
             'nombre' => $this->faker -> name(),
-            'tipo' => $this->faker -> randomElement(['flora','fauna'])
+            'tipo' => $this->faker -> randomElement(['flora','fauna','paisaje','panoramica'])
     
         ];
     }

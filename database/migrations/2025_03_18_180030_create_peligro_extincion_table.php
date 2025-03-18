@@ -9,12 +9,10 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('peligro_extincion', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('tipo')->comment('flora/fauna/paisaje/panaramica');
             $table->timestamps();
         });
     }
@@ -24,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('peligro_extincion');
     }
 };

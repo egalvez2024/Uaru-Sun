@@ -7,6 +7,10 @@ use App\Http\Controllers\ComentarioController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioPostController;
 use App\Http\Controllers\FavoritoController;
+use App\Http\Controllers\FaunaController;
+use App\Http\Controllers\PeligroExtincionController;
+
+
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -21,6 +25,7 @@ Route::get('/UsuarioPost/create', [UsuarioPostController::class, 'create'])->nam
 Route::post('/UsuarioPost', [UsuarioPostController::class, 'store'])->name('UsuarioPost.store');
 
 
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -29,8 +34,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/favoritos', [FavoritoController::class, 'index'])->name('favoritos.index');
     Route::post('/favoritos', [FavoritoController::class, 'store'])->name('favoritos.store');
     Route::delete('/favoritos/{id}', [FavoritoController::class, 'destroy'])->name('favoritos.destroy');
-});
+    Route::get('/nueva-fauna', [FaunaController::class, 'create']);
+    Route::get('/nuevaz', [PeligroExtincionController::class, 'create']);
+    Route::get('/nuevaz', [PeligroExtincionController::class, 'index'])->name('peligro.index');
 
+
+
+});
+Route::resource('extintos', PeligroExtincionController::class);
+Route::resource('fauna', FaunaController::class);
 Route::resource('/comentarios', ComentarioController::class);
 Route::get('/comentarios/create/{id}', [ComentarioController::class, 'create'])->name('comentarios.create');
 
@@ -46,7 +58,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('admin')->middleware(['auth', 'verified'])->name('admin.')->group(function () {
         Route::resource('especies', AdminSpeciesController::class)
-            ->parameters(['especies' => 'species']) // Mapea "especies" al modelo Species
+        ->parameters(['especies' => 'species']) // Mapea "especies" al modelo Species
             ->names([
                 'index' => 'especies.index',
                 'create' => 'especies.create',

@@ -28,6 +28,7 @@
                 @endif
             </figcaption>
         </a>
+
         @endforeach
     </div>
 </div>

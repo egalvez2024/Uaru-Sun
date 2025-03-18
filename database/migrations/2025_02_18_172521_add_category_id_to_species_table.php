@@ -22,6 +22,7 @@ public function down()
     Schema::table('species', function (Blueprint $table) {
         $table->dropForeign(['category_id']);
         $table->dropColumn('category_id');
+        
     });
 }
 };
