@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Paisajes naturales</h1>
+        <h1 style="color: white; text-align: center;">Paisajes naturales</h1>
     </div>
 
     @if(session('success'))

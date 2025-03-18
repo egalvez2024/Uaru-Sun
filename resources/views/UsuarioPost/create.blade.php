@@ -38,6 +38,7 @@
             <label for="category_id" class="form-label">Categoría</label>
             <select class="form-control" id="category_id" name="category_id" required>
                 <option value="" selected disabled>Seleccione una categoría</option>
+                <option value="1">Lawrence Walker (fauna)</option>
                 @foreach($categories as $category)
             <option value="{{ $category->id }}">{{ $category->nombre }} ({{ $category->tipo }})</option>
         @endforeach

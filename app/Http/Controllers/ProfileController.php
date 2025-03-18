@@ -11,6 +11,16 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+    
+    public function index() {
+        
+
+
+        $user = auth()->user();
+        $posts = $user->posts; // Suponiendo que haya una relación con Post
+        return view('profile.index', compact('user'))->with('posts', $user->posts ?? collect());
+    }
+
     /**
      * Display the user's profile form.
      */
@@ -57,4 +67,8 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+
 }
+
+

@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioPostController;
 use App\Http\Controllers\FavoritoController;
 use App\Http\Controllers\PaisajeController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\StoreController;
+
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -35,7 +38,7 @@ Route::middleware('auth')->group(function () {
 Route::resource('/comentarios', ComentarioController::class);
 Route::get('/comentarios/create/{id}', [ComentarioController::class, 'create'])->name('comentarios.create');
 
-Route::resource('/paisajes', PaisajeController::class);
+Route::resource('/paisajes', controller: PaisajeController::class);
 Route::get('/index', [PaisajeController::class, 'index'])->name('paisajes.index_paisaje');
 
 Route::middleware(['auth'])->group(function () {
@@ -63,6 +66,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/perfil', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/store', [StoreController::class, 'index'])->name('store.index');
+    Route::get('/courses', [CourseController::class, 'index'])->name('course.index');
 });
 
 require __DIR__.'/auth.php';

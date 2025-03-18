@@ -4,8 +4,12 @@
         <!-- Logo -->
         <a class="navbar-brand" href="{{ route('home') }}">
             <img src="{{ asset('images/logo.png') }}" alt="Logo" class="d-inline-block align-text-top" width="40" height="40">
-            Biodiversidad HN
+            ÚARU SUN
         </a>
+    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="d-inline-block align-text-top" width="40" height="40">
+    
+    </a>
+ 
 
         <!-- Menú Hamburguesa -->
         <button class="navbar-toggler"
@@ -66,6 +70,17 @@
                     </li>
                     @endif
                 @endauth
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('profile.index') }}">Mi Perfil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('store.index') }}">Tienda</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('course.index') }}">Cursos</a>
+                </li>
+
             </ul>
 
 
