@@ -14,6 +14,10 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Categoria::factory()->count(10)->create();
+        Categoria::create([
+            'nombre' => 'Peligro de extincion',
+            'tipo' => 'Peligro'
+        ]);
+
     }
 }

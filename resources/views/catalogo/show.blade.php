@@ -12,6 +12,7 @@
             <h2><em>{{ $specie->nombre_cientifico }}</em></h2>
 
             <!-- Botón de Favoritos -->
+            
             <div class="favorite-section">
                 @if(auth()->user() && auth()->user()->favoritos->where('species_id', $specie->id)->count())
                     <form action="{{ route('favoritos.destroy', $specie->id) }}" method="POST">
@@ -21,8 +22,12 @@
                             <i class="fas fa-heart-broken"></i> Quitar de Favoritos
                         </button>
                     </form>
+                    
                 @else
+        
+
                     <form action="{{ route('favoritos.store') }}" method="POST">
+                 
                         @csrf
                         <input type="hidden" name="species_id" value="{{ $specie->id }}">
                         <button type="submit" class="btn btn-warning">
@@ -30,6 +35,9 @@
                         </button>
                     </form>
                 @endif
+            
+
+        
             </div>
 
             <div class="info-section">
