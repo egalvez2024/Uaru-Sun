@@ -119,19 +119,6 @@
             });
         });
     </script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var menuDropdown = document.getElementById("menuDropdown");
-        var dropdown = new bootstrap.Dropdown(menuDropdown);
-
-        menuDropdown.addEventListener("click", function (event) {
-            event.preventDefault();
-            dropdown.toggle();
-        });
-    });
-</script>
-
     
 </body>
 </html>
