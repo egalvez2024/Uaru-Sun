@@ -22,7 +22,7 @@ class FaunaController extends Controller
 
 
     // Retornar la vista con los datos
-    return view('fauna.index', compact('especies'));
+    return view('Fauna.index', compact('especies'));
 }
     
 
