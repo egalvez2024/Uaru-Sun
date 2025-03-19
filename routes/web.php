@@ -10,6 +10,9 @@ use App\Http\Controllers\FavoritoController;
 use App\Http\Controllers\PaisajeController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\PeligroExtincionController;
+use App\Http\Controllers\FaunaController;
+
 
 
 
