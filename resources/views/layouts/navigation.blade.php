@@ -7,9 +7,9 @@
             ÚARU SUN
         </a>
     <img src="{{ asset('images/logo.png') }}" alt="Logo" class="d-inline-block align-text-top" width="40" height="40">
-    
+
     </a>
- 
+
 
         <!-- Menú Hamburguesa -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +28,7 @@
 
 
                 @auth
-                    @if(Auth::user()->role === 'admin' || Auth::user()->role === 'user')
+                    @if(Auth::user()->role === 'admin')
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('admin.especies.index') ? 'active' : '' }}" href="{{ route('admin.especies.index') }}">
                                 <i class="fas fa-cog me-1"></i>Administrar Publicaciones
