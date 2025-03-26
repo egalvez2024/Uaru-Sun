@@ -85,9 +85,6 @@
                 <a class="dropdown-item" href="{{ route('fauna.index') }}">
                     <i class="fas fa-paw me-2"></i>Fauna 
                 </a>
-                <a class="dropdown-item" href="{{ route('peligro.index') }}">
-                    <i class="fas fa-paw me-2"></i>Peligro de Extincion
-                </a>
             </div>
         </li>
 
@@ -108,6 +105,9 @@
         </li>
     @endauth
 </ul>
+
+
+
 
 
 

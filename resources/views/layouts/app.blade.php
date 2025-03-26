@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
-<>
-    <meta charset="UTF-8">
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title') | Flora y Fauna de Honduras</title>
@@ -26,27 +26,51 @@
         /* Fondo de la página */
         body {
             background-image: url('images/fonds.jpg');
-            background-size: cover; /* Hace que la imagen cubra toda la pantalla */
-            background-position: center; /* Centra la imagen */
-            background-attachment: fixed; /* Fija la imagen para que no se desplace al hacer scroll */
-            background-repeat: no-repeat; /* Evita que la imagen se repita */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
         }
 
         /* Contenido encima del fondo */
         .content {
             position: relative;
-            z-index: 1; /* Asegura que el contenido esté sobre la imagen */
+            z-index: 1;
             text-align: center;
             color: white;
-            height: 100vh; /* Ocupa toda la pantalla */
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: rgba(0, 0, 0, 0.3); /* Oscurece el fondo para mejorar la visibilidad del texto */
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Asegura que los dropdowns sean visibles */
+        .dropdown-menu {
+            z-index: 1050 !important;
+        }
+
+        /* Asegurar que los contenedores sean responsivos */
+        .container {
+            width: 100%;
+            max-width: 1200px; /* Limita el tamaño máximo del contenedor */
+            padding: 0 15px; /* Agrega padding para márgenes en pantallas pequeñas */
+        }
+
+        /* Hacer las imágenes responsivas */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Ajustes adicionales para pantallas pequeñas */
+        @media (max-width: 767px) {
+            .content {
+                height: auto; /* El contenido no ocupará toda la altura en móviles */
+                padding: 20px;
+            }
         }
     </style>
-
-    
 </head>
 <body class="font-sans antialiased">
     <!-- Navbar de Bootstrap -->
@@ -54,13 +78,12 @@
         <div class="container">
             <a class="navbar-brand" href="/">Biodiversidad HN</a>
             
-            <!-- Integrar Menú de Breeze -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
             <div class="collapse navbar-collapse" id="navbarNav">
-                @include('layouts.navigation')  <!-- Menú de Breeze modificado -->
+                @include('layouts.navigation')
             </div>
         </div>
     </nav>
@@ -72,66 +95,24 @@
         </div>
     </main>
 
-
-    <div class="vision" style="background-position: center 263.6px; opacity: 1; transform: translateY(0px);">
-    <div class="vision-content">
-        <!-- Footer -->
     <footer class="bg-dark text-white mt-5">
         <div class="container py-4">
-            <p class="mb-0 text-center">© {{ date('Y') }} Biodiversidad Hondureña</p>
+            <p class="mb-0 text-center">&copy; {{ date('Y') }} Biodiversidad Hondureña</p>
         </div>
     </footer>
-        
-    </div>
-    <div class="vision-image">
-        
-</div>
     
-
-    <style>
-    /* Estilos para que el footer siempre esté visible sobre el fondo */
-    .footer {
-        position: fixed; /* Fijado en la parte inferior */
-        bottom: 0;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.7); /* Oscuro pero semi-transparente */
-        color: white;
-        padding: 10px 0;
-        text-align: center;
-        z-index: 1000; /* Asegura que esté sobre otros elementos */
-    }
-</style>
-    
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <!-- Scripts -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     @stack('scripts')
+    
+    <!-- Script para inicializar dropdowns -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            var userDropdown = document.getElementById("userDropdown");
-            var dropdown = new bootstrap.Dropdown(userDropdown);
-    
-            userDropdown.addEventListener("click", function (event) {
-                event.preventDefault();
-                dropdown.toggle();
+            var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+            dropdownElementList.map(function (dropdownToggleEl) {
+                new bootstrap.Dropdown(dropdownToggleEl);
             });
         });
     </script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var menuDropdown = document.getElementById("menuDropdown");
-        var dropdown = new bootstrap.Dropdown(menuDropdown);
-
-        menuDropdown.addEventListener("click", function (event) {
-            event.preventDefault();
-            dropdown.toggle();
-        });
-    });
-</script>
-
-    
 </body>
 </html>

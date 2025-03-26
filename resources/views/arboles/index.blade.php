@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="container">
-        <h1 class="mb-4" style="color: white !important;">Especies de peligro de Extinción</h1>
+        <h1 class="mb-4" style="color: white !important;">Riquesa en area verde</h1>
 
         @if($especies->isEmpty())
-            <p style="color: white !important;">No hay especies registradas en la categoría de fauna.</p>
+            <p style="color: white !important;">No hay publicaciones registradas.</p>
         @else
             <div class="row">
                 @foreach($especies as $especie)

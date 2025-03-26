@@ -15,8 +15,8 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         Categoria::create([
-            'nombre' => 'Peligro de extincion',
-            'tipo' => 'Peligro'
+            'nombre' => 'Arboles',
+            'tipo' => 'flora'
         ]);
 
     }

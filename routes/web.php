@@ -12,9 +12,8 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\PeligroExtincionController;
 use App\Http\Controllers\FaunaController;
-
-
-
+use App\Http\Controllers\AnfibiosController;
+use App\Http\Controllers\ArbolesController;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', function () {
@@ -26,6 +25,8 @@ Route::get('/especies/{id}', [EspeciesController::class, 'show'])->name('catalog
 Route::get('/UsuarioPost', [UsuarioPostController::class, 'index'])->name('UsuarioPost.index');
 Route::get('/UsuarioPost/create', [UsuarioPostController::class, 'create'])->name('UsuarioPost.create');
 Route::post('/UsuarioPost', [UsuarioPostController::class, 'store'])->name('UsuarioPost.store');
+Route::put('/admin/especies/{species}', [AdminSpeciesController::class, 'update'])->name('admin.especies.update');
+
 
 
 
@@ -40,10 +41,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/nueva-fauna', [FaunaController::class, 'create']);
     Route::get('/nuevaz', [PeligroExtincionController::class, 'create']);
     Route::get('/nuevaz', [PeligroExtincionController::class, 'index'])->name('peligro.index');
+    Route::get('/ver', [AnfibiosController::class, 'index'])->name('anfibio.index');
+    Route::get('/Ver', [ArbolesController::class, 'index'])->name('arboles.index');
+
 
 
 
 });
+Route::resource('arboles', ArbolesController::class);
+Route::resource('anfibios', AnfibiosController::class);
 Route::resource('extintos', PeligroExtincionController::class);
 Route::resource('fauna', FaunaController::class);
 Route::resource('/comentarios', ComentarioController::class);

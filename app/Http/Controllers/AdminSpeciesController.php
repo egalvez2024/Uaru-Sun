@@ -71,6 +71,8 @@ public function store(Request $request)
 
     public function update(Request $request, Species $species)
     {
+
+        
         $validated = $request->validate([
             'nombre' => 'required|max:255',
             'nombre_cientifico' => 'required|max:255',

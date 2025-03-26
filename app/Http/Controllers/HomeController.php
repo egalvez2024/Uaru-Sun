@@ -12,7 +12,7 @@ class HomeController extends Controller
     // Obtener especies con sus categorías
     $species = Species::with('category') // Esto debe coincidir con el nombre en el modelo
               ->latest()
-              ->take(6)
+              ->take(18)
               ->get();
 
 
