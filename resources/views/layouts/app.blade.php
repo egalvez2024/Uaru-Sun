@@ -51,16 +51,8 @@
 <body class="font-sans antialiased">
     <!-- Navbar de Bootstrap -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-        <div class="container">
-            @include('layouts.navigation')  <!-- Menú de Breeze modificado -->
+    @include('layouts.navigation')  <!-- Menú de Breeze modificado -->
             
-            <!-- Integrar Menú de Breeze -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"  aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-        </div>
           
         </div>
     </nav>
