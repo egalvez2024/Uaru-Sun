@@ -6,15 +6,35 @@
             <img src="{{ asset('images/logo.png') }}" alt="Logo" class="d-inline-block align-text-top" width="40" height="40">
             ÚARU SUN
         </a>
-    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="d-inline-block align-text-top" width="40" height="40">
     
-    </a>
- 
+
+    <style>
+        .boton-flotante {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #28a745;
+            color: white;
+            border: 2px solid #ED7456;
+            border-radius: 50%;
+            width: 70px; 
+            height: 70px; 
+            font-size: 30px; /* Ajustado tamaño de fuente */
+            cursor: pointer;
+            text-align: center;
+            line-height: 60px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+            text-decoration: none; 
+        }
+    </style>
+
 
         <!-- Menú Hamburguesa -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" >
             <span class="navbar-toggler-icon"></span>
         </button>
+
+
 
         <!-- Elementos del Menú -->
         <div class="collapse navbar-collapse" id="mainNavbar">
@@ -28,18 +48,10 @@
 
 
                 @auth
-                    @if(Auth::user()->role === 'admin' || Auth::user()->role === 'user')
+                    @if(Auth::user()->role === 'admin')
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('admin.especies.index') ? 'active' : '' }}" href="{{ route('admin.especies.index') }}">
                                 <i class="fas fa-cog me-1"></i>Administrar Publicaciones
-                            </a>
-                        </li>
-                    @endif
-
-                    @if(Auth::user()->role === 'user')
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('UsuarioPost.create') ? 'active' : '' }}" href="{{ route('UsuarioPost.create') }}">
-                                <i class="fas fa-plus-circle me-1"></i>Crear Publicación
                             </a>
                         </li>
                     @endif
@@ -85,6 +97,15 @@
                 <a class="dropdown-item" href="{{ route('fauna.index') }}">
                     <i class="fas fa-paw me-2"></i>Fauna 
                 </a>
+
+                <a class="dropdown-item" href="{{ route('flora.index') }}">
+                    <i class="fas fa-paw me-2"></i>Flora 
+                </a>
+
+
+                <a class="dropdown-item" href="{{ route('peligro.index') }}">
+                    <i class="fas fa-paw me-2"></i>Peligro de Extincion
+                </a>
             </div>
         </li>
 
@@ -110,11 +131,16 @@
 
 
 
+<button class="boton-flotante" onclick="window.location.href='{{ route('UsuarioPost.create') }}'">+</button>
 
  
 
             </ul>
         </div>
+
+        <a href="{{ route('UsuarioPost.create') }}" class="boton-flotante">+</a>
+
+        
     </div>
 </nav>
 

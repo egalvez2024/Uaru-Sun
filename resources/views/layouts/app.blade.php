@@ -78,8 +78,7 @@
 <body class="font-sans antialiased">
     <!-- Navbar de Bootstrap -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-        <div class="container">
-            <a class="navbar-brand" href="/">Biodiversidad HN</a>
+    @include('layouts.navigation')  <!-- Menú de Breeze modificado -->
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -117,5 +116,19 @@
             });
         });
     </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var menuDropdown = document.getElementById("menuDropdown");
+        var dropdown = new bootstrap.Dropdown(menuDropdown);
+
+        menuDropdown.addEventListener("click", function (event) {
+            event.preventDefault();
+            dropdown.toggle();
+        });
+    });
+</script>
+
+    
 </body>
 </html>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FloraController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EspeciesController;
 use App\Http\Controllers\AdminSpeciesController;
@@ -52,6 +53,7 @@ Route::resource('arboles', ArbolesController::class);
 Route::resource('anfibios', AnfibiosController::class);
 Route::resource('extintos', PeligroExtincionController::class);
 Route::resource('fauna', FaunaController::class);
+Route::resource('flora', FloraController::class);
 Route::resource('/comentarios', ComentarioController::class);
 Route::get('/comentarios/create/{id}', [ComentarioController::class, 'create'])->name('comentarios.create');
 
