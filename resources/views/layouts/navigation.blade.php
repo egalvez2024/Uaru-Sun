@@ -6,30 +6,27 @@
             <img src="{{ asset('images/logo.png') }}" alt="Logo" class="d-inline-block align-text-top" width="40" height="40">
             ÚARU SUN
         </a>
+    
 
     <style>
-    /* Estilos para el botón flotante */
-    .boton-flotante {
-      position: fixed;      
-      bottom: 20px; 
-      right: 20px;  
-      width: 70px; /* Aumenta el ancho */
-      height: 70px; /* Aumenta la altura */
-      border-radius: 50%; 
-      background-color: #68BD46; 
-      color: #FFFFFF; 
-      font-size: 24px; 
-      border: none;
-      cursor: pointer;
-      box-shadow: 2px 2px 5px rgba(0,0,0,0.3); 
-    }
-
-    .boton-flotante:hover {
-      background-color: #4C9961;
-    }
-</style>
-
-    </a>
+        .boton-flotante {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #28a745;
+            color: white;
+            border: 2px solid #ED7456;
+            border-radius: 50%;
+            width: 70px; 
+            height: 70px; 
+            font-size: 30px; /* Ajustado tamaño de fuente */
+            cursor: pointer;
+            text-align: center;
+            line-height: 60px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+            text-decoration: none; 
+        }
+    </style>
 
 
         <!-- Menú Hamburguesa -->
@@ -58,8 +55,6 @@
                             </a>
                         </li>
                     @endif
-
-                    
 
                     @if(Auth::user()->role === 'user' || Auth::user()->role === 'user')
                         <li class="nav-item">
@@ -102,6 +97,12 @@
                 <a class="dropdown-item" href="{{ route('fauna.index') }}">
                     <i class="fas fa-paw me-2"></i>Fauna 
                 </a>
+
+                <a class="dropdown-item" href="{{ route('flora.index') }}">
+                    <i class="fas fa-paw me-2"></i>Flora 
+                </a>
+
+
                 <a class="dropdown-item" href="{{ route('peligro.index') }}">
                     <i class="fas fa-paw me-2"></i>Peligro de Extincion
                 </a>
@@ -133,6 +134,10 @@
 
             </ul>
         </div>
+
+        <a href="{{ route('UsuarioPost.create') }}" class="boton-flotante">+</a>
+
+        
     </div>
 </nav>
 
