@@ -99,6 +99,8 @@
                 <a class="dropdown-item" href="{{ route('flora.index') }}">
                     <i class="fas fa-paw me-2"></i>Flora 
                 </a>
+
+
                 <a class="dropdown-item" href="{{ route('peligro.index') }}">
                     <i class="fas fa-paw me-2"></i>Peligro de Extincion
                 </a>
