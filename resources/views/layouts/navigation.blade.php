@@ -30,9 +30,11 @@
 
 
         <!-- Menú Hamburguesa -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" >
             <span class="navbar-toggler-icon"></span>
         </button>
+
+
 
         <!-- Elementos del Menú -->
         <div class="collapse navbar-collapse" id="mainNavbar">
@@ -126,6 +128,7 @@
 </ul>
 
 
+<button class="boton-flotante" onclick="window.location.href='{{ route('UsuarioPost.create') }}'">+</button>
 
  
 
