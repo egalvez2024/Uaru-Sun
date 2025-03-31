@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Species;
 use App\Models\Categoria;
+use Illuminate\Http\Request;
+
 
 class ArbolesController extends Controller
 {
     public function index()
     {
         // Buscar la categoría 'fauna'
-        $categoriaFauna = Categoria::where('nombre', 'Grupo de Arboles')->first();
+        $categoriaFauna = Categoria::where('nombre', 'arboles')->first();
     
         // Obtener todas las especies que pertenecen a esta categoría
         $especies = Species::where('category_id', optional($categoriaFauna)->id)->get();

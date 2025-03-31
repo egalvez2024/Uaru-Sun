@@ -7,6 +7,9 @@
 
     <title>@yield('title') | Flora y Fauna de Honduras</title>
 
+    <!-- Agregar favicon -->
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+
     <!-- Bootstrap 5 desde CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
@@ -53,8 +56,8 @@
         /* Asegurar que los contenedores sean responsivos */
         .container {
             width: 100%;
-            max-width: 1200px; /* Limita el tamaño máximo del contenedor */
-            padding: 0 15px; /* Agrega padding para márgenes en pantallas pequeñas */
+            max-width: 1200px;
+            padding: 0 15px;
         }
 
         /* Hacer las imágenes responsivas */
@@ -66,7 +69,7 @@
         /* Ajustes adicionales para pantallas pequeñas */
         @media (max-width: 767px) {
             .content {
-                height: auto; /* El contenido no ocupará toda la altura en móviles */
+                height: auto;
                 padding: 20px;
             }
         }

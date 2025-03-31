@@ -14,6 +14,8 @@ class FaunaController extends Controller
      */
     public function index()
 {
+
+
     // Buscar la categoría 'fauna'
     $categoriaFauna = Categoria::where('nombre', 'Fauna')->first();
 

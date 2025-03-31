@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/nuevaz', [PeligroExtincionController::class, 'create']);
     Route::get('/nuevaz', [PeligroExtincionController::class, 'index'])->name('peligro.index');
     Route::get('/ver', [AnfibiosController::class, 'index'])->name('anfibio.index');
-    Route::get('/Ver', [ArbolesController::class, 'index'])->name('arboles.index');
+    Route::get('/usar', [ArbolesController::class, 'index'])->name('arboles.index');
 
 
 

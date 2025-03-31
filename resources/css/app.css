@@ -14,3 +14,11 @@
     visibility: visible;
     opacity: 1;
 }
+
+
+
+.bg-custom {
+    background-color: #e0f7fa;
+    padding: 20px;
+    border-radius: 10px;
+}
