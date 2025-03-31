@@ -6,15 +6,38 @@
             <img src="{{ asset('images/logo.png') }}" alt="Logo" class="d-inline-block align-text-top" width="40" height="40">
             ÚARU SUN
         </a>
-    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="d-inline-block align-text-top" width="40" height="40">
+
+    <style>
+    /* Estilos para el botón flotante */
+    .boton-flotante {
+      position: fixed;      
+      bottom: 20px; 
+      right: 20px;  
+      width: 70px; /* Aumenta el ancho */
+      height: 70px; /* Aumenta la altura */
+      border-radius: 50%; 
+      background-color: #68BD46; 
+      color: #FFFFFF; 
+      font-size: 24px; 
+      border: none;
+      cursor: pointer;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.3); 
+    }
+
+    .boton-flotante:hover {
+      background-color: #4C9961;
+    }
+</style>
 
     </a>
 
 
         <!-- Menú Hamburguesa -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" >
             <span class="navbar-toggler-icon"></span>
         </button>
+
+
 
         <!-- Elementos del Menú -->
         <div class="collapse navbar-collapse" id="mainNavbar">
@@ -36,13 +59,7 @@
                         </li>
                     @endif
 
-                    @if(Auth::user()->role === 'user')
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('UsuarioPost.create') ? 'active' : '' }}" href="{{ route('UsuarioPost.create') }}">
-                                <i class="fas fa-plus-circle me-1"></i>Crear Publicación
-                            </a>
-                        </li>
-                    @endif
+                    
 
                     @if(Auth::user()->role === 'user' || Auth::user()->role === 'user')
                         <li class="nav-item">
@@ -110,6 +127,7 @@
 </ul>
 
 
+<button class="boton-flotante" onclick="window.location.href='{{ route('UsuarioPost.create') }}'">+</button>
 
  
 
