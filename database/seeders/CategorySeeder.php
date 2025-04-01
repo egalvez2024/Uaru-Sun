@@ -41,8 +41,6 @@ class CategorySeeder extends Seeder
             'nombre' => 'Paisajes',
             'tipo' => ''
         ]);
-    
-
 
     }
 }
