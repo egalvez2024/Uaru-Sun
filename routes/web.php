@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AvesController;
 use App\Http\Controllers\FloraagricolaController;
 use App\Http\Controllers\FloraController;
 use App\Http\Controllers\FlorajardinController;
+use App\Http\Controllers\MamiferosController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EspeciesController;
 use App\Http\Controllers\AdminSpeciesController;
@@ -46,6 +48,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/nuevaz', [PeligroExtincionController::class, 'index'])->name('peligro.index');
     Route::get('/ver', [AnfibiosController::class, 'index'])->name('anfibio.index');
     Route::get('/usar', [ArbolesController::class, 'index'])->name('arboles.index');
+    Route::get('/agricola', [FloraagricolaController::class, 'index'])->name('agricola.index');
+    Route::get('/jardin', [FlorajardinController::class, 'index'])->name('jardin.index');
+    Route::get('/aves', [AvesController::class, 'index'])->name('aves.index');
+    Route::get('/mam', [MamiferosController::class, 'index'])->name('mamiferos.index');
+
 
 
 
@@ -54,12 +61,14 @@ Route::middleware('auth')->group(function () {
 Route::resource('arboles', ArbolesController::class);
 Route::resource('anfibios', AnfibiosController::class);
 Route::resource('extintos', PeligroExtincionController::class);
+Route::resource('floragri', FloraagricolaController::class);
+Route::resource('florjardin', FlorajardinController::class);
+Route::resource('ave', AvesController::class);
+Route::resource('mamiferos', MamiferosController::class);
 Route::resource('fauna', FaunaController::class);
 Route::resource('flora', FloraController::class);
 Route::resource('/comentarios', ComentarioController::class);
 Route::get('/comentarios/create/{id}', [ComentarioController::class, 'create'])->name('comentarios.create');
-Route::get('/agricola', [FloraagricolaController::class, 'index'])->name('agricola.index');
-Route::get('/jardin', [FlorajardinController::class, 'index'])->name('jardin.index');
 
 Route::resource('/paisajes', controller: PaisajeController::class);
 Route::get('/index', [PaisajeController::class, 'index'])->name('paisajes.index_paisaje');

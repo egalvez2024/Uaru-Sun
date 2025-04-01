@@ -13,9 +13,22 @@
             <i class="fas fa-leaf"></i> Bienvenido a la Flora Hondureña
         </h1>
     </div>
-    
-        
-        
+
+
+         <!-- Menú desplegable -->
+    <div class="d-flex justify-content-end mb-4">
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                Seleccionar Categoría
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="{{ route('agricola.index') }}">Flora Agricola</a></li>
+                <li><a class="dropdown-item" href="{{ route('jardin.index') }}">Flora de Jardin</a></li>
+                <li><a class="dropdown-item" href="{{ route('arboles.index') }}">Grupo de Árboles</a></li>
+            </ul>
+        </div>
+    </div>
+
         @if($especies->isEmpty())
             <p class="text-white">No hay especies registradas en este grupo.</p>
         @else
