@@ -2,7 +2,17 @@
 
 @section('content')
     <div class="container">
-        <h1 class="mb-4 text-white">Grupo de arboles</h1>
+    <style>
+        .text-center {
+            margin-top: 80px; /* Ajusta este valor según sea necesario */
+        }
+    </style>
+
+    <div class="text-center mb-4">
+        <h1 class="mb-4 text-white" class="display-4 text-success">
+            <i class="fas fa-leaf"></i> Bienvenido a la Seccion de Arboles
+        </h1>
+    </div>
 
         @if($especies->isEmpty())
             <p class="text-white">No hay especies registradas en este grupo.</p>

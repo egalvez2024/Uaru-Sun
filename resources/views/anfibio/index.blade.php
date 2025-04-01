@@ -2,9 +2,17 @@
 
 @section('content')
     <div class="container">
-        <h1 class="mb-4 text-center" style="font-family: 'Roboto', sans-serif; color: rgb(233, 238, 244);">
-            Tipo de especies Anfibios
+    <style>
+        .text-center {
+            margin-top: 80px; /* Ajusta este valor según sea necesario */
+        }
+    </style>
+
+    <div class="text-center mb-4">
+        <h1 class="mb-4 text-white" class="display-4 text-success">
+            <i class="fas fa-leaf"></i> Tipo de Especies Anfibios
         </h1>
+    </div>
 
         @if($especies->isEmpty())
             <p class="text-center" style="font-family: 'Roboto', sans-serif; color: rgb(242, 237, 244);">
