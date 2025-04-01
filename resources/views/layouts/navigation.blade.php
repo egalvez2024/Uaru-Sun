@@ -63,6 +63,12 @@
                             </a>
                         </li>
                     @endif
+
+                    @if(Auth::user()->role === 'user' || Auth::user()->role === 'user')
+                        <li class="nav-item">
+                        <button class="boton-flotante" onclick="window.location.href='{{ route('UsuarioPost.create') }}'">+</button>
+                        </li>
+                    @endif
                 @endauth
 
                 <li class="nav-item">
@@ -103,8 +109,8 @@
                 </a>
 
 
-                <a class="dropdown-item" href="{{ route('peligro.index') }}">
-                    <i class="fas fa-paw me-2"></i>Peligro de Extincion
+                <a class="dropdown-item" href="{{ route('paisajes.index_paisaje') }}">
+                    <i class="fas fa-paw me-2"></i>Paisajes
                 </a>
             </div>
         </li>
@@ -131,16 +137,12 @@
 
 
 
-<button class="boton-flotante" onclick="window.location.href='{{ route('UsuarioPost.create') }}'">+</button>
+
 
  
 
             </ul>
         </div>
-
-        <a href="{{ route('UsuarioPost.create') }}" class="boton-flotante">+</a>
-
-        
     </div>
 </nav>
 
