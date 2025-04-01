@@ -19,15 +19,7 @@ class CategorySeeder extends Seeder
             'tipo' => 'fauna'   
            
         ]);
-        Categoria::create([
-            'nombre' => 'Anfibios',
-            'tipo' => 'reptil'
-           
-        ]);
-        Categoria::create([
-            'nombre' => 'Paisajes',
-            'tipo' => ''
-        ]);
+    
     
 
 
