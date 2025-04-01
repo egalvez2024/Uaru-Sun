@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container">
-        <h1 class="mb-4 text-white">Grupo De Floras</h1>
-        
+        <h1 class="mb-4 text-white">Grupo de Flora de Jardin</h1>
+
         @if($especies->isEmpty())
             <p class="text-white">No hay especies registradas en este grupo.</p>
         @else

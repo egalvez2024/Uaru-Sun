@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\FloraagricolaController;
 use App\Http\Controllers\FloraController;
+use App\Http\Controllers\FlorajardinController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EspeciesController;
 use App\Http\Controllers\AdminSpeciesController;
@@ -50,6 +52,8 @@ Route::resource('fauna', FaunaController::class);
 Route::resource('flora', FloraController::class);
 Route::resource('/comentarios', ComentarioController::class);
 Route::get('/comentarios/create/{id}', [ComentarioController::class, 'create'])->name('comentarios.create');
+Route::get('/agricola', [FloraagricolaController::class, 'index'])->name('agricola.index');
+Route::get('/jardin', [FlorajardinController::class, 'index'])->name('jardin.index');
 
 Route::resource('/paisajes', controller: PaisajeController::class);
 Route::get('/index', [PaisajeController::class, 'index'])->name('paisajes.index_paisaje');
