@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Categoria; // Asegúrate de que esta línea esté aquí
+use App\Models\Species; // Asegúrate de importar también el modelo Species si no lo has hecho
+
+
 class FlorajardinController extends Controller
 {
 
