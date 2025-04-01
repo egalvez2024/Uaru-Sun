@@ -17,7 +17,32 @@ class CategorySeeder extends Seeder
         Categoria::create([
             'nombre' => 'Arboles',
             'tipo' => 'flora'
+           
         ]);
+        Categoria::create([
+            'nombre' => 'Fauna',
+            'tipo' => 'Animal'
+           
+        ]);
+        Categoria::create([
+            'nombre' => 'Flora',
+            'tipo' => 'Planta'
+        ]);
+        Categoria::create([
+            'nombre' => 'Peligro de Extincion',
+            'tipo' => 'Peligro'
+        ]);
+        Categoria::create([
+            'nombre' => 'Anfibios',
+            'tipo' => 'reptil'
+           
+        ]);
+        Categoria::create([
+            'nombre' => 'Paisajes',
+            'tipo' => ''
+        ]);
+    
+
 
     }
 }
