@@ -5,8 +5,17 @@
 @section('content')
 <div class="container">
 
+<style>
+        .text-center {
+            margin-top: 80px; /* Ajusta este valor según sea necesario */
+        }
+    </style>
 
-<h1 style="color: white; text-align: center;">Mi Perfil</h1>
+    <div class="text-center mb-4">
+        <h1 class="mb-4 text-white" class="display-4 text-success">
+            <i class="fas fa-leaf"></i> MI PERFIL
+        </h1>
+    </div>
 
 
         <p style="color: white;"><strong>Nombre:</strong> {{ $user->name }}</p>
