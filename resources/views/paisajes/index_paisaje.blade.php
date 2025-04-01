@@ -4,8 +4,16 @@
 
 @section('content')
 <div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 style="color: white; text-align: center;">Paisajes naturales</h1>
+<style>
+        .text-center {
+            margin-top: 80px; /* Ajusta este valor según sea necesario */
+        }
+    </style>
+
+    <div class="text-center mb-4">
+        <h1 class="mb-4 text-white" class="display-4 text-success">
+            <i class="fas fa-leaf"></i> Bienvenido a Paisajes Naturales
+        </h1>
     </div>
 
     @if(session('success'))
