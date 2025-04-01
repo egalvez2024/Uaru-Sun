@@ -16,7 +16,7 @@
 
         @if($especies->isEmpty())
             <p class="text-center" style="font-family: 'Roboto', sans-serif; color: rgb(242, 237, 244);">
-                No hay especies registradas en la categoría de Anfibios.
+                No hay especies registradas en la categoría de Aves.
             </p>
         @else
             <div class="row row-cols-1 row-cols-md-3 g-4">
