@@ -50,6 +50,20 @@
             <input type="text" class="form-control" name="location" value="{{ old('location', $species->location) }}" required>
         </div>
 
+        <!-- Categoría -->
+        <div class="mb-3">
+            <label for="category_id" class="form-label">Categoría</label>
+            <select class="form-control" id="category_id" name="category_id" required>
+                <option value="" disabled>Seleccione una categoría</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}" 
+                            @if($category->id == $species->category_id) selected @endif>
+                        {{ $category->nombre }} ({{ $category->tipo }})
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
         <!-- Imagen -->
         <div class="mb-3">
             <label>Imagen Actual</label>
