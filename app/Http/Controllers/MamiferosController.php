@@ -19,6 +19,6 @@ class MamiferosController extends Controller
         $especies = Species::where('category_id', optional($categoriaFauna)->id)->get();
     
         // Retornar la vista con los datos
-        return view('mamifero.index', compact('especies'));
+        return view('mamiferos.index', compact('especies'));
     }
 }

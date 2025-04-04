@@ -21,6 +21,8 @@ class AvesController extends Controller
     
         // Retornar la vista con los datos
         return view('aves.index', compact('especies'));
+
+    
     }
    
 }
