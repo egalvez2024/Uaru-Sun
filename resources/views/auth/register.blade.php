@@ -1,6 +1,6 @@
 <x-guest-layout>
     <div class="min-h-screen flex items-center justify-center bg-cover bg-center" 
-        style="background-image: url('{{ asset('images/fonds.jpg') }}'); background-size: cover; background-position: center;">
+        style="background-image: url('{{ asset('images/fonds.jpg') }}'); background-size: cover; background-position: end;">
         
         <div class="bg-opacity-80 bg-green-700 p-8 rounded-lg shadow-lg w-full max-w-sm text-white text-center">
             <div class="mb-4">

@@ -3,70 +3,85 @@
 @section('title', 'Administrar Especies')
 
 @section('content')
-<div class="container">
-    <div class="container bg-light p-4 rounded">
-    <div class="container bg-light p-4 rounded">
+<!-- Fondo de pantalla completo -->
+<style>
+    body {
+        background: url('{{ asset('images/fonds.jpg') }}') no-repeat center center fixed;
+        background-size: cover;
+    }
+    .content-box {
+        background-color: rgba(255, 255, 255, 0.6); /* Fondo más transparente */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); /* Efecto de transparencia en los bordes */
+    }
+    .action-buttons a, .action-buttons button {
+        width: 120px; /* Tamaño uniforme */
+        text-align: center;
+        margin: 2px;
+    }
+</style>
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Administrar Especies</h1>
-        <a href="{{ route('admin.especies.create') }}" class="btn btn-success">
-            <i class="fas fa-plus"></i> Nueva Especie
-        </a>
-    </div>
-
-    <form method="GET" action="{{ route('admin.especies.index') }}">
-        <div class="row">
-            <div class="col-2">
-                <select class="form-select" name="filtro">
-                    <option value="nombre_comun" {{ request('filtro') == 'nombre_comun' ? 'selected' : '' }}>Nombre Común</option>
-                    <option value="habitat" {{ request('filtro') == 'habitat' ? 'selected' : '' }}>Hábitat</option>
-                </select>
-            </div>
-            <div class="col-9">
-                <input type="text" class="form-control" name="query" value="{{ request('query') }}" placeholder="Buscar especie">
-            </div>
-            <div class="col-1">
-                <button type="submit" class="btn btn-primary">Buscar</button>
-            </div>
+<div class="container mt-4">
+    <div class="content-box">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Administrar Especies</h1>
+            <a href="{{ route('admin.especies.create') }}" class="btn btn-success">
+                <i class="fas fa-plus"></i> Nueva Especie
+            </a>
         </div>
-    </form>
 
-    @if(session('success'))
-        <div class="alert alert-success bg-dark text-white border-secondary">{{ session('success') }}</div>
-    @endif
+        <form method="GET" action="{{ route('admin.especies.index') }}">
+            <div class="row">
+                <div class="col-2">
+                    <select class="form-select" name="filtro">
+                        <option value="nombre_comun" {{ request('filtro') == 'nombre_comun' ? 'selected' : '' }}>Nombre Común</option>
+                        <option value="habitat" {{ request('filtro') == 'habitat' ? 'selected' : '' }}>Hábitat</option>
+                    </select>
+                </div>
+                <div class="col-9">
+                    <input type="text" class="form-control" name="query" value="{{ request('query') }}" placeholder="Buscar especie">
+                </div>
+                <div class="col-1">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </div>
+        </form>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Imagen</th>
-                <th>Nombre Común</th>
-                <th>Hábitat</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($species as $specie)
-            <tr>
-                <td><img src="{{ asset('storage/' . $specie->image_path) }}" width="80" class="rounded"></td>
-                <td>{{ $specie->nombre }}</td>
-                <td>{{ $specie->habitat }}</td>
-                <td>
-                    <a href="{{ route('admin.especies.edit', $specie->id) }}" class="btn btn-sm btn-primary">
-                        <i class="fas fa-edit">Editar</i>
-                    </a>
-                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $specie->id }}">
-                        <i class="fas fa-trash">Eliminar</i>
-                    </button>
-                    <a href="{{ route('comentarios.create', $specie->id) }}" class="btn btn-sm btn-info">Agregar comentarios</a>
-                </td>
-            </tr>
-            @empty
-                <td colspan="4" class="text-center">No hay especies.</td>
-            @endforelse
-        </tbody>
-    </table>
+        @if(session('success'))
+            <div class="alert alert-success bg-dark text-white border-secondary">{{ session('success') }}</div>
+        @endif
 
-    {{ $species->appends(request()->query())->links() }}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Imagen</th>
+                    <th>Nombre </th>
+                    <th>Hábitat</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($species as $specie)
+                <tr>
+                    <td><img src="{{ asset('storage/' . $specie->image_path) }}" class="rounded" style="width: 80px; height: 80px; object-fit: cover;"></td>
+                    <td>{{ $specie->nombre }}</td>
+                    <td>{{ $specie->habitat }}</td>
+
+                    <td class="action-buttons">
+                        <a href="{{ route('admin.especies.edit', $specie->id) }}" class="btn btn-sm btn-success">Editar</a>
+                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $specie->id }}">Eliminar</button>
+                        <a href="{{ route('comentarios.create', $specie->id) }}" class="btn btn-sm btn-success" style="background-color: #28a745;">Comentarios</a>
+                    </td>
+                </tr>
+                @empty
+                    <td colspan="4" class="text-center">No hay especies.</td>
+                @endforelse
+            </tbody>
+        </table>
+
+        {{ $species->appends(request()->query())->links() }}
+    </div>
 </div>
 
 <!-- Modal de confirmación de eliminación -->
