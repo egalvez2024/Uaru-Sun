@@ -69,9 +69,6 @@
     {{ $species->appends(request()->query())->links() }}
 </div>
 
-<div class="container" style="background-color: #f5f5f5; padding: 20px; border-radius: 10px;">
-
-
 <!-- Modal de confirmación de eliminación -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
