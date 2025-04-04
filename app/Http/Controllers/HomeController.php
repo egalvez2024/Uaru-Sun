@@ -8,14 +8,12 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index()
-{
-    // Obtener especies con sus categorías
-    $species = Species::with('category') // Esto debe coincidir con el nombre en el modelo
-              ->latest()
-              ->take(18)
-              ->get();
+    {
+        // Obtener especies con paginación
+        $species = Species::with('category') 
+                  ->latest()
+                  ->paginate(12); // Muestra 9 por página
 
-
-    return view('home', compact('species'));
-}
+        return view('home', compact('species'));
+    }
 }
