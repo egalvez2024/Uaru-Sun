@@ -96,12 +96,7 @@
                 <a class="dropdown-item" href="{{ route('peligro.index') }}">
                     <i class="fas fa-paw me-2"></i>Peligro de Extincion
                 </a>
-                <a class="dropdown-item" href="{{ route('comidas.index') }}">
-                    <i class="fas fa-paw me-2"></i>Alimentación herbívoros
-                </a>
-                <a class="dropdown-item" href="{{ route('peligrosos.index') }}">
-                    <i class="fas fa-paw me-2"></i>Animales peligrosos
-                </a>
+
             </div>
         </li>
 

@@ -3,6 +3,11 @@
 @section('title', 'Alimentación')
 
 @section('content')
+    <style>
+        .text-center {
+            margin-top: 50px;
+        }
+    </style>
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="text-white text-center">Alimentación de animales herbívoros</h1>
