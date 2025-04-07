@@ -15,6 +15,8 @@ use App\Http\Controllers\FaunaController;
 use App\Http\Controllers\PeligrosoController;
 use App\Http\Controllers\AlimentoController;
 use App\Http\Controllers\DatousuarioController;
+use App\Http\Controllers\AnfibiosController;
+use App\Http\Controllers\ArbolesController;
 
 
 
@@ -46,10 +48,18 @@ Route::middleware('auth')->group(function () {
 
 
 });
+Route::resource('floragri', \App\Http\Controllers\FloraagricolaController::class);
+Route::resource('florjardin', \App\Http\Controllers\FlorajardinController::class);
+Route::resource('ave', \App\Http\Controllers\AvesController::class);
+Route::resource('mamiferos', \App\Http\Controllers\MamiferosController::class);
+Route::resource('arboles', ArbolesController::class);
+Route::resource('Anfibios', AnfibiosController::class);
 Route::resource('extintos', PeligroExtincionController::class);
 Route::resource('fauna', FaunaController::class);
 Route::resource('/comentarios', ComentarioController::class);
 Route::get('/comentarios/create/{id}', [ComentarioController::class, 'create'])->name('comentarios.create');
+Route::get('/anfibio', [AnfibiosController::class, 'index'])->name('anfibio.index');
+Route::get('/ave', [AnfibiosController::class, 'index'])->name('aves.index');
 
 Route::resource('/paisajes', controller: PaisajeController::class);
 Route::get('/index', [PaisajeController::class, 'index'])->name('paisajes.index_paisaje');
