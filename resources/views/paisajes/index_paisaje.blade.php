@@ -4,11 +4,13 @@
 
 @section('content')
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="text-white text-center">Bienvenido a Paisajes Naturales</h1>
+        <div class="d-flex justify-content-between align-items-center mb-4" style="margin-top: 50px">
+            <h1 class="text-white mb-0">Bienvenido a Paisajes Naturales</h1>
+            <a href="{{route('paisajes.create')}}" class="btn btn-success">Agregar Paisaje</a>
         </div>
 
-        @if(session('success'))
+
+    @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 

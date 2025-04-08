@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ecosistema;
 use App\Models\Paisaje;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class PaisajeController extends Controller
      */
     public function create()
     {
-        //
+        return view('paisajes.formulario_paisaje');
     }
 
     /**
@@ -29,7 +30,46 @@ class PaisajeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombres' => 'required',
+            'url' => 'required|url',
+            'descripcion' => 'required',
+            'ubicacion' => 'required',
+            'flora_nombre' => 'required',
+            'fauna_nombre' => 'required',
+        ], [
+            'nombres.required' => 'El campo nombres es obligatorio.',
+            'url.required' => 'La URL de la imagen es obligatoria.',
+            'url.url' => 'La URL debe ser válida.',
+            'descripcion.required' => 'La descripción es obligatoria.',
+            'ubicacion.required' => 'La ubicación es obligatoria.',
+            'flora_nombre.required' => 'El nombre de la flora es obligatorio.',
+            'fauna_nombre.required' => 'El nombre de la fauna es obligatorio.',
+        ]);
+
+
+        $paisaje = new Paisaje();
+        $paisaje->nombres = $request->input('nombres');
+        $paisaje->url = $request->input('url');
+        $paisaje->descripcion = $request->input('descripcion');
+        $paisaje->ubicacion = $request->input('ubicacion');
+        $paisaje->save();
+
+        $flora = new Ecosistema();
+        $flora->tipo = 'Flora';
+        $flora->nombre = $request->input('flora_nombre');
+        $flora->paisaje_id = $paisaje->id;
+
+        $fauna = new Ecosistema();
+        $fauna->tipo = 'Fauna';
+        $fauna->nombre = $request->input('fauna_nombre');
+        $fauna->paisaje_id = $paisaje->id;
+
+        $flora->save();
+        $fauna->save();
+        return redirect()->route('paisajes.index');
+
+
     }
 
     /**

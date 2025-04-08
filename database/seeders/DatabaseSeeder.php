@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             AdminUserSeeder::class,
             PaisajeSeeder::class,
-            PeligrosoSeeder::class,
+            //PeligrosoSeeder::class,
         ]);
 
         User::factory()->create([

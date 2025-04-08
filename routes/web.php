@@ -30,6 +30,7 @@ Route::get('/especies/{id}', [EspeciesController::class, 'show'])->name('catalog
 Route::get('/UsuarioPost', [UsuarioPostController::class, 'index'])->name('UsuarioPost.index');
 Route::get('/UsuarioPost/create', [UsuarioPostController::class, 'create'])->name('UsuarioPost.create');
 Route::post('/UsuarioPost', [UsuarioPostController::class, 'store'])->name('UsuarioPost.store');
+Route::get('/mamiferos', [\App\Http\Controllers\MamiferosController::class, 'index'])->name('mamiferos.index');
 
 
 

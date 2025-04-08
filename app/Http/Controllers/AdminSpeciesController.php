@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Peligroso;
 use App\Models\Species;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
@@ -58,6 +59,17 @@ class AdminSpeciesController extends Controller
             'category_id' => $validated['category_id']
         ]);
 
+        if($request->input('category_id') == 2) {
+            $peligro = new Peligroso();
+            $peligro->nombre = $request->input('nombre');
+            $peligro->nombre_cientifico = $request->input('nombre_cientifico');
+            $peligro->descripcion = $request->input('descripcion');
+            $peligro->habitat = $request->input('habitat');
+            $peligro->ubicacion = $request->input('location');
+            $peligro->imagen = $imagePath;
+            $peligro->save();
+        }
+
         return redirect()->route('admin.especies.index')->with('success', 'Especie creada!');
     }
 
@@ -89,7 +101,7 @@ class AdminSpeciesController extends Controller
 
         $species->update($validated);
 
-        return redirect()->route('admin.especies.index')->with('success', 'Especie actualizada!');
+        return redirect()->route('admin.especies.index')->with('success', 'Especie!');
     }
 
     public function destroy(Species $species)
