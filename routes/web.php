@@ -14,6 +14,7 @@ use App\Http\Controllers\PeligroExtincionController;
 use App\Http\Controllers\FaunaController;
 use App\Http\Controllers\AnfibiosController;
 use App\Http\Controllers\ArbolesController;
+use App\Http\Controllers\MamiferosController;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', function () {
@@ -43,11 +44,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/nuevaz', [PeligroExtincionController::class, 'index'])->name('peligro.index');
     Route::get('/ver', [AnfibiosController::class, 'index'])->name('anfibio.index');
     Route::get('/usar', [ArbolesController::class, 'index'])->name('arboles.index');
-
+    Route::get('/mamiferos', [MamiferosController::class, 'index'])->name('mamiferos.index');
 
 
 
 });
+Route::resource('mami', MamiferosController::class);
 Route::resource('arboles', ArbolesController::class);
 Route::resource('Anfibios', AnfibiosController::class);
 Route::resource('extintos', PeligroExtincionController::class);
