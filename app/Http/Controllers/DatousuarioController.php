@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Datousuario;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,6 +37,16 @@ class DatousuarioController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'usuario_name' => 'required',
+            'email' => 'required|email',
+        ], [
+            'usuario_name.required' => 'El nombre es obligatorio.',
+            'email.required' => 'El email es obligatorio.',
+            'email.email' => 'El email debe ser valido.',
+
+        ]);
         $datos = New Datousuario;
         $datos->preferencias = $request->input('preferencias');
         $datos->fecha_nacimiento = $request->input('fecha_nacimiento');
@@ -46,6 +57,14 @@ class DatousuarioController extends Controller
         $datos->animal_favorito = $request->input('animal_favorito');
         $datos->ocupacion = $request->input('ocupacion');
         $datos->user_id = $request->input('user_id');
+
+        $usuario = Auth::user();
+        $usuario_id = $usuario->id;
+
+        $user = User::findOrfail($usuario_id);
+        $user->email = $request->input('email');
+        $user->name = $request->input('usuario_name');
+        $user->save();
 
         if($datos->save()) {
             return redirect()->route('profile.index');
@@ -76,6 +95,16 @@ class DatousuarioController extends Controller
     public function update(Request $request, string $id)
     {
 
+        $request->validate([
+            'usuario_name' => 'required',
+            'email' => 'required|email',
+        ], [
+            'usuario_name.required' => 'El nombre es obligatorio.',
+            'email.required' => 'El email es obligatorio.',
+            'email.email' => 'El email debe ser valido.',
+
+        ]);
+
         $datos = Datousuario::findOrFail($id);
         $datos->preferencias = $request->input('preferencias');
         $datos->fecha_nacimiento = $request->input('fecha_nacimiento');
@@ -85,6 +114,14 @@ class DatousuarioController extends Controller
         $datos->deportes = $request->input('deportes');
         $datos->animal_favorito = $request->input('animal_favorito');
         $datos->ocupacion = $request->input('ocupacion');
+
+        $usuario = Auth::user();
+        $usuario_id = $usuario->id;
+
+        $user = User::findOrfail($usuario_id);
+        $user->email = $request->input('email');
+        $user->name = $request->input('usuario_name');
+        $user->save();
 
         if($datos->save()) {
             return redirect()->route('profile.index');

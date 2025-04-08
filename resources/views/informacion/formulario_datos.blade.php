@@ -3,7 +3,7 @@
 @section('title', 'Datos del Usuario')
 
 @section('content')
-    <div class="container">
+    <div class="container" style="margin-top: 50px">
         <h1>Información personal de {{$usuario->name}}</h1>
         <hr>
 
@@ -12,6 +12,24 @@
             @if(isset($informacion))
                 @method('put')
             @endif
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control @error('usuario_name') is-invalid @enderror" id="usuario_name" name="usuario_name" value="{{isset($informacion) ? $usuario->name : old('usuario_name')}}" maxlength="100">
+                    @error('usuario_name')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{isset($informacion) ? $usuario->email : old('email')}}" maxlength="100">
+                    @error('email')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-md-6 mb-3">

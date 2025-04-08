@@ -6,14 +6,14 @@
 <div class="container">
 
 
-    <h1 style="color: white; text-align: center;">Mi Perfil</h1>
+    <h1 style="color: white; text-align: center; margin-top: 50px">Mi Perfil</h1>
 
     <p style="color: white;"><strong>Nombre:</strong> {{ $user->name }}</p>
+    <p style="color: white;"><strong>Email:</strong> {{ $user->email }}</p>
     <p style="color: white;"><strong>Email:</strong> {{ $user->email }}</p>
 
     <div style=" color: white;">
         <p><strong>Preferencias:</strong> {{ $user->datos->preferencias ?? 'Dato no disponible' }}</p>
-       
         <p><strong>Alias:</strong> {{ $user->datos->alias ?? 'Dato no disponible' }}</p>
         <p><strong>Teléfono:</strong> {{ $user->datos->telefono ?? 'Dato no disponible' }}</p>
         <p><strong>Idiomas:</strong> {{ $user->datos->idiomas ?? 'Dato no disponible' }}</p>
