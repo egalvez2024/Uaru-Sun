@@ -104,7 +104,8 @@
                 <input type="file" class="form-control" id="image" name="image" required accept="image/*">
             </div>
         
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="submit" class="btn btn-primary">Guardar Publicacion</button>
+            
             <a href="{{ route('UsuarioPost.index') }}" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
