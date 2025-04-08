@@ -49,7 +49,8 @@ Route::middleware('auth')->group(function () {
 
 
 });
-Route::resource('mami', MamiferosController::class);
+Route::resource('arboles', ArbolesController::class);
+Route::resource('Anfibios', AnfibiosController::class);
 Route::resource('extintos', PeligroExtincionController::class);
 Route::resource('fauna', FaunaController::class);
 Route::resource('/comentarios', ComentarioController::class);
