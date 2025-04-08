@@ -5,76 +5,47 @@
 @section('content')
 <div class="container">
 
-
+    <!-- Título principal -->
     <h1 style="color: white; text-align: center; margin-top: 50px">Mi Perfil</h1>
 
-    <p style="color: white;"><strong>Nombre:</strong> {{ $user->name }}</p>
-    <p style="color: white;"><strong>Email:</strong> {{ $user->email }}</p>
-    <p style="color: white;"><strong>Email:</strong> {{ $user->email }}</p>
+    <!-- Contenedor de la información personal (dividido en dos columnas) -->
+    <div class="perfil-container" style="display: flex; justify-content: space-between; margin-top: 30px;">
+        
+        <!-- Columna Izquierda -->
+        <div class="columna" style="width: 48%;">
+            <p style="color: white;"><strong>Nombre:</strong> {{ $user->name }}</p>
+            <p style="color: white;"><strong>Email:</strong> {{ $user->email }}</p>
+            <p style="color: white;"><strong>Preferencias:</strong> {{ $user->datos->preferencias ?? 'Dato no disponible' }}</p>
+            <p style="color: white;"><strong>Alias:</strong> {{ $user->datos->alias ?? 'Dato no disponible' }}</p>
+        </div>
+        
+        <!-- Columna Derecha -->
+        <div class="columna" style="width: 48%;">
+            <p style="color: white;"><strong>Teléfono:</strong> {{ $user->datos->telefono ?? 'Dato no disponible' }}</p>
+            <p style="color: white;"><strong>Animal Favorito:</strong> {{ $user->datos->animal_favorito ?? 'Dato no disponible' }}</p>
+            <p style="color: white;"><strong>Ocupación:</strong> {{ $user->datos->ocupacion ?? 'Dato no disponible' }}</p>
+        </div>
 
-    <div style=" color: white;">
-        <p><strong>Preferencias:</strong> {{ $user->datos->preferencias ?? 'Dato no disponible' }}</p>
-        <p><strong>Alias:</strong> {{ $user->datos->alias ?? 'Dato no disponible' }}</p>
-        <p><strong>Teléfono:</strong> {{ $user->datos->telefono ?? 'Dato no disponible' }}</p>
-        <p><strong>Idiomas:</strong> {{ $user->datos->idiomas ?? 'Dato no disponible' }}</p>
-        <p><strong>Deportes Favoritos:</strong> {{ $user->datos->deportes ?? 'Dato no disponible' }}</p>
-        <p><strong>Animal Favorito:</strong> {{ $user->datos->animal_favorito ?? 'Dato no disponible' }}</p>
-        <p><strong>Ocupación:</strong> {{ $user->datos->ocupacion ?? 'Dato no disponible' }}</p>
     </div>
 
-<h2 style="color: white; text-align: center;">Mis Publicaciones</h2>
+    <!-- Título de publicaciones -->
+    <h2 style="color: white; text-align: center; margin-top: 30px;">Mis Publicaciones</h2>
 
-    <style>
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
-        .card {
-            width: 18rem;
-            margin: 10px;
-            border: 2px solid #4CE4A0; /* Cambia el color y el grosor según tus necesidades */
-            border-radius: 7px; /* Opcional: para esquinas redondeadas */
-        }
-    </style>
-
-
-@if ($posts->count())
-
-    <div class="card-container">
-        <div class="card">
-            <div class="card-body">
-            <ul>
-        @foreach ($posts as $post)
-            <li>{{ $post->title }}</li>
-        @endforeach
-    </ul>
-            </div>
-
-        </div>
-
-        <div class="card">
-            <div class="card-body">
-            <ul>
-        @foreach ($posts as $post)
-            <li>{{ $post->title }}</li>
-        @endforeach
-    </ul>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-body">
-            <ul>
-        @foreach ($posts as $post)
-            <li>{{ $post->title }}</li>
-        @endforeach
-    </ul>
-            </div>
-        </div>
+    <!-- Contenedor de tarjetas de publicaciones -->
+    <div class="card-container" style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 20px;">
+        @if ($posts->count())
+            @foreach ($posts as $post)
+                <div class="card" style="width: 18rem; margin: 10px; border: 2px solid #4CE4A0; border-radius: 7px;">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: #4CE4A0;">{{ $post->title }}</h5>
+                        <p class="card-text" style="color: white;">{{ \Str::limit($post->body, 100) }}</p>
+                        <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary" style="background-color: #4CE4A0; border-color: #4CE4A0;">Ver Más</a>
+                    </div>
+                </div>
+            @endforeach
+        @else
+            <p style="color: white;">No tienes publicaciones aún.</p>
+        @endif
     </div>
-@else
-    <p style="color: white;">No tienes publicaciones aún.</p>
-@endif
 
-@endsection
+</

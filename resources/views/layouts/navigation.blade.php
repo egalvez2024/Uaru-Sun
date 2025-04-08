@@ -6,7 +6,6 @@
             <img src="{{ asset('images/logo.png') }}" alt="Logo" class="d-inline-block align-text-top" width="40" height="40">
             ÚARU SUN
         </a>
-    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="d-inline-block align-text-top" width="40" height="40">
 
     </a>
 
@@ -106,7 +105,7 @@
                 <hr class="dropdown-divider">
                 <i class="fas fa-sign-out-alt me-2">
                     <a class="dropdown-item" href="{{ route('informacion.create') }}">
-                        <i class="fas fa-paw me-2"></i>Datos del usuario
+                        <i class="fas fa-paw me-2"></i>Configuracion de Perfil
                     </a>
                 </i>
                 <form method="POST" action="{{ route('logout') }}">
