@@ -25,7 +25,7 @@
 
 
                 @auth
-                    @if(Auth::user()->role === 'admin' || Auth::user()->role === '')
+                    @if(Auth::user()->role === 'admin')
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('admin.especies.index') ? 'active' : '' }}" href="{{ route('admin.especies.index') }}">
                                 <i class="fas fa-cog me-1"></i>Administrar Publicaciones
