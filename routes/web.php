@@ -17,6 +17,7 @@ use App\Http\Controllers\AlimentoController;
 use App\Http\Controllers\DatousuarioController;
 use App\Http\Controllers\AnfibiosController;
 use App\Http\Controllers\ArbolesController;
+use App\Http\Controllers\MamiferosController ;
 
 
 
@@ -44,10 +45,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/nueva-fauna', [FaunaController::class, 'create']);
     Route::get('/nuevaz', [PeligroExtincionController::class, 'create']);
     Route::get('/nuevaz', [PeligroExtincionController::class, 'index'])->name('peligro.index');
+    Route::get('/mamiferos', [MamiferosController::class, 'index'])->name('mamiferos.index');
+
 
 
 
 });
+Route::resource('mami', MamiferosController::class);
 Route::resource('extintos', PeligroExtincionController::class);
 Route::resource('fauna', FaunaController::class);
 Route::resource('/comentarios', ComentarioController::class);
