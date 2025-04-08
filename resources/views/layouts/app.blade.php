@@ -91,6 +91,18 @@
         </div>
     </nav>
 
+    <!-- Mensaje flash -->
+    @if (session('success'))
+        <div id="success-message" class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+        <script>
+            setTimeout(function() {
+                document.getElementById('success-message').style.display = 'none';
+            }, 5000);  // El mensaje desaparecerá después de 5 segundos
+        </script>
+    @endif
+
     <!-- Contenido Principal -->
     <main class="py-4">
         <div class="container">

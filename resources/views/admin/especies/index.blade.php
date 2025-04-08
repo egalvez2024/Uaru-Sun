@@ -16,9 +16,59 @@
         box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); /* Efecto de transparencia en los bordes */
     }
     .action-buttons a, .action-buttons button {
-        width: 120px; /* Tamaño uniforme */
+        width: 100%; /* Hace que los botones ocupen el ancho completo de la celda */
+        margin: 2px 0;
+        font-size: 12px; /* Reducir el tamaño de los botones */
+    }
+
+    /* Estilo para la tabla con tamaño fijo */
+    table {
+        table-layout: fixed; /* Hace que las columnas tengan el mismo tamaño */
+        width: 100%; /* Asegura que la tabla ocupe todo el ancho disponible */
+    }
+    td, th {
+        overflow: hidden; /* Evita que el contenido se desborde */
+        text-overflow: ellipsis; /* Agrega '...' cuando el contenido es demasiado largo */
+        white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+        padding: 10px;
+    }
+
+    /* Estilo específico para la imagen */
+    .image-cell {
+        width: 20%;
+    }
+    .name-cell {
+        width: 35%;
+    }
+    /* Columna de Hábitat con truncamiento */
+    .habitat-cell {
+        width: 35%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    .action-cell {
+        width: 20%; /* Ajustamos el tamaño de la columna de acciones */
         text-align: center;
-        margin: 2px;
+        vertical-align: top; /* Asegura que los botones se alineen en la parte superior */
+    }
+
+    /* Estilo para apilar botones y ajustarlos */
+    .action-buttons {
+        display: flex;
+        flex-direction: column; /* Hace que los botones se apilen verticalmente */
+        align-items: center;
+    }
+
+    .action-buttons a, .action-buttons button {
+        margin: 5px 0; /* Espaciado entre los botones */
+    }
+
+    /* Tooltip al pasar el mouse sobre contenido largo */
+    .habitat-cell:hover {
+        overflow: visible;
+        white-space: normal;
+        background-color: #f0f0f0;
     }
 </style>
 
@@ -56,7 +106,7 @@
             <thead>
                 <tr>
                     <th>Imagen</th>
-                    <th>Nombre </th>
+                    <th>Nombre</th>
                     <th>Hábitat</th>
                     <th>Acciones</th>
                 </tr>
@@ -64,14 +114,22 @@
             <tbody>
                 @forelse($species as $specie)
                 <tr>
-                    <td><img src="{{ asset('storage/' . $specie->image_path) }}" class="rounded" style="width: 80px; height: 80px; object-fit: cover;"></td>
-                    <td>{{ $specie->nombre }}</td>
-                    <td>{{ $specie->habitat }}</td>
+                    <!-- Imagen más grande -->
+                    <td class="image-cell">
+                        <img src="{{ asset('storage/' . $specie->image_path) }}" class="rounded" style="width: 120px; height: 120px; object-fit: cover;">
+                    </td>
+                    <!-- Nombre ajustado -->
+                    <td class="name-cell">{{ $specie->nombre }}</td>
+                    <!-- Hábitat ajustado, truncado si es necesario -->
+                    <td class="habitat-cell" title="{{ $specie->habitat }}">{{ $specie->habitat }}</td>
 
-                    <td class="action-buttons">
-                        <a href="{{ route('admin.especies.edit', $specie->id) }}" class="btn btn-sm btn-success">Editar</a>
-                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $specie->id }}">Eliminar</button>
-                        <a href="{{ route('comentarios.create', $specie->id) }}" class="btn btn-sm btn-success" style="background-color: #28a745;">Comentarios</a>
+                    <!-- Columna de acciones con botones apilados verticalmente -->
+                    <td class="action-cell">
+                        <div class="action-buttons">
+                            <a href="{{ route('admin.especies.edit', $specie->id) }}" class="btn btn-sm btn-success">Editar</a>
+                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $specie->id }}">Eliminar</button>
+                            <a href="{{ route('comentarios.create', $specie->id) }}" class="btn btn-sm btn-success" style="background-color: #28a745;">Comentarios</a>
+                        </div>
                     </td>
                 </tr>
                 @empty

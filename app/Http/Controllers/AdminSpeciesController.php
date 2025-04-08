@@ -89,7 +89,7 @@ class AdminSpeciesController extends Controller
 
         $species->update($validated);
 
-        return redirect()->route('admin.especies.index')->with('success', 'Especie actualizada!');
+        return redirect()->route('admin.especies.index')->with('success', 'Especie!');
     }
 
     public function destroy(Species $species)

@@ -23,12 +23,12 @@
         </a>
         @endforeach
     </div>
-
     @if($favoritos->isEmpty())
-        <div class="text-center mt-5">
-            <p class="text-muted">No hay favoritos agregados.</p>
-        </div>
-    @endif
+    <div class="text-center mt-5">
+        <p class="text-white">No hay favoritos agregados.</p>
+    </div>
+@endif
+
 </div>
 @endsection
 

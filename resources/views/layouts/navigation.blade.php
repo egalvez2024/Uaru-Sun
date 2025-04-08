@@ -76,7 +76,7 @@
         <!-- Menú desplegable de opciones -->
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="menuDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fas fa-bars me-1"></i>Menú
+                <i class="fas fa-bars me-1"></i>Flora y Fauna
             </a>
             <div class="dropdown-menu" aria-labelledby="menuDropdown">
                 <a class="dropdown-item" href="{{ route('fauna.index') }}">

@@ -7,7 +7,7 @@
     <div class="d-flex justify-content-end mb-4">
         <div class="dropdown">
             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                Seleccionar Categoría
+                Divicion de Fauna
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <li><a class="dropdown-item" href="{{ route('peligro.index') }}">Peligro de Extinción</a></li>
