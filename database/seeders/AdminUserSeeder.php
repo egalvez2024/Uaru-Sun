@@ -16,7 +16,7 @@ class AdminUserSeeder extends Seeder
             ['email' => 'admin@unah.com'],
             [
                 'role' => 'admin',
-                'name' => 'Admin',
+                'name' => 'Uru-Sum',
                 'password' => bcrypt('12345678'),
                 'email_verified_at' => now()
             ]
