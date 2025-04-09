@@ -47,5 +47,5 @@
             <p style="color: white;">No tienes publicaciones aún.</p>
         @endif
     </div>
-
-</
+</div>
+@endsection
