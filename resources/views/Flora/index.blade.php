@@ -18,7 +18,7 @@
          <!-- Menú desplegable -->
     <div class="d-flex justify-content-end mb-4">
         <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-success me-md-2"  type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                 Seleccionar Categoría
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
