@@ -13,6 +13,11 @@ class UsuarioPostController extends Controller
     {
         $species = Species::latest()->paginate(10);
         return view('UsuarioPost.index', compact('species'));
+
+        $user = Auth::user();
+    $posts = Post::where('user_id', $user->id)->get();
+
+    return view('posts.index', compact('posts'));
     }
 
     public function create()
@@ -52,3 +57,4 @@ public function store(Request $request)
 }
 
 }
+
