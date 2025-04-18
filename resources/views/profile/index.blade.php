@@ -31,21 +31,32 @@
     <!-- Título de publicaciones -->
     <h2 style="color: white; text-align: center; margin-top: 30px;">Mis Publicaciones</h2>
 
-    <!-- Contenedor de tarjetas de publicaciones -->
-    <div class="card-container" style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 20px;">
-        @if ($posts->count())
-            @foreach ($posts as $post)
-                <div class="card" style="width: 18rem; margin: 10px; border: 2px solid #4CE4A0; border-radius: 7px;">
-                    <div class="card-body">
-                        <h5 class="card-title" style="color: #4CE4A0;">{{ $post->title }}</h5>
-                        <p class="card-text" style="color: white;">{{ \Str::limit($post->body, 100) }}</p>
-                        <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary" style="background-color: #4CE4A0; border-color: #4CE4A0;">Ver Más</a>
-                    </div>
-                </div>
-            @endforeach
-        @else
-            <p style="color: white;">No tienes publicaciones aún.</p>
-        @endif
+    <div class="container mt-5">
+    <div class="kb-gallery-container">
+        @foreach($posts as $post)
+        <a href="{{ route('posts.show', $post->id) }}" class="kb-gallery-item">
+            <img src="{{ asset('storage/' . $post->image_path) }}" alt="{{ $post->title }}">
+            <figcaption>
+                <strong>{{ $post->title }}</strong>
+                <br>
+                <em>{{ \Illuminate\Support\Str::limit($post->body, 60) }}</em>
+                @if ($post->category)
+                    <span class="badge bg-success">
+                        {{ $post->category->nombre }} ({{ $post->category->tipo }})
+                    </span>
+                @else
+                    <span class="badge bg-warning">Sin categoría</span>
+                @endif
+            </figcaption>
+        </a>
+        @endforeach
     </div>
+
+    @if($posts->isEmpty())
+    <div class="text-center mt-5">
+        <p class="text-white">No has creado publicaciones todavía.</p>
+    </div>
+    @endif
+</div>
 </div>
 @endsection
