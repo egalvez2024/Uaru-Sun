@@ -4,12 +4,12 @@
 
 @section('content')
     <div class="container">
-        <h1 class="mb-4 text-white">Grupo De Faunas</h1>
+        <h1 class="fas fa-leaf" style="color: white; text-align: center; margin-top: 30px;">Bienvenido a la Fauna Hondureña</h1>
          <!-- Menú desplegable -->
     <div class="d-flex justify-content-end mb-4">
         <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                Divicion de Fauna
+            <button class="btn btn-success me-md-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                Seleccionar Categoría
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <li><a class="dropdown-item" href="{{ route('peligro.index') }}">Peligro de Extinción</a></li>
