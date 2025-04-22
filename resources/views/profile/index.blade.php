@@ -5,6 +5,57 @@
 @section('content')
 <div class="container">
 
+<style>
+    
+    .text-center {
+            margin-top: 80px; /* Ajusta este valor según sea necesario */
+     }
+
+    .custom-card {
+        width: 100%;
+        max-width: 250px;
+        margin: auto;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+        background-color: #fff;
+        text-decoration: none;
+    }
+
+    .custom-card:hover {
+        transform: scale(1.03);
+    }
+
+    .custom-card img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+    }
+
+    .custom-card-body {
+        padding: 12px;
+        text-align: center;
+    }
+
+    .custom-card-body h5 {
+        font-size: 17px;
+        margin-bottom: 6px;
+    }
+
+    .custom-card-body p {
+        font-size: 14px;
+        margin: 0;
+    }
+
+    .gallery-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        justify-content: center;
+    }
+</style>
+
     <!-- Título principal -->
     <h1 style="color: white; text-align: center; margin-top: 50px">Mi Perfil</h1>
 
@@ -29,34 +80,27 @@
     </div>
 
     <!-- Título de publicaciones -->
+
     <h2 style="color: white; text-align: center; margin-top: 30px;">Mis Publicaciones</h2>
 
-    <div class="container mt-5">
-    <div class="kb-gallery-container">
-        @foreach($posts as $post)
-        <a href="{{ route('posts.show', $post->id) }}" class="kb-gallery-item">
-            <img src="{{ asset('storage/' . $post->image_path) }}" alt="{{ $post->title }}">
-            <figcaption>
-                <strong>{{ $post->title }}</strong>
-                <br>
-                <em>{{ \Illuminate\Support\Str::limit($post->body, 60) }}</em>
-                @if ($post->category)
-                    <span class="badge bg-success">
-                        {{ $post->category->nombre }} ({{ $post->category->tipo }})
-                    </span>
-                @else
-                    <span class="badge bg-warning">Sin categoría</span>
-                @endif
-            </figcaption>
-        </a>
-        @endforeach
-    </div>
 
-    @if($posts->isEmpty())
-    <div class="text-center mt-5">
-        <p class="text-white">No has creado publicaciones todavía.</p>
+@if($especies->isEmpty())
+ <p style="color: white; text-align: center; margin-top: 30px;">No hay especies registradas.</p>
+@else
+    <div class="gallery-grid">
+     @foreach($especies as $especie)
+        <div class="custom-card">
+                <img src="{{ route('catalogo.show', $especie->id) }}" class="card-img-top" alt="{{ $especie->nombre }}">
+                <div class="custom-card-body">
+                    <h5>{{ $especie->nombre }}</h5>
+                    <p>{{ $especie->descripcion }}</p>
+                </div>
+            
+        </div>
+    @endforeach
     </div>
-    @endif
-</div>
+@endif
+
+
 </div>
 @endsection

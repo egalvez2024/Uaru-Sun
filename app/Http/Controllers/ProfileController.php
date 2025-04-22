@@ -8,17 +8,28 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Categoria; 
+use App\Models\Species;
 
 class ProfileController extends Controller
 {
     
     public function index()
-{
+    {
     // algo como esto
     $user = Auth::user();
     $posts = $user->posts;
-    return view('profile.index', compact('user', 'posts'));
-}
+
+
+     $categoriaFauna = Categoria::where('nombre', 'Fauna')->first(); 
+     $categoriaFlora = Categoria::where('nombre', 'Flora')->first();
+
+    // Obtener todas las especies que pertenecen a esta categoría
+    $especies = Species::all();
+
+     // Retornar la vista con los datos
+     return view('profile.index', compact('user', 'posts', 'especies'));
+    }
 
 
     /**
