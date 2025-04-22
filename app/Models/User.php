@@ -14,6 +14,7 @@ class User extends Authenticatable
 {
     return $this->hasMany(Post::class);
 }
+
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
