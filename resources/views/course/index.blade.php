@@ -3,10 +3,19 @@
 @section('title', 'Cursos')
 
 @section('content')
+<style>
+        .text-center {
+            margin-top: 80px; /* Ajusta este valor según sea necesario */
+        }
+    </style>
+     <div class="text-center mb-4">
+     <h1 style="color: white; text-align: center;">Bienvenido a la Lista de Cursos</h1>
+    <p style="color: white; text-align: center;">Mucho leer y bien entender, el mejor camino para aprender.</p>
+    </div>
+    
 <div class="container">
     <ul>
-    <h1 style="color: white; text-align: center;">Bienvenido a la Lista de Cursos</h1>
-    <p style="color: white; text-align: center;">Mucho leer y bien entender, el mejor camino para aprender.</p>
+    
 
     <style>
         .card-container {

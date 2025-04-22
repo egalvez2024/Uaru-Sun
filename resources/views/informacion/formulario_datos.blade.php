@@ -34,7 +34,7 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="preferencias" class="form-label">Preferencias</label>
-                    <input type="text" class="form-control" id="preferencias" name="preferencias" value="{{isset($informacion) ? $informacion->preferencias : old('preferencias')}}" maxlength="100" placeholder="Ejemplo: Música, Cine, Lectura">
+                    <input type="text" class="form-control" id="preferencias" name="preferencias" value="{{isset($informacion) ? $informacion->preferencias : old('preferencias')}}" maxlength="100" placeholder="Ejemplo: Flora,Fauna">
                 </div>
 
                 <div class="col-md-6 mb-3">
@@ -55,26 +55,14 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="idiomas" class="form-label">Idiomas aprendidos</label>
-                    <input type="text" class="form-control" id="idiomas" name="idiomas"  maxlength="50" placeholder="Ejemplo: Español, Inglés" value="{{isset($informacion) ? $informacion->idiomas : old('idiomas')}}">
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="ocupacion" class="form-label">Ocupación</label>
-                    <input type="text" class="form-control" id="ocupacion" name="ocupacion"  maxlength="30" placeholder="Ejemplo: Ingeniero de Software" value="{{isset($informacion) ? $informacion->ocupacion : old('ocupacion')}}">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="deportes" class="form-label">Deportes Favoritos</label>
-                    <input type="text" class="form-control" id="deportes" name="deportes"  maxlength="60" placeholder="Ejemplo: Fútbol, Baloncesto" value="{{isset($informacion) ? $informacion->deportes : old('deportes')}}">
-                </div>
-
+            <div class="row">  
                 <div class="col-md-6 mb-3">
                     <label for="animal_favorito" class="form-label">Animal Favorito</label>
                     <input type="text" class="form-control" id="animal_favorito" name="animal_favorito"  maxlength="30" placeholder="Ejemplo: Perro" value="{{isset($informacion) ? $informacion->animal_favorito : old('animal_favorito')}}">
+                </div>            
+                <div class="col-md-6 mb-3">
+                    <label for="ocupacion" class="form-label">Ocupación</label>
+                    <input type="text" class="form-control" id="ocupacion" name="ocupacion"  maxlength="30" placeholder="Ejemplo: Ingeniero de Software" value="{{isset($informacion) ? $informacion->ocupacion : old('ocupacion')}}">
                 </div>
             </div>
             <div>
