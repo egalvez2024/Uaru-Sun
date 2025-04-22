@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Categoria;
 
+
+
 class Species extends Model
 {
     protected $fillable = [

@@ -3,57 +3,51 @@
 @section('title', $specie->nombre)
 
 @section('content')
-<div class="container">
-    <div class="species-detail">
-        <img src="{{ asset('storage/' . $specie->image_path) }}" alt="{{ $specie->nombre }}" class="detail-image">
-        
-        <div class="species-info">
-            <h1>{{ $specie->nombre }}</h1>
-            <h2><em>{{ $specie->nombre_cientifico }}</em></h2>
-
-            <!-- Botón de Favoritos -->
-            
-            <div class="favorite-section">
-                @if(auth()->user() && auth()->user()->favoritos->where('species_id', $specie->id)->count())
-                    <form action="{{ route('favoritos.destroy', $specie->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">
-                            <i class="fas fa-heart-broken"></i> Quitar de Favoritos
-                        </button>
-                    </form>
-                    
-                @else
-        
-
-                    <form action="{{ route('favoritos.store') }}" method="POST">
-                 
-                        @csrf
-                        <input type="hidden" name="species_id" value="{{ $specie->id }}">
-                        <button type="submit" class="btn btn-warning">
-                            <i class="fas fa-heart"></i> Añadir a Favoritos
-                        </button>
-                    </form>
-                @endif
-            
-
-        
+<div class="species-page-wrapper">
+    <div class="container mt-5 mb-5">
+        <div class="detail-card">
+            <div class="image-column">
+                <img src="{{ asset('storage/' . $specie->image_path) }}" alt="{{ $specie->nombre }}" class="detail-image">
             </div>
 
-            <div class="info-section">
-                <h3>Hábitat</h3>
-                <p>{{ $specie->habitat }}</p>
-            </div>
+            <div class="info-column">
+                <h1 class="specie-name">{{ $specie->nombre }}</h1>
+                <h2 class="specie-scientific"><em>{{ $specie->nombre_cientifico }}</em></h2>
 
-            <div class="info-section">
-                <h3>Descripción</h3>
-                <p>{{ $specie->descripcion }}</p>
-            </div>
+                <div class="favorite-section">
+                    @if(auth()->user() && auth()->user()->favoritos->where('species_id', $specie->id)->count())
+                        <form action="{{ route('favoritos.destroy', $specie->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-fav">
+                                <i class="fas fa-heart-broken"></i> Quitar de Favoritos
+                            </button>
+                        </form>
+                    @else
+                        <form action="{{ route('favoritos.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="species_id" value="{{ $specie->id }}">
+                            <button type="submit" class="btn btn-warning btn-fav">
+                                <i class="fas fa-heart"></i> Añadir a Favoritos
+                            </button>
+                        </form>
+                    @endif
+                </div>
 
-            <div class="location">
-                <h3>Ubicación en Honduras</h3>
-                <p>{{ $specie->location }}</p>
-                <!-- Aquí podrías integrar un mapa con Leaflet/Google Maps -->
+                <div class="info-section">
+                    <h3>Hábitat</h3>
+                    <p>{{ $specie->habitat }}</p>
+                </div>
+
+                <div class="info-section">
+                    <h3>Descripción</h3>
+                    <p>{{ $specie->descripcion }}</p>
+                </div>
+
+                <div class="info-section">
+                    <h3>Ubicación en Honduras</h3>
+                    <p>{{ $specie->location }}</p>
+                </div>
             </div>
         </div>
     </div>
@@ -61,47 +55,97 @@
 @endsection
 
 <style>
-.species-detail {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 30px;
-    padding: 20px;
+/* Fondo oscuro que cubre toda la vista */
+.species-page-wrapper {
+    background-color: #1c1c1e; /* Gris oscuro elegante */
+    min-height: 100vh;
+    width: 100%;
+    padding: 50px 0;
+}
+
+/* Tarjeta principal */
+.detail-card {
+    display: flex;
+    flex-wrap: wrap;
+    background: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Columna de imagen */
+.image-column {
+    flex: 1 1 400px;
+    background: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .detail-image {
     width: 100%;
-    max-height: 500px;
+    height: 100%;
     object-fit: cover;
-    border-radius: 10px;
+    max-height: 600px;
 }
 
-.species-info h1 {
-    color: #2c3e50;
+/* Columna de información */
+.info-column {
+    flex: 2 1 500px;
+    padding: 30px;
+    background-color: white;
+}
+
+/* Textos */
+.specie-name {
+    color: #198754;
     margin-bottom: 5px;
+    font-size: 2.2rem;
+    font-weight: bold;
 }
 
-.species-info h2 {
-    color: #7f8c8d;
+.specie-scientific {
+    color: #6c757d;
+    margin-bottom: 25px;
+    font-size: 1.2rem;
+}
+
+/* Favoritos */
+.favorite-section {
     margin-bottom: 25px;
 }
 
-.favorite-section {
-    margin-bottom: 20px;
-}
-
-.favorite-section .btn {
+.btn-fav {
     font-size: 16px;
-    padding: 10px 15px;
+    padding: 10px 18px;
+    border-radius: 8px;
 }
 
+/* Info secciones */
 .info-section {
     margin-bottom: 25px;
 }
 
 .info-section h3 {
-    color: #27ae60;
-    border-bottom: 2px solid #27ae60;
+    color: #198754;
+    border-bottom: 2px solid #198754;
     padding-bottom: 5px;
     margin-bottom: 10px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .detail-card {
+        flex-direction: column;
+    }
+
+    .image-column,
+    .info-column {
+        flex: 1 1 100%;
+    }
+
+    .detail-image {
+        max-height: 300px;
+    }
 }
 </style>
