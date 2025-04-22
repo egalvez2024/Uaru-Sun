@@ -17,7 +17,7 @@ class ProfileController extends Controller
     public function index()
     {
     // algo como esto
-    $user = Auth::user();
+    $user = auth::user();
     $posts = $user->posts;
 
 
