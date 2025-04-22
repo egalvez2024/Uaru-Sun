@@ -15,6 +15,10 @@
             <i class="fas fa-leaf"></i> Especies en Peligro de Extincion
         </h1>
     </div>
+    
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="{{ route('fauna.index') }}" class="btn btn-success me-md-2">Regresar</a>
+    </div>
 
     @if($especies->isEmpty())
         <p class="text-white text-center">No hay especies registradas en los animales en peligro de extinción.</p>
