@@ -15,12 +15,12 @@
         @foreach($species as $specie)
         <a href="{{ route('catalogo.show', $specie->id) }}" class="kb-gallery-item">
             <figure>
-                <img src="{{ asset('storage/' . $specie->image_path) }}" alt="{{ $specie->nombre }}">
+                <div class="img-wrapper">
+                    <img src="{{ asset('storage/' . $specie->image_path) }}" alt="{{ $specie->nombre }}">
+                </div>
                 <figcaption>
                     <strong>{{ $specie->nombre }}</strong>
-                    <br>
                     <em>{{ $specie->nombre_cientifico }}</em>
-                    <br>
                     @if ($specie->category)
                         <span class="badge bg-success">
                             {{ $specie->category->nombre }} ({{ $specie->category->tipo }})
@@ -34,7 +34,6 @@
         @endforeach
     </div>
 
-    <!-- PAGINACIÓN -->
     <div class="pagination-container mt-4">
         {{ $species->links() }}
     </div>
@@ -59,32 +58,65 @@
     text-decoration: none;
     background: #000;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.kb-gallery-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    z-index: 2;
 }
 
 .kb-gallery-item figure {
     margin: 0;
-    height: 100%;
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
-.kb-gallery-item img {
+.img-wrapper {
+    height: 280px; /* Fija el alto de la imagen */
     width: 100%;
-    height: auto;
-    max-height: 220px;
-    object-fit: cover;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
-.kb-gallery-item figcaption {
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.7);
+.img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Recorta pero mantiene proporción */
+    display: block;
+}
+
+figcaption {
+    height: 120px;
+    background-color: rgba(0, 0, 0, 0.85);
     color: white;
     padding: 10px;
     font-size: 0.9em;
-    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 5px;
 }
 
-/* PAGINACIÓN */
+figcaption strong,
+figcaption em,
+figcaption span {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .pagination-container {
     display: flex;
     justify-content: center;
@@ -100,7 +132,6 @@
     background: #145c39;
 }
 
-/* RESPONSIVE MEDIA QUERIES */
 @media (max-width: 1024px) {
     .kb-gallery-item {
         width: calc(33.33% - 20px);

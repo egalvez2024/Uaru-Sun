@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/nueva-fauna', [FaunaController::class, 'create']);
     Route::get('/nuevaz', [PeligroExtincionController::class, 'create']);
     Route::get('/nuevaz', [PeligroExtincionController::class, 'index'])->name('peligro.index');
-    Route::get('/ver', [AnfibiosController::class, 'index'])->name('anfibio.index');
+    Route::get('/veR', [AnfibiosController::class, 'index'])->name('anfibio.index');
     Route::get('/usar', [ArbolesController::class, 'index'])->name('arboles.index');
 
 
@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
 
 });
 Route::resource('arboles', ArbolesController::class);
-Route::resource('Anfibios', AnfibiosController::class);
+Route::resource('Anfibio', AnfibiosController::class);
 Route::resource('extintos', PeligroExtincionController::class);
 Route::resource('fauna', FaunaController::class);
 Route::resource('/comentarios', ComentarioController::class);

@@ -67,9 +67,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('course.index') }}">Cursos</a>
                 </li>
+      
 
             </ul>
-
+           
            <!-- Menú Derecho -->
 <ul class="navbar-nav ms-auto">
     @guest
@@ -123,6 +124,9 @@
 
 
 
+
+
+ 
 
             </ul>
         </div>
