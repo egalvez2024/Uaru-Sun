@@ -12,14 +12,14 @@ use Illuminate\View\View;
 class ProfileController extends Controller
 {
     
-    public function index() {
-        
+    public function index()
+{
+    // algo como esto
+    $user = Auth::user();
+    $posts = $user->posts;
+    return view('profile.index', compact('user', 'posts'));
+}
 
-
-        $user = auth()->user();
-        $posts = $user->posts; // Suponiendo que haya una relación con Post
-        return view('profile.index', compact('user'))->with('posts', $user->posts ?? collect());
-    }
 
     /**
      * Display the user's profile form.

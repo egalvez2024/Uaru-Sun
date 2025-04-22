@@ -1,56 +1,76 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-    <style>
-        .text-center {
+<style>
+
+    .text-center {
             margin-top: 80px; /* Ajusta este valor según sea necesario */
-        }
-    </style>
+    }
+    
+    .custom-card {
+        width: 100%;
+        max-width: 250px;
+        margin: auto;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+        background-color: #fff;
+        text-decoration: none;
+    }
 
-    <div class="text-center mb-4">
-        <h1 class="mb-4 text-white" class="display-4 text-success">
-            <i class="fas fa-leaf"></i> Tipo de Especies Anfibios
-        </h1>
-    </div>
+    .custom-card:hover {
+        transform: scale(1.03);
+    }
 
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <a href="{{ route('fauna.index') }}" class="btn btn-success me-md-2">Regresar</a>
-</div>
+    .custom-card img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+    }
 
-        @if($especies->isEmpty())
-            <p class="text-center" style="font-family: 'Roboto', sans-serif; color: rgb(242, 237, 244);">
-                No hay especies registradas en la categoría de Anfibios.
-            </p>
-        @else
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                @foreach($especies as $especie)
-                    <div class="col">
-                        <div class="card h-100 shadow-lg">
-                            @if($especie->image_path)
-                                <img src="{{ asset('storage/' . $especie->image_path) }}" 
-                                     class="card-img-top" 
-                                     style="height: 200px; object-fit: cover;" 
-                                     alt="Imagen de {{ $especie->nombre }}">
-                            @endif
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title" style="font-family: 'Roboto', sans-serif; color: #2c3e50;">
-                                    {{ $especie->nombre }}
-                                </h5>
-                                <p class="card-text flex-grow-1" style="font-family: 'Roboto', sans-serif; color: #34495e;">
-                                    <strong>Nombre Científico:</strong> {{ $especie->nombre_cientifico }}
-                                </p>
-                                <p class="card-text" style="font-family: 'Roboto', sans-serif; color: #34495e;">
-                                    <strong>Hábitat:</strong> {{ $especie->habitat }}
-                                </p>
-                                <p class="card-text" style="font-family: 'Roboto', sans-serif; color: #34495e;">
-                                    <strong>Ubicación:</strong> {{ $especie->ubicacion }}
-                                </p>
-                            </div>
-                        </div>
+    .custom-card-body {
+        padding: 12px;
+        text-align: center;
+    }
+
+    .custom-card-body h5 {
+        font-size: 17px;
+        margin-bottom: 6px;
+    }
+
+    .custom-card-body p {
+        font-size: 14px;
+        margin: 0;
+    }
+
+    .gallery-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        justify-content: center;
+    }
+</style>
+
+<div class="container mt-4">
+    <h1 style="color: white; text-align: center; margin-top: 30px;">Grupo de Anfibios</h1>
+
+    @if($especies->isEmpty())
+        <p class="text-white">No hay especies registradas en este grupo.</p>
+    @else
+        <div class="gallery-grid">
+            @foreach($especies as $especie)
+                <a href="{{ route('catalogo.show', $especie->id) }}" class="custom-card text-dark">
+                    <img src="{{ asset('storage/' . $especie->image_path) }}" alt="{{ $especie->nombre }}">
+                    <div class="custom-card-body">
+                        <h5>{{ $especie->nombre }}</h5>
+                        <p><em>{{ $especie->nombre_cientifico }}</em></p>
+                        <p><strong>Hábitat:</strong> {{ $especie->habitat }}</p>
+                        <p><strong>Ubicación:</strong> {{ $especie->ubicacion }}</p>
                     </div>
-                @endforeach
-            </div>
-        @endif
-    </div>
+                </a>
+            @endforeach
+        </div>
+    @endif
+</div>
 @endsection
