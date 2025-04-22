@@ -7,7 +7,7 @@
     <h1 class="mb-4 text-white text-center">Especies en peligro de Extinción</h1>
 
     @if($especies->isEmpty())
-        <p class="text-white text-center">No hay especies registradas en los animales en peligro de extinción.</p>
+        <p class="text-white text-center">No hay Especies Registradas En Los Animales En Peligro De Extinción.</p>
     @else
         <div class="kb-gallery-container">
             @foreach($especies as $especie)
