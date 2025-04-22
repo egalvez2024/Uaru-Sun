@@ -7,13 +7,12 @@
         <h1>{{ isset($paisaje) ? 'Editar Paisaje: ' . $paisaje->nombres : 'Crear Nuevo Paisaje' }}</h1>
         <hr>
 
-        <form action="{{ isset($paisaje) ? route('paisajes.update', $paisaje->id) : route('paisajes.store') }}" method="POST">
+        <form action="{{ isset($paisaje) ? route('paisajes.update', $paisaje->id) : route('paisajes.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             @if(isset($paisaje))
                 @method('PUT')
             @endif
 
-            {{-- Datos del paisaje --}}
             <div class="mb-3">
                 <label for="nombres" class="form-label">Nombre del Paisaje</label>
                 <input type="text" class="form-control @error('nombres') is-invalid @enderror" id="nombres" name="nombres"
@@ -22,11 +21,12 @@
             </div>
 
             <div class="mb-3">
-                <label for="url" class="form-label">URL de Imagen</label>
-                <input type="text" class="form-control @error('url') is-invalid @enderror" id="url" name="url"
-                       value="{{ old('url', $paisaje->url ?? '') }}" placeholder="https://ejemplo.com/imagen.jpg">
-                @error('url')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                <label for="url" class="form-label">Imagen del paisaje</label>
+                <input type="file" class="form-control @error('imagen') is-invalid @enderror" id="imagen" name="imagen">
+                @error('imagen')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
+
+
 
             <div class="mb-3">
                 <label for="descripcion" class="form-label">Descripción</label>
@@ -40,7 +40,6 @@
                 @error('ubicacion')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
 
-            {{-- Sección de ecosistemas --}}
             <hr>
             <h4 class="mt-4">🌿 Flora</h4>
             <input type="hidden" name="flora_tipo" value="flora">
@@ -66,4 +65,20 @@
             <a href="{{ route('paisajes.index') }}" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
+
+    <script>
+        document.getElementById('url').addEventListener('input', function () {
+            const url = this.value;//Se obtiene el valor del entorno con el this, en este caso es el del input
+            const img = document.getElementById('vista_previa');
+            const container = document.getElementById('contenedor_imagen');
+
+            if (url.match(/\.(jpeg|jpg|gif|png|webp|bmp)$/i)) {
+                img.src = url;
+                container.style.display = 'block';
+            } else {
+                container.style.display = 'none';
+                img.src = '';
+            }
+        });
+    </script>
 @endsection

@@ -28,7 +28,11 @@
                     <tr>
                         <td>
                             <a href="{{ route('paisajes.show', $paisaje->id) }}">
-                                <img src="{{ asset($paisaje->url) }}" width="500">
+                                @if($paisaje->id <= 5)
+                                    <img src="{{ asset($paisaje->url) }}" width="500">
+                                @else
+                                    <img src="{{ asset('storage/' . $paisaje->url) }}" width="500">
+                                @endif
                             </a>
                         </td>
                         <td>{{$paisaje->nombres}}</td>
