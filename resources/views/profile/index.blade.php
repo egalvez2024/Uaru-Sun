@@ -84,20 +84,20 @@
     <h2 style="color: white; text-align: center; margin-top: 30px;">Mis Publicaciones</h2>
 
 
+    
 @if($especies->isEmpty())
  <p style="color: white; text-align: center; margin-top: 30px;">No hay especies registradas.</p>
 @else
     <div class="gallery-grid">
-     @foreach($especies as $especie)
-        <div class="custom-card">
-                <img src="{{ route('catalogo.show', $especie->id) }}" class="card-img-top" alt="{{ $especie->nombre }}">
-                <div class="custom-card-body">
+        @foreach($especies as $especie)
+             <div class="custom-card">
+                <img src="{{ route('catalogo.show', $especie->id) }}" alt="{{ $especie->nombre }}">
+                 <div class="custom-card-body">
                     <h5>{{ $especie->nombre }}</h5>
                     <p>{{ $especie->descripcion }}</p>
                 </div>
-            
-        </div>
-    @endforeach
+            </div>
+        @endforeach
     </div>
 @endif
 
