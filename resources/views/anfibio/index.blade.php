@@ -53,10 +53,15 @@
 </style>
 
 <div class="container mt-4">
-    <h1 style="color: white; text-align: center; margin-top: 30px;">Grupo de Anfibios</h1>
+    <h1 style="color: white; text-align: center; margin-top: 30px;">Bienvenido a la Sección de Anfibios</h1>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="{{ route('fauna.index') }}" class="btn btn-success me-md-2">Regresar</a>
+    </div>
+
 
     @if($especies->isEmpty())
-        <p class="text-white">No hay especies registradas en este grupo.</p>
+        <p style="color: white; text-align: center; margin-top: 30px;">No hay especies registradas en este grupo.</p>
     @else
         <div class="gallery-grid">
             @foreach($especies as $especie)
