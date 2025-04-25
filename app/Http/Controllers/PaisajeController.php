@@ -32,7 +32,7 @@ class PaisajeController extends Controller
     {
         $request->validate([
             'nombres' => 'required',
-            'url' => 'required|url',
+            'imagen' => 'required|mimes:jpg,jpeg,png|max:2048',
             'descripcion' => 'required',
             'ubicacion' => 'required',
             'flora_nombre' => 'required',
@@ -45,12 +45,18 @@ class PaisajeController extends Controller
             'ubicacion.required' => 'La ubicación es obligatoria.',
             'flora_nombre.required' => 'El nombre de la flora es obligatorio.',
             'fauna_nombre.required' => 'El nombre de la fauna es obligatorio.',
+            'imagen.required' => 'La imagen es obligatoria.',
+            'imagen.image' => 'El archivo debe ser una imagen válida.',
+            'imagen.mimes' => 'La imagen debe ser de tipo JPG o PNG.',
+            'imagen.max' => 'La imagen no debe superar los 2MB.',
         ]);
 
 
         $paisaje = new Paisaje();
         $paisaje->nombres = $request->input('nombres');
-        $paisaje->url = $request->input('url');
+        $archivo = $request->file('imagen');
+        $ruta = $archivo->store('imagenes', 'public');
+        $paisaje->url = $ruta;
         $paisaje->descripcion = $request->input('descripcion');
         $paisaje->ubicacion = $request->input('ubicacion');
         $paisaje->save();
