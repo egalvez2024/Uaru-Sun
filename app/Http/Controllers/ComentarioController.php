@@ -45,11 +45,21 @@ class ComentarioController extends Controller
         $comentario->user_id = $request->input('user_id');
         $comentario->species_id = $request->input('specie_id');
         $comentario->fecha = date('Y-m-d');
-
-        if ($comentario->save()) {
-            return redirect()->route('comentarios.create', $comentario->species_id)->with('mensaje', 'Comentario agregado.');
-        } else {
-            return redirect()->route('comentarios.create', $comentario->species_id)->with('mensaje', 'Comentario no agregado.');
+        if($request->input('accion') == 'especie'){
+            if ($comentario->save()) {
+                $id = $comentario->species_id;
+                $specie = Species::findOrFail($id);
+                $user = Auth::user();
+                return view('catalogo.show', compact('specie', 'user'));
+            } else {
+                return redirect()->route('comentarios.create', $comentario->species_id)->with('mensaje', 'Comentario no agregado.');
+            }
+        }else{
+            if ($comentario->save()) {
+                return redirect()->route('comentarios.create', $comentario->species_id)->with('mensaje', 'Comentario agregado.');
+            } else {
+                return redirect()->route('comentarios.create', $comentario->species_id)->with('mensaje', 'Comentario no agregado.');
+            }
         }
 
     }
