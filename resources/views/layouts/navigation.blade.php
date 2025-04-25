@@ -6,7 +6,6 @@
             <img src="{{ asset('images/logo.png') }}" alt="Logo" class="d-inline-block align-text-top" width="40" height="40">
             ÚARU SUN
         </a>
-    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="d-inline-block align-text-top" width="40" height="40">
 
     </a>
 
@@ -21,10 +20,7 @@
             <!-- Menú Izquierdo -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">
-                        <i class="fas fa-home me-1"></i>Inicio
-                    </a>
-                </li>
+                   
 
 
                 @auth
@@ -70,9 +66,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('course.index') }}">Cursos</a>
                 </li>
+      
 
             </ul>
-
+           
            <!-- Menú Derecho -->
 <ul class="navbar-nav ms-auto">
     @guest
@@ -87,14 +84,14 @@
         <!-- Menú desplegable de opciones -->
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="menuDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fas fa-bars me-1"></i>Menú
+                <i class="fas fa-bars me-1"></i>Flora y Fauna
             </a>
             <div class="dropdown-menu" aria-labelledby="menuDropdown">
                 <a class="dropdown-item" href="{{ route('fauna.index') }}">
                     <i class="fas fa-paw me-2"></i>Fauna
                 </a>
-                <a class="dropdown-item" href="{{ route('peligro.index') }}">
-                    <i class="fas fa-paw me-2"></i>Peligro de Extincion
+                <a class="dropdown-item" href="{{ route('flora.index') }}">
+                    <i class="fas fa-paw me-2"></i>Flora
                 </a>
 
             </div>
@@ -109,7 +106,7 @@
                 <hr class="dropdown-divider">
                 <i class="fas fa-sign-out-alt me-2">
                     <a class="dropdown-item" href="{{ route('informacion.create') }}">
-                        <i class="fas fa-paw me-2"></i>Datos del usuario
+                        <i class="fas fa-paw me-2"></i>Configuracion de Perfil
                     </a>
                 </i>
                 <form method="POST" action="{{ route('logout') }}">
@@ -126,6 +123,9 @@
 
 
 
+
+
+ 
 
             </ul>
         </div>

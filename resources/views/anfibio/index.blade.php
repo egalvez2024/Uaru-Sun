@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Especies de Anfibios')
+
 @section('content')
     <div class="container">
     <style>
@@ -12,6 +14,10 @@
         <h1 class="mb-4 text-white" class="display-4 text-success">
             <i class="fas fa-leaf"></i> Tipo de Especies Anfibios
         </h1>
+    </div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="{{ route('fauna.index') }}" class="btn btn-success me-md-2">Regresar</a>
     </div>
 
         @if($especies->isEmpty())

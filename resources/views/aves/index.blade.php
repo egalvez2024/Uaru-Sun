@@ -53,10 +53,10 @@
 </style>
 
 <div class="container mt-4">
-    <h1 style="color: white; text-align: center; margin-top: 30px;">Bienvenido a la Flora de Jardín</h1>
+    <h1 style="color: white; text-align: center; margin-top: 30px;">Bienvenido a la Sección de Aves</h1>
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a href="{{ route('flora.index') }}" class="btn btn-success me-md-2">Regresar</a>
+            <a href="{{ route('fauna.index') }}" class="btn btn-success me-md-2">Regresar</a>
     </div>
 
     @if($especies->isEmpty())

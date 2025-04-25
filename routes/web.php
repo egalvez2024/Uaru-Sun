@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\AvesController;
+use App\Http\Controllers\FloraagricolaController;
+use App\Http\Controllers\FloraController;
+use App\Http\Controllers\FlorajardinController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EspeciesController;
 use App\Http\Controllers\AdminSpeciesController;
@@ -17,8 +21,7 @@ use App\Http\Controllers\AlimentoController;
 use App\Http\Controllers\DatousuarioController;
 use App\Http\Controllers\AnfibiosController;
 use App\Http\Controllers\ArbolesController;
-
-
+use App\Http\Controllers\MamiferosController;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', function () {
@@ -45,18 +48,26 @@ Route::middleware('auth')->group(function () {
     Route::get('/nueva-fauna', [FaunaController::class, 'create']);
     Route::get('/nuevaz', [PeligroExtincionController::class, 'create']);
     Route::get('/nuevaz', [PeligroExtincionController::class, 'index'])->name('peligro.index');
+    Route::get('/veR', [AnfibiosController::class, 'index'])->name('anfibio.index');
+    Route::get('/usar', [ArbolesController::class, 'index'])->name('arboles.index');
+    Route::get('/mamiferos', [MamiferosController::class, 'index'])->name('mamiferos.index'); 
+    Route::get('/aves', [AvesController::class, 'index'])->name('ave.index');
+    Route::get('/flora', [FloraController::class, 'index'])->name('flora.index');
+    Route::get('/agricola', [FloraagricolaController::class, 'index'])->name('agricola.index');
+    Route::get('/jardin', [FlorajardinController::class, 'index'])->name('jardin.index');
+    Route::get('/arboles', [ArbolesController::class, 'index'])->name('arboles.index');
+    
+    
+
 
 
 
 });
-Route::resource('floragri', \App\Http\Controllers\FloraagricolaController::class);
-Route::resource('florjardin', \App\Http\Controllers\FlorajardinController::class);
-Route::resource('ave', \App\Http\Controllers\AvesController::class);
-Route::resource('mamiferos', \App\Http\Controllers\MamiferosController::class);
 Route::resource('arboles', ArbolesController::class);
-Route::resource('Anfibios', AnfibiosController::class);
+Route::resource('Anfibio', AnfibiosController::class);
 Route::resource('extintos', PeligroExtincionController::class);
 Route::resource('fauna', FaunaController::class);
+Route::resource('flora', FloraController::class);
 Route::resource('/comentarios', ComentarioController::class);
 Route::get('/comentarios/create/{id}', [ComentarioController::class, 'create'])->name('comentarios.create');
 Route::get('/anfibio', [AnfibiosController::class, 'index'])->name('anfibio.index');

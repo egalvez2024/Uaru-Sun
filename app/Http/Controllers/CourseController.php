@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Course;
+use App\Models\Curso;
 
 class CourseController extends Controller
 {
     public function index() {
-        $courses = Course::all();
+        $courses = Curso::all();
         return view("course.index", compact("courses"));
     }
 }

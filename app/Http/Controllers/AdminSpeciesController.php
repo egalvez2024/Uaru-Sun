@@ -109,5 +109,6 @@ class AdminSpeciesController extends Controller
         Storage::disk('public')->delete($species->image_path);
         $species->delete();
         return redirect()->route('admin.especies.index')->with('success', 'Especie eliminada!');
+    
     }
 }
