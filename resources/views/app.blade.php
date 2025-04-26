@@ -61,11 +61,9 @@
     <div class="vision" style="background-position: center 263.6px; opacity: 1; transform: translateY(0px);">
     <div class="vision-content">
         <!-- Footer -->
-    <footer class="bg-dark text-white mt-5">
-        <div class="container py-4">
-            <p class="mb-0 text-center">© {{ date('Y') }} Biodiversidad Hondureña</p>
-        </div>
-    </footer>
+        <footer class="text-center py-3 mt-4" style="background-color: rgba(255, 255, 255, 0.5);">
+            © 2025 Biodiversidad Hondureña
+        </footer>
         
     </div>
     <div class="vision-image">
