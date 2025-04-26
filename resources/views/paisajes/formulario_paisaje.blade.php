@@ -25,6 +25,13 @@
                 <input type="file" class="form-control @error('imagen') is-invalid @enderror" id="imagen" name="imagen">
                 @error('imagen')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
+            <div id="contenedor_imagen" style="display: none; margin-top: 20px;">
+                <div style="font-weight: bold; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 1.5rem;">🏞</span>
+                    <span>Vista previa de la imagen:</span>
+                </div>
+                <img id="vista_previa" src="" alt="Vista previa" style="max-width: 350px; height: auto; border: 1px solid #ccc; padding: 10px;">
+            </div>
 
 
 
@@ -67,18 +74,23 @@
     </div>
 
     <script>
-        document.getElementById('url').addEventListener('input', function () {
-            const url = this.value;//Se obtiene el valor del entorno con el this, en este caso es el del input
+        document.getElementById('imagen').addEventListener('change', function (event) {
+            const archivo = event.target.files[0];
             const img = document.getElementById('vista_previa');
             const container = document.getElementById('contenedor_imagen');
 
-            if (url.match(/\.(jpeg|jpg|gif|png|webp|bmp)$/i)) {
-                img.src = url;
-                container.style.display = 'block';
+            if (archivo && archivo.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                    container.style.display = 'block';
+                }
+                reader.readAsDataURL(archivo);
             } else {
-                container.style.display = 'none';
                 img.src = '';
+                container.style.display = 'none';
             }
         });
     </script>
+
 @endsection
