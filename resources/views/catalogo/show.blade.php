@@ -122,9 +122,16 @@
                         @enderror
                     </div>
                     <input type="hidden" name="specie_id" value="{{ $specie->id }}">
-                    <input type="hidden" name="user_id" value="{{ $user->id }}">
-                    <input type="hidden" name="accion" value="especie">
-                    <button type="submit" class="btn btn-primary w-100">Comentar</button>
+
+@if(auth()->check())
+    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+@else
+    <input type="hidden" name="user_id" value="">
+@endif
+
+<input type="hidden" name="accion" value="especie">
+<button type="submit" class="btn btn-primary w-100">Comentar</button>
+
                 </form>
 
                 <div class="text-end mt-4">
