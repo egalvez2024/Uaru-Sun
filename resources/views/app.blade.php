@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-<>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -23,6 +23,10 @@
             box-sizing: border-box;
         }
 
+        html, body {
+        height: 100%;
+    }
+
         /* Fondo de la página */
         body {
             background-image: url('images/fonds.jpg');
@@ -44,11 +48,13 @@
             align-items: center;
             background-color: rgba(0, 0, 0, 0.3); /* Oscurece el fondo para mejorar la visibilidad del texto */
         }
+    main {
+        flex: 1 0 auto; /* Permite que el contenido crezca */
+    }
     </style>
 
-    
 </head>
-<body class="font-sans antialiased">
+<body class="d-flex flex-column min-vh-100 font-sans antialiased">
     <!-- Navbar de Bootstrap -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
         <div class="container">
@@ -66,59 +72,31 @@
     </nav>
 
     <!-- Contenido Principal -->
-    <main class="py-4">
+    <main class="py-4 flex-grow-1">
         <div class="container">
             @yield('content')
         </div>
     </main>
 
-
-    <div class="vision" style="background-position: center 263.6px; opacity: 1; transform: translateY(0px);">
-    <div class="vision-content">
-        <!-- Footer -->
-    <footer class="bg-dark text-white mt-5">
-        <div class="container py-4">
-            <p class="mb-0 text-center">© {{ date('Y') }} Biodiversidad Hondureña</p>
-        </div>
-    </footer>
-        
-    </div>
-    <div class="vision-image">
-        
-</div>
-    
-
-    <style>
-    /* Estilos para que el footer siempre esté visible sobre el fondo */
-    .footer {
-        position: fixed; /* Fijado en la parte inferior */
-        bottom: 0;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.7); /* Oscuro pero semi-transparente */
-        color: white;
-        padding: 10px 0;
-        text-align: center;
-        z-index: 1000; /* Asegura que esté sobre otros elementos */
-    }
-</style>
-    
-
+    <!-- Scripts de Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     @stack('scripts')
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             var userDropdown = document.getElementById("userDropdown");
-            var dropdown = new bootstrap.Dropdown(userDropdown);
-    
-            userDropdown.addEventListener("click", function (event) {
-                event.preventDefault();
-                dropdown.toggle();
-            });
+            if (userDropdown) {
+                var dropdown = new bootstrap.Dropdown(userDropdown);
+
+                userDropdown.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    dropdown.toggle();
+                });
+            }
         });
     </script>
-    
 </body>
 </html>

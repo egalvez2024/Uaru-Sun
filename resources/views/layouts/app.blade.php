@@ -73,9 +73,17 @@
                 padding: 20px;
             }
         }
+        footer {
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        text-align: center;
+        padding: 15px 0;
+        font-size: 14px;
+        width: 100%;
+    }
     </style>
 </head>
-<body class="font-sans antialiased">
+<body class="font-sans antialiased d-flex flex-column min-vh-100">
     <!-- Navbar de Bootstrap -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
         <div class="container">
@@ -104,17 +112,11 @@
     @endif
 
     <!-- Contenido Principal -->
-    <main class="py-4">
+    <main class="py-4 flex-grow-1">
         <div class="container">
             @yield('content')
         </div>
     </main>
-
-    <footer class="bg-dark text-white mt-5">
-        <div class="container py-4">
-            <p class="mb-0 text-center">&copy; {{ date('Y') }} Biodiversidad Hondureña</p>
-        </div>
-    </footer>
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -129,5 +131,9 @@
             });
         });
     </script>
+    <footer>
+    © {{ date('Y') }} Biodiversidad Hondureña. Todos los derechos reservados.
+</footer>
 </body>
+
 </html>

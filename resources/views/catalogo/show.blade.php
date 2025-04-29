@@ -57,7 +57,6 @@
 <style>
 /* Fondo oscuro que cubre toda la vista */
 .species-page-wrapper {
-    background-color: #1c1c1e; /* Gris oscuro elegante */
     min-height: 100vh;
     width: 100%;
     padding: 50px 0;

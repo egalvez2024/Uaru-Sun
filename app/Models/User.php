@@ -14,7 +14,14 @@ class User extends Authenticatable
 
     public function favoritos(){
         return $this->hasMany(Favorito::class);
+
     }
+
+    public function species()
+{
+    return $this->hasMany(Species::class);
+}
+
     /**
      * The attributes that are mass assignable.
      *
