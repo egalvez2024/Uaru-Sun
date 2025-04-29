@@ -11,20 +11,24 @@ use Illuminate\View\View;
 class ProfileController extends Controller
 {
     
-    
-    public function index() {
-        
+    public function index()
+    {
+    // algo como esto
+    $user = auth::user();
+    $posts = $user->posts;
 
 
-        $user = auth()->user();
-        $posts = $user->posts; // Suponiendo que haya una relación con Post
-        return view('profile.index', compact('user'))->with('posts', $user->posts ?? collect());
+     $categoriaFauna = Categoria::where('nombre', 'Fauna')->first(); 
+     $categoriaFlora = Categoria::where('nombre', 'Flora')->first();
+
+    // Obtener todas las especies que pertenecen a esta categoría
+    $especies = Species::all();
+
+     // Retornar la vista con los datos
+     return view('profile.index', compact('user', 'posts', 'especies'));
     }
 
 
-    /**
-     * Display the user's profile form.
-     */
     public function edit(Request $request): View
     {
         return view('profile.edit', [
