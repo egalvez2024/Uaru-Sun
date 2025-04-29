@@ -136,6 +136,9 @@
             });
         });
     </script>
+    <footer>
+    © {{ date('Y') }} Biodiversidad Hondureña. Todos los derechos reservados.
+</footer>
 </body>
 
 </html>
