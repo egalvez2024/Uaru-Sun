@@ -27,4 +27,19 @@ class EspeciesController extends Controller
         $user = Auth::user();
         return view('catalogo.show', compact('specie', 'user'));
     }
+
+    public function destroy($id)
+{
+    $specie = Species::findOrFail($id);
+
+    // Verificar si el usuario tiene permiso para eliminar
+    if (!auth()->user()->can('delete-species')) {
+        return redirect()->route('admin.especies.index')->with('error', 'No tienes permiso para eliminar esta especie.');
+    }
+
+    $specie->delete();
+
+    return redirect()->route('admin.especies.index')->with('success', 'Especie eliminada exitosamente.');
+}
+
 }

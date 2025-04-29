@@ -6,9 +6,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Like;
 
 class User extends Authenticatable
 {
+    public function likes() {
+        return $this->hasMany(Like::class);
+    }
 
     public function posts()
 {
@@ -60,4 +64,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comentario::class);
     }
+
+    
+public function publicaciones()
+{
+    return $this->hasMany(Publicacion::class);
+}
+
+public function datousuario()
+    {
+        // Si tu tabla de 'datousuarios' usa user_id como clave foránea:
+        return $this->hasOne(Datousuario::class);
+    }
+
 }

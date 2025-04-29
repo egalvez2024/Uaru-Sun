@@ -81,6 +81,8 @@
             </a>
         </div>
 
+        <!-- Mostrar el filtro solo si el usuario es un administrador -->
+        @can('admin') <!-- Aquí se verifica si el usuario tiene permisos de administrador -->
         <form method="GET" action="{{ route('admin.especies.index') }}">
             <div class="row mb-3">
                 <div class="col-2">
@@ -97,6 +99,7 @@
                 </div>
             </div>
         </form>
+        @endcan
 
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>

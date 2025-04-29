@@ -4,11 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Categoria;
+use App\Models\Like;
 
 
 
 class Species extends Model
 {
+
+    public function likes() {
+        return $this->hasMany(Like::class);
+    }
     protected $fillable = [
         'nombre',
         'nombre_cientifico',

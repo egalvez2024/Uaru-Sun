@@ -4,6 +4,8 @@
 
 @section('content')
 <div class="container">
+    {{-- IMPORTAR FONT AWESOME PARA ÍCONOS --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 
 <h1 style="color: white; text-align: center;">Mi Perfil</h1>
@@ -68,4 +70,55 @@
 
 
 </div>
+
+{{-- MODAL PARA IMÁGENES --}}
+<div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
+    <button class="close-button" onclick="closeModal()">Cerrar</button>
+</div>
+
+{{-- SCRIPTS --}}
+<script>
+    function openModalWithSrc(src) {
+        const modal = document.getElementById("myModal");
+        const modalImg = document.getElementById("img01");
+        modal.style.display = "flex";
+        modalImg.src = src;
+    }
+
+    function closeModal() {
+        document.getElementById("myModal").style.display = "none";
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const avatar = document.getElementById("avatar-profile");
+        if (avatar) {
+            avatar.addEventListener("click", () => {
+                const img = avatar.querySelector("img");
+                if (img) openModalWithSrc(img.src);
+            });
+        }
+
+        document.querySelectorAll(".modal-trigger").forEach(el => {
+            el.addEventListener("click", () => {
+                const src = el.getAttribute("data-src");
+                if (src) openModalWithSrc(src);
+            });
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
+
+        const modal = document.getElementById("myModal");
+        modal.addEventListener("click", function (event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+    });
+</script>
 @endsection
