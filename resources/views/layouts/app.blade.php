@@ -137,7 +137,7 @@
         });
     </script>
     <footer>
-    © {{ date('Y') }} Biodiversidad Hondureña. Todos los derechos reservados.
+     {{ ('') }} Biodiversidad Hondureña.
 </footer>
 </body>
 
