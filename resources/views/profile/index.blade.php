@@ -7,68 +7,226 @@
     {{-- IMPORTAR FONT AWESOME PARA ÍCONOS --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-
-<h1 style="color: white; text-align: center;">Mi Perfil</h1>
-
-
-        <p style="color: white;"><strong>Nombre:</strong> {{ $user->name }}</p>
-        <p style="color: white;"><strong>Email:</strong> {{ $user->email }}</p>
-
-
-<h2 style="color: white; text-align: center;">Mis Publicaciones</h2>
-
     <style>
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
+        .text-center {
+            margin-top: 80px;
         }
-        .card {
-            width: 18rem;
-            margin: 10px;
-            border: 2px solid #4CE4A0; /* Cambia el color y el grosor según tus necesidades */
-            border-radius: 7px; /* Opcional: para esquinas redondeadas */
+
+        .perfil-container {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 50px;
+            border-radius: 12px;
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            margin: 0 auto;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .avatar {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background-color: #4CE4A0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 25px auto;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .custom-dark-card {
+            background-color: #000;
+            color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .custom-dark-card .card-title,
+        .custom-dark-card .card-text {
+            color: white;
+        }
+
+        .custom-dark-card a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .custom-dark-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .custom-badge {
+            background-color: #28a745;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 15px;
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* MODAL DE IMAGEN */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1050;
+            padding-top: 80px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+            margin: auto;
+            display: block;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1060;
+        }
+
+        .close-button {
+            position: absolute;
+            bottom: 30px;
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 1060;
+            transition: background-color 0.3s ease;
+        }
+
+        .close-button:hover {
+            background-color: #ccc;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0}
+            to {opacity: 1}
         }
     </style>
 
+    <h1 style="color: white; text-align: center; margin-top: 50px">Mi Perfil</h1>
 
-@if ($posts->count())
-
-    <div class="card-container">
-        <div class="card">
-            <div class="card-body">
-            <ul>
-        @foreach ($posts as $post)
-            <li>{{ $post->title }}</li>
-        @endforeach
-    </ul>
-            </div>
-                
+    <div class="perfil-container" style="margin-top: 30px;">
+        <div id="avatar-profile" class="avatar">
+            @if($user->datos && $user->datos->foto_perfil)
+                <img src="{{ asset('storage/' . $user->datos->foto_perfil) . '?t=' . time() }}" />
+            @else
+                <img src="{{ asset('images/usuario.jpg') }}" />
+            @endif
         </div>
 
-    <!-- Título de publicaciones -->
+        <div class="username">{{ $user->name }}</div>
+
+        <div class="d-flex justify-content-center gap-3 my-4 flex-wrap">
+            <a href="{{ route('informacion.create') }}" class="btn btn-outline-primary shadow-sm">
+                <i class="fas fa-user-edit me-2"></i>Actualizar información
+            </a>
+            <a href="{{ route('favoritos.index') }}" class="btn btn-outline-warning shadow-sm">
+                <i class="fas fa-star me-2"></i>Mis Favoritos
+            </a>
+            <a href="{{ route('likes.mislikes') }}" class="btn btn-outline-danger shadow-sm">
+                <i class="fas fa-heart me-2 text-danger"></i>Mis Likes
+            </a>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-2 g-4 mt-4">
+            <div class="col">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-user me-2"></i>Información Básica</h5>
+                        <p><i class="fas fa-id-badge me-2 text-muted"></i><strong>Nombre:</strong> {{ $user->name }}</p>
+                        <p><i class="fas fa-envelope me-2 text-muted"></i><strong>Email:</strong> {{ $user->email }}</p>
+                        <p><i class="fas fa-heart me-2 text-muted"></i><strong>Preferencias:</strong> {{ $user->datos->preferencias ?? 'Dato no disponible' }}</p>
+                        <p><i class="fas fa-user-tag me-2 text-muted"></i><strong>Alias:</strong> {{ $user->datos->alias ?? 'Dato no disponible' }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-info-circle me-2"></i>Detalles Adicionales</h5>
+                        <p><i class="fas fa-phone me-2 text-muted"></i><strong>Teléfono:</strong> {{ $user->datos->telefono ?? 'Dato no disponible' }}</p>
+                        <p><i class="fas fa-paw me-2 text-muted"></i><strong>Animal Favorito:</strong> {{ $user->datos->animal_favorito ?? 'Dato no disponible' }}</p>
+                        <p><i class="fas fa-briefcase me-2 text-muted"></i><strong>Ocupación:</strong> {{ $user->datos->ocupacion ?? 'Dato no disponible' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <h2 style="color: white; text-align: center; margin-top: 30px;">Mis Publicaciones</h2>
 
-
-    
-@if($especies->isEmpty())
- <p style="color: white; text-align: center; margin-top: 30px;">No hay especies registradas.</p>
-@else
-    <div class="gallery-grid">
-        @foreach($especies as $especie)
-             <div class="custom-card">
-                <img src="{{ route('catalogo.show', $especie->id) }}" alt="{{ $especie->nombre }}">
-                 <div class="custom-card-body">
-                    <h5>{{ $especie->nombre }}</h5>
-                    <p>{{ $especie->descripcion }}</p>
+    @if($especies->isEmpty())
+        <p class="text-center" style="font-family: 'Roboto', sans-serif; color: rgb(242, 237, 244);">
+            No hay publicaciones disponibles.
+        </p>
+    @else
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach($especies as $especie)
+                <div class="col">
+                    <div class="card h-100 shadow-lg custom-dark-card">
+                        @if($especie->image_path)
+                            <a href="{{ route('catalogo.show', $especie->id) }}" class="custom-card">
+                                <img src="{{ asset('storage/' . $especie->image_path) }}"
+                                     class="card-img-top modal-trigger"
+                                     data-src="{{ asset('storage/' . $especie->image_path) }}"
+                                     style="height: 200px; object-fit: cover;"
+                                     alt="Imagen de {{ $especie->nombre }}">
+                            </a>
+                        @endif
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title" style="font-family: 'Roboto', sans-serif;">
+                                {{ $especie->nombre }}
+                            </h5>
+                            <p class="card-text flex-grow-1" style="font-family: 'Roboto', sans-serif;">
+                                <em>{{ $especie->nombre_cientifico }}</em>
+                            </p>
+                            <span class="custom-badge">Mamíferos (fauna)</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        @endforeach
-    </div>
-@endif
-
-
+            @endforeach
+        </div>
+    @endif
 </div>
 
 {{-- MODAL PARA IMÁGENES --}}
