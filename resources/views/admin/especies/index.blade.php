@@ -10,65 +10,65 @@
         background-size: cover;
     }
     .content-box {
-        background-color: rgba(255, 255, 255, 0.6); /* Fondo más transparente */
+        background-color: rgba(30,28,28,0.67);
         padding: 20px;
         border-radius: 10px;
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); /* Efecto de transparencia en los bordes */
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        color: white;
     }
-    .action-buttons a, .action-buttons button {
-        width: 100%; /* Hace que los botones ocupen el ancho completo de la celda */
-        margin: 2px 0;
-        font-size: 12px; /* Reducir el tamaño de los botones */
+    .content-box h1 {
+        color: white;
     }
-
-    /* Estilo para la tabla con tamaño fijo */
-    table {
-        table-layout: fixed; /* Hace que las columnas tengan el mismo tamaño */
-        width: 100%; /* Asegura que la tabla ocupe todo el ancho disponible */
+    .custom-table {
+        width: 100%;
+        background: rgba(30,28,28,0.67);
+        color: white;
+        font-size: 18px;
+        border-collapse: collapse;
     }
-    td, th {
-        overflow: hidden; /* Evita que el contenido se desborde */
-        text-overflow: ellipsis; /* Agrega '...' cuando el contenido es demasiado largo */
-        white-space: nowrap; /* Evita que el texto se divida en varias líneas */
-        padding: 10px;
+    .custom-table thead {
+        background-color: rgba(30,28,28,0.87);
+        font-weight: bold;
     }
-
-    /* Estilo específico para la imagen */
-    .image-cell {
-        width: 20%;
-    }
-    .name-cell {
-        width: 35%;
-    }
-    /* Columna de Hábitat con truncamiento */
-    .habitat-cell {
-        width: 35%;
-        text-overflow: ellipsis;
+    .custom-table th, .custom-table td {
+        padding: 15px;
         overflow: hidden;
+        text-overflow: ellipsis;
         white-space: nowrap;
     }
-    .action-cell {
-        width: 20%; /* Ajustamos el tamaño de la columna de acciones */
-        text-align: center;
-        vertical-align: top; /* Asegura que los botones se alineen en la parte superior */
+    .custom-table td img {
+        max-width: 100%;
+        height: auto;
     }
-
-    /* Estilo para apilar botones y ajustarlos */
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    /* Botones de acciones */
     .action-buttons {
         display: flex;
-        flex-direction: column; /* Hace que los botones se apilen verticalmente */
+        flex-direction: column;
         align-items: center;
     }
-
     .action-buttons a, .action-buttons button {
-        margin: 5px 0; /* Espaciado entre los botones */
+        margin: 5px 0;
+        font-size: 18px;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        border-radius: 8px;
     }
-
-    /* Tooltip al pasar el mouse sobre contenido largo */
-    .habitat-cell:hover {
-        overflow: visible;
-        white-space: normal;
-        background-color: #f0f0f0;
+    .action-buttons a:hover, .action-buttons button:hover {
+        opacity: 0.8;
+        transform: scale(1.05);
+        transition: all 0.2s ease;
+    }
+    .action-cell {
+        text-align: center;
+        vertical-align: top;
     }
 </style>
 
@@ -84,7 +84,7 @@
         <!-- Mostrar el filtro solo si el usuario es un administrador -->
         @can('admin') <!-- Aquí se verifica si el usuario tiene permisos de administrador -->
         <form method="GET" action="{{ route('admin.especies.index') }}">
-            <div class="row">
+            <div class="row mb-3">
                 <div class="col-2">
                     <select class="form-select" name="filtro">
                         <option value="nombre_comun" {{ request('filtro') == 'nombre_comun' ? 'selected' : '' }}>Nombre Común</option>
@@ -102,7 +102,7 @@
         @endcan
 
         @if(session('success'))
-            <div class="alert alert-success bg-dark text-white border-secondary">{{ session('success') }}</div>
+            <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
         <table class="table table-striped">
@@ -129,22 +129,14 @@
                     <!-- Columna de acciones con botones apilados verticalmente -->
                     <td class="action-cell">
                         <div class="action-buttons">
-                            @can('edit-species') <!-- Solo los usuarios con el permiso 'edit-species' pueden ver este botón -->
-                                <a href="{{ route('admin.especies.edit', $specie->id) }}" class="btn btn-sm btn-success">Editar</a>
-                            @endcan
-
-                            @can('delete-species') <!-- Solo los usuarios con el permiso 'delete-species' pueden ver este botón -->
-                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $specie->id }}">Eliminar</button>
-                            @endcan
-
+                            <a href="{{ route('admin.especies.edit', $specie->id) }}" class="btn btn-sm btn-success">Editar</a>
+                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $specie->id }}">Eliminar</button>
                             <a href="{{ route('comentarios.create', $specie->id) }}" class="btn btn-sm btn-success" style="background-color: #28a745;">Comentarios</a>
                         </div>
                     </td>
                 </tr>
                 @empty
-                    <tr>
-                        <td colspan="4" class="text-center">No hay especies.</td>
-                    </tr>
+                    <td colspan="4" class="text-center">No hay especies.</td>
                 @endforelse
             </tbody>
         </table>
@@ -156,10 +148,10 @@
 <!-- Modal de confirmación de eliminación -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content text-dark">
             <div class="modal-header">
                 <h5 class="modal-title" id="deleteModalLabel">Confirmar Eliminación</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
                 ¿Estás seguro de que deseas eliminar esta especie?

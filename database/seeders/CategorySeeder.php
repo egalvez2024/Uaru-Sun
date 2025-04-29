@@ -19,9 +19,11 @@ class CategorySeeder extends Seeder
             'tipo' => 'fauna'   
            
         ]);
+       
     
+       
     
-
+        
 
     }
     

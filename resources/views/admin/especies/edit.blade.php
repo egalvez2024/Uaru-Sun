@@ -72,6 +72,13 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Actualizar</button>
+
+    
+    <!-- Botón de regresar -->
+    <a href="{{ route('admin.especies.index') }}" class="btn btn-secondary">Regresar</a>
+</div>
+
+
     </form> 
 </div>
 @endsection

@@ -148,12 +148,32 @@
 @endsection
 
 <style>
-    .species-detail {
-        display: grid;
-        grid-template-columns: 1fr 2fr;
-        gap: 30px;
-        padding: 20px;
-    }
+/* Fondo oscuro que cubre toda la vista */
+.species-page-wrapper {
+    background-color: #1c1c1e; /* Gris oscuro elegante */
+    min-height: 100vh;
+    width: 100%;
+    padding: 50px 0;
+}
+
+/* Tarjeta principal */
+.detail-card {
+    display: flex;
+    flex-wrap: wrap;
+    background: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Columna de imagen */
+.image-column {
+    flex: 1 1 400px;
+    background: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
     .detail-image {
         width: 100%;

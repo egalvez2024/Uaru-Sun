@@ -73,13 +73,17 @@
                 padding: 20px;
             }
         }
+        footer {
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        text-align: center;
+        padding: 15px 0;
+        font-size: 14px;
+        width: 100%;
+    }
     </style>
 </head>
 <body class="font-sans antialiased">
- 
-         {{-- IMPORTAR FONT AWESOME PARA ÍCONOS --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <!-- Navbar de Bootstrap -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
     @include('layouts.navigation')  <!-- Menú de Breeze modificado -->
@@ -107,11 +111,17 @@
     @endif
 
     <!-- Contenido Principal -->
-    <main class="py-4">
+    <main class="py-4 flex-grow-1">
         <div class="container">
             @yield('content')
         </div>
     </main>
+
+    
+    <footer class="text-center py-3 mt-4" style="background-color: rgba(255, 255, 255, 0.5);">
+        © 2025 Biodiversidad Hondureña
+    </footer>
+
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -126,19 +136,9 @@
             });
         });
     </script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var menuDropdown = document.getElementById("menuDropdown");
-        var dropdown = new bootstrap.Dropdown(menuDropdown);
-
-        menuDropdown.addEventListener("click", function (event) {
-            event.preventDefault();
-            dropdown.toggle();
-        });
-    });
-</script>
-
-    
+    <footer>
+     {{ ('') }} Biodiversidad Hondureña.
+</footer>
 </body>
+
 </html>
