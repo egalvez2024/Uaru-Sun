@@ -37,7 +37,8 @@ class PeligrosoController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $peligroso = Peligroso::findOrfail($id);
+        return view('peligrosos.show_peligroso', compact('peligroso'));
     }
 
     /**

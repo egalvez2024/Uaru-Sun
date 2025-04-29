@@ -26,8 +26,15 @@
         }
 
         .custom-table td img {
-            max-width: 100%;
+            max-width: 100px;
             height: auto;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .custom-table td img:hover {
+            transform: scale(1.05);
+            cursor: pointer;
         }
 
         .table-responsive {
@@ -65,18 +72,22 @@
                 <thead>
                 <tr>
                     <th>Imagen</th>
-                    <th>Nombre</th>
-                    <th>Características</th>
-                    <th>Clasificación</th>
+                    <th>Nombre común</th>
+                    <th>Nombre científico</th>
+                    <th>Hábitat</th>
                 </tr>
                 </thead>
                 <tbody>
                 @forelse($peligrosos as $peligroso)
                     <tr>
-                        <td><img src="{{ asset($peligroso->imagen) }}" width="100"></td>
-                        <td>{{$peligroso->nombre}}</td>
-                        <td>{{$peligroso->caracteristicas}}</td>
-                        <td>{{$peligroso->tipo}}</td>
+                        <td>
+                            <a href="{{ route('peligrosos.show', $peligroso->id) }}">
+                                <img src="{{ asset('storage/' . $peligroso->imagen) }}" alt="{{ $peligroso->nombre }}">
+                            </a>
+                        </td>
+                        <td>{{ $peligroso->nombre }}</td>
+                        <td><em>{{ $peligroso->nombre_cientifico }}</em></td>
+                        <td>{{ $peligroso->habitat }}</td>
                     </tr>
                 @empty
                     <tr class="no-records">

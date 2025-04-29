@@ -15,11 +15,16 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         Categoria::create([
-            'nombre' => 'flora',
-            'tipo' => 'planta'   
+            'nombre' => 'Mamiferos',
+            'tipo' => 'fauna'   
            
         ]);
+       
+    
+       
+    
         
+
     }
     
 }

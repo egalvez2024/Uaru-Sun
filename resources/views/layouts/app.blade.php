@@ -116,6 +116,12 @@
             @yield('content')
         </div>
     </main>
+
+    <footer class="bg-dark text-white mt-5">
+        <div class="container py-4">
+            <p class="mb-0 text-center">&copy; {{ date('Y') }} Biodiversidad Hondureña</p>
+        </div>
+    </footer>
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

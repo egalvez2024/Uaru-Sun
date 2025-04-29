@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('peligrosos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->text('caracteristicas');
-            $table->enum('tipo', ['Mamiferos', 'Reptiles', 'Aracnidos', 'Insectos', 'Peces']);
+            $table->string('nombre_cientifico');
+            $table->text('descripcion');
+            $table->text('habitat');
             $table->string('imagen');
+            $table->string('ubicacion');
             $table->timestamps();
         });
     }

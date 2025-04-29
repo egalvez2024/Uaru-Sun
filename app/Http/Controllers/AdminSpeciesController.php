@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Peligroso;
 use App\Models\Species;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
@@ -49,16 +50,15 @@ class AdminSpeciesController extends Controller
 
     $imagePath = $request->file('image')->store('especies', 'public');
 
-    Species::create([
-        'nombre' => $validated['nombre'],
-        'nombre_cientifico' => $validated['nombre_cientifico'],
-        'descripcion' => $validated['descripcion'],
-        'habitat' => $validated['habitat'],
-        'location' => $validated['location'],
-        'image_path' => $imagePath,
-        'category_id' => $validated['category_id'],
-        'user_id' => Auth::id(), // Esto es lo que te faltaba
-    ]);
+        Species::create([
+            'nombre' => $validated['nombre'],
+            'nombre_cientifico' => $validated['nombre_cientifico'],
+            'descripcion' => $validated['descripcion'],
+            'habitat' => $validated['habitat'],
+            'location' => $validated['location'],
+            'image_path' => $imagePath,
+            'category_id' => $validated['category_id']
+        ]);
 
     return redirect()->route('admin.especies.index')->with('success', 'Especie creada!');
 }

@@ -44,28 +44,28 @@
                 
         </div>
 
-        <div class="card">
-            <div class="card-body">
-            <ul>
-        @foreach ($posts as $post)
-            <li>{{ $post->title }}</li>
-        @endforeach
-    </ul>
-            </div>
-        </div>
+    <!-- Título de publicaciones -->
 
-        <div class="card">
-            <div class="card-body">
-            <ul>
-        @foreach ($posts as $post)
-            <li>{{ $post->title }}</li>
-        @endforeach
-    </ul>
-            </div>
-        </div>
-    </div>
-@else
-    <p style="color: white;">No tienes publicaciones aún.</p>
-@endif
+    <h2 style="color: white; text-align: center; margin-top: 30px;">Mis Publicaciones</h2>
+
+
     
+@if($especies->isEmpty())
+ <p style="color: white; text-align: center; margin-top: 30px;">No hay especies registradas.</p>
+@else
+    <div class="gallery-grid">
+        @foreach($especies as $especie)
+             <div class="custom-card">
+                <img src="{{ route('catalogo.show', $especie->id) }}" alt="{{ $especie->nombre }}">
+                 <div class="custom-card-body">
+                    <h5>{{ $especie->nombre }}</h5>
+                    <p>{{ $especie->descripcion }}</p>
+                </div>
+            </div>
+        @endforeach
+    </div>
+@endif
+
+
+</div>
 @endsection

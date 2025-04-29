@@ -78,7 +78,37 @@
         </div>
     </main>
 
-    <!-- Scripts de Bootstrap -->
+
+    <div class="vision" style="background-position: center 263.6px; opacity: 1; transform: translateY(0px);">
+    <div class="vision-content">
+        <!-- Footer -->
+    <footer class="bg-dark text-white mt-5">
+        <div class="container py-4">
+            <p class="mb-0 text-center">© {{ date('Y') }} Biodiversidad Hondureña</p>
+        </div>
+    </footer>
+        
+    </div>
+    <div class="vision-image">
+        
+</div>
+    
+
+    <style>
+    /* Estilos para que el footer siempre esté visible sobre el fondo */
+    .footer {
+        position: fixed; /* Fijado en la parte inferior */
+        bottom: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.7); /* Oscuro pero semi-transparente */
+        color: white;
+        padding: 10px 0;
+        text-align: center;
+        z-index: 1000; /* Asegura que esté sobre otros elementos */
+    }
+</style>
+    
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Species;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EspeciesController extends Controller
 {
@@ -23,6 +24,7 @@ class EspeciesController extends Controller
     public function show($id)
     {
         $specie = Species::findOrFail($id);
-        return view('catalogo.show', compact('specie'));
+        $user = Auth::user();
+        return view('catalogo.show', compact('specie', 'user'));
     }
 }
