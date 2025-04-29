@@ -105,41 +105,57 @@
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Imagen</th>
-                    <th>Nombre</th>
-                    <th>Hábitat</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($species as $specie)
-                <tr>
-                    <!-- Imagen más grande -->
-                    <td class="image-cell">
-                        <img src="{{ asset('storage/' . $specie->image_path) }}" class="rounded" style="width: 120px; height: 120px; object-fit: cover;">
-                    </td>
-                    <!-- Nombre ajustado -->
-                    <td class="name-cell">{{ $specie->nombre }}</td>
-                    <!-- Hábitat ajustado, truncado si es necesario -->
-                    <td class="habitat-cell" title="{{ $specie->habitat }}">{{ $specie->habitat }}</td>
+        <div class="table-responsive">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Hábitat</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($species as $specie)
+                    <tr>
+                        <td>
+                            <img src="{{ asset('storage/' . $specie->image_path) }}" class="rounded" style="width: 120px; height: 120px; object-fit: cover;">
+                        </td>
+                        <td>{{ $specie->nombre }}</td>
+                        <td title="{{ $specie->habitat }}">{{ $specie->habitat }}</td>
+                        <td class="action-cell">
+                            <div class="action-buttons">
+                                <!-- Botón de editar -->
+                                <a href="{{ route('admin.especies.edit', $specie->id) }}" class="btn btn-success" title="Editar">
+    <img src="{{ asset('images/edit.png') }}" alt="Editar" style="width: 20px; height: 20px;">
+</a>
 
-                    <!-- Columna de acciones con botones apilados verticalmente -->
-                    <td class="action-cell">
-                        <div class="action-buttons">
-                            <a href="{{ route('admin.especies.edit', $specie->id) }}" class="btn btn-sm btn-success">Editar</a>
-                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $specie->id }}">Eliminar</button>
-                            <a href="{{ route('comentarios.create', $specie->id) }}" class="btn btn-sm btn-success" style="background-color: #28a745;">Comentarios</a>
-                        </div>
-                    </td>
-                </tr>
-                @empty
-                    <td colspan="4" class="text-center">No hay especies.</td>
-                @endforelse
-            </tbody>
-        </table>
+</a>
+
+                                </a>
+                                <!-- Botón de eliminar -->
+                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $specie->id }}" title="Eliminar">
+    <img src="{{ asset('images/elim.png') }}" alt="Eliminar" style="width: 20px; height: 20px;">
+</button>
+    
+                                </button>
+                                <!-- Botón de comentarios -->
+                                <a href="{{ route('comentarios.create', $specie->id) }}" class="btn btn-primary" title="Comentarios">
+    <img src="{{ asset('images/comen.png') }}" alt="Comentarios" style="width: 20px; height: 20px;">
+</a>
+
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4" class="text-center">No hay especies.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
 
         {{ $species->appends(request()->query())->links() }}
     </div>

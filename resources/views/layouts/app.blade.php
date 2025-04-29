@@ -83,7 +83,7 @@
     }
     </style>
 </head>
-<body class="font-sans antialiased">
+<body class="font-sans antialiased d-flex flex-column min-vh-100">
     <!-- Navbar de Bootstrap -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
     @include('layouts.navigation')  <!-- Menú de Breeze modificado -->
@@ -117,11 +117,11 @@
         </div>
     </main>
 
-    
-    <footer class="text-center py-3 mt-4" style="background-color: rgba(255, 255, 255, 0.5);">
-        © 2025 Biodiversidad Hondureña
+    <footer class="bg-dark text-white mt-5">
+        <div class="container py-4">
+            <p class="mb-0 text-center">&copy; {{ date('Y') }} Biodiversidad Hondureña</p>
+        </div>
     </footer>
-
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
