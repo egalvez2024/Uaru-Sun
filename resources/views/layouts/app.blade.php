@@ -132,7 +132,7 @@
         });
     </script>
     <footer>
-    © {{ date('Y') }} Biodiversidad Hondureña.
+     {{('') }} Biodiversidad Hondureña.
 </footer>
 </body>
 
