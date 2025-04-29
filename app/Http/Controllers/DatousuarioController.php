@@ -93,6 +93,11 @@ class DatousuarioController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
+   
+
+    return redirect()->route('profile.index')->with('success', 'Información actualizada correctamente');
+
         $datos = Datousuario::findOrFail($id);
         $datos->preferencias = $request->input('preferencias');
         $datos->fecha_nacimiento = $request->input('fecha_nacimiento');
@@ -103,15 +108,7 @@ class DatousuarioController extends Controller
         $datos->animal_favorito = $request->input('animal_favorito');
         $datos->ocupacion = $request->input('ocupacion');
 
-        if ($request->hasFile('foto_perfil')) {
-            // Eliminar la foto de perfil anterior si existe
-            if ($datos->foto_perfil) {
-                Storage::delete($datos->foto_perfil);
-            }
-            $file = $request->file('foto_perfil');
-            $path = $file->store('public/perfiles');
-            $datos->foto_perfil = $path;
-        }
+    
 
         if ($request->hasFile('foto_perfil')) {
             $file = $request->file('foto_perfil');
@@ -119,6 +116,16 @@ class DatousuarioController extends Controller
             $path = $file->storeAs('perfil', $filename, 'public');
             $datos->foto_perfil = $path;
         }
+        if ($request->hasFile('foto_perfil')) {
+            $file = $request->file('foto_perfil');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('perfil', $filename, 'public');
+            $informacion->foto_perfil = $path;
+        }
+    
+        $informacion->save();
+
+        
         
 
         $usuario = Auth::user();

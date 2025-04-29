@@ -81,5 +81,20 @@ public function store(Request $request)
     return redirect()->route('UsuarioPost.index')->with('success', 'Especie creada!');
 }
 
+public function update(Request $request)
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+    ]);
+
+    auth()->user()->update($validated);
+
+    return redirect()->back()->with('success', 'Perfil actualizado correctamente.');
+
+    dd($request->all());
+}
+
+
 }
 

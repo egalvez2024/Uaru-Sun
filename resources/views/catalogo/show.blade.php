@@ -14,28 +14,24 @@
                     <h1>{{ $specie->nombre }}</h1>
                     <h2><em>{{ $specie->nombre_cientifico }}</em></h2>
 
-                    <!-- Botón de Favoritos (solo texto) -->
+                    <!-- Botón de Favoritos -->
                     <div class="favorite-section">
                         @if(auth()->user() && auth()->user()->favoritos->where('species_id', $specie->id)->count())
                             <form action="{{ route('favoritos.destroy', $specie->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">
-                                    Quitar de Favoritos
-                                </button>
+                                <button type="submit" class="btn btn-danger">Quitar de Favoritos</button>
                             </form>
                         @else
                             <form action="{{ route('favoritos.store') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="species_id" value="{{ $specie->id }}">
-                                <button type="submit" class="btn btn-warning">
-                                    Añadir a Favoritos
-                                </button>
+                                <button type="submit" class="btn btn-warning">Añadir a Favoritos</button>
                             </form>
                         @endif
                     </div>
 
-                    <!-- Botón de Me Gusta con ícono de corazón -->
+                    <!-- Botón de Me Gusta -->
                     <div class="like-section mb-3 text-start">
                         @if(auth()->check() && auth()->user()->likes->where('species_id', $specie->id)->count())
                             <form action="{{ route('likes.destroy', $specie->id) }}" method="POST" style="display: inline;">
@@ -91,35 +87,44 @@
                         <p style="margin: 0; color: #1877f2; font-weight: bold;">{{ $comentario->user->email }}</p>
                         <p style="margin: 0; color: #050505; white-space: pre-line;">{{ $texto_limitado }}</p>
                         <p style="font-size: 0.75rem; color: #65676b; bottom: 5px; right: 10px;">{{ date('d-m-Y', strtotime($comentario->fecha)) }}</p>
-                        <div style="margin-top: 15px; text-align: right;">
-                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modal{{$comentario->id}}">
-                                Eliminar
-                            </button>
-                        </div>
+
+                        @auth
+                            @if(auth()->user()->role === 'admin')
+                                <div style="margin-top: 15px; text-align: right;">
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modal{{$comentario->id}}">
+                                        Eliminar
+                                    </button>
+                                </div>
+                            @endif
+                        @endauth
                     </div>
 
-                    <div class="modal fade" id="modal{{$comentario->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5">Eliminar comentario</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                </div>
-                                <div class="modal-body">
-                                    ¿Desea realmente eliminar el comentario "{{ $texto_limitado }}"?
-                                </div>
-                                <div class="modal-footer">
-                                    <form action="{{ route('comentarios.destroy', $comentario->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="hidden" name="specie_id" value="{{ $specie->id }}">
-                                        <button type="submit" class="btn btn-primary">Eliminar</button>
-                                    </form>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    @auth
+                        @if(auth()->user()->role === 'admin')
+                            <div class="modal fade" id="modal{{$comentario->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5">Eliminar comentario</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Desea realmente eliminar el comentario "{{ $texto_limitado }}"?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action="{{ route('comentarios.destroy', $comentario->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="hidden" name="specie_id" value="{{ $specie->id }}">
+                                                <button type="submit" class="btn btn-primary">Eliminar</button>
+                                            </form>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        @endif
+                    @endauth
                 @empty
                     <p class="text-center">No se han agregado comentarios</p>
                 @endforelse
@@ -148,32 +153,12 @@
 @endsection
 
 <style>
-/* Fondo oscuro que cubre toda la vista */
-.species-page-wrapper {
-    background-color: #1c1c1e; /* Gris oscuro elegante */
-    min-height: 100vh;
-    width: 100%;
-    padding: 50px 0;
-}
-
-/* Tarjeta principal */
-.detail-card {
-    display: flex;
-    flex-wrap: wrap;
-    background: #ffffff;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-}
-
-/* Columna de imagen */
-.image-column {
-    flex: 1 1 400px;
-    background: #e9ecef;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    .species-detail {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 30px;
+        padding: 20px;
+    }
 
     .detail-image {
         width: 100%;
