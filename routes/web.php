@@ -22,6 +22,8 @@ use App\Http\Controllers\DatousuarioController;
 use App\Http\Controllers\AnfibiosController;
 use App\Http\Controllers\ArbolesController;
 use App\Http\Controllers\MamiferosController;
+use App\Http\Controllers\LikeController;
+
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', function () {
@@ -115,5 +117,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/store', [StoreController::class, 'index'])->name('store.index');
     Route::get('/courses', [CourseController::class, 'index'])->name('course.index');
 });
+
+
+Route::post('/likes', [LikeController::class, 'store'])->name('likes.store');
+Route::delete('/likes/{id}', [LikeController::class, 'destroy'])->name('likes.destroy');
+Route::get('/mis-likes', [LikeController::class, 'misLikes'])->name('likes.mislikes');
+
+
+
 
 require __DIR__.'/auth.php';

@@ -81,6 +81,8 @@
             </a>
         </div>
 
+        <!-- Mostrar el filtro solo si el usuario es un administrador -->
+        @can('admin') <!-- Aquí se verifica si el usuario tiene permisos de administrador -->
         <form method="GET" action="{{ route('admin.especies.index') }}">
             <div class="row">
                 <div class="col-2">
@@ -97,6 +99,7 @@
                 </div>
             </div>
         </form>
+        @endcan
 
         @if(session('success'))
             <div class="alert alert-success bg-dark text-white border-secondary">{{ session('success') }}</div>
@@ -126,14 +129,22 @@
                     <!-- Columna de acciones con botones apilados verticalmente -->
                     <td class="action-cell">
                         <div class="action-buttons">
-                            <a href="{{ route('admin.especies.edit', $specie->id) }}" class="btn btn-sm btn-success">Editar</a>
-                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $specie->id }}">Eliminar</button>
+                            @can('edit-species') <!-- Solo los usuarios con el permiso 'edit-species' pueden ver este botón -->
+                                <a href="{{ route('admin.especies.edit', $specie->id) }}" class="btn btn-sm btn-success">Editar</a>
+                            @endcan
+
+                            @can('delete-species') <!-- Solo los usuarios con el permiso 'delete-species' pueden ver este botón -->
+                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $specie->id }}">Eliminar</button>
+                            @endcan
+
                             <a href="{{ route('comentarios.create', $specie->id) }}" class="btn btn-sm btn-success" style="background-color: #28a745;">Comentarios</a>
                         </div>
                     </td>
                 </tr>
                 @empty
-                    <td colspan="4" class="text-center">No hay especies.</td>
+                    <tr>
+                        <td colspan="4" class="text-center">No hay especies.</td>
+                    </tr>
                 @endforelse
             </tbody>
         </table>

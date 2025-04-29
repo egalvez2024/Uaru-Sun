@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('idiomas')->nullable();
             $table->string('deportes')->nullable();
             $table->string('animal_favorito')->nullable();
+            $table->string('foto_perfil')->nullable(); // Nueva columna para la foto de perfil
             $table->string('ocupacion')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();

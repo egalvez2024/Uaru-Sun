@@ -6,6 +6,7 @@ use App\Models\Peligroso;
 use App\Models\Species;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class UsuarioPostController extends Controller
@@ -28,6 +29,18 @@ class UsuarioPostController extends Controller
 
 
 }
+
+public function search(Request $request)
+{
+    $query = $request->input('query');
+
+    $posts = UsuarioPost::where('titulo', 'like', '%' . $query . '%')
+                         ->orWhere('contenido', 'like', '%' . $query . '%')
+                         ->paginate(10);
+
+    return view('usuario_posts.index', compact('posts', 'query'));
+}
+
 
 
 public function store(Request $request)
