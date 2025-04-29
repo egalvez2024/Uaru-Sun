@@ -16,7 +16,8 @@ class Species extends Model
         'habitat',
         'image_path',
         'location',
-        'category_id' // Asegúrate de que este campo existe en la tabla
+        'category_id',
+        'user_id', // Asegúrate de que este campo existe en la tabla
     ];
 
     public function category() // Debe llamarse exactamente "category"
@@ -28,4 +29,10 @@ class Species extends Model
     {
         return $this->hasMany(Comentario::class);
     }
+
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
 }

@@ -19,12 +19,7 @@ class CategorySeeder extends Seeder
             'tipo' => 'planta'   
            
         ]);
-       
-    
-       
-    
         
-
     }
     
 }

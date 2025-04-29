@@ -6,6 +6,7 @@ use App\Models\Species;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class AdminSpeciesController extends Controller
 {
@@ -35,31 +36,32 @@ class AdminSpeciesController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'nombre' => 'required|max:255',
-            'nombre_cientifico' => 'required|max:255',
-            'descripcion' => 'required',
-            'habitat' => 'required',
-            'location' => 'required',
-            'image' => 'required|image|max:2048',
-            'category_id' => 'required|exists:categories,id'
-        ]);
+{
+    $validated = $request->validate([
+        'nombre' => 'required|max:255',
+        'nombre_cientifico' => 'required|max:255',
+        'descripcion' => 'required',
+        'habitat' => 'required',
+        'location' => 'required',
+        'image' => 'required|image|max:2048',
+        'category_id' => 'required|exists:categories,id'
+    ]);
 
-        $imagePath = $request->file('image')->store('especies', 'public');
+    $imagePath = $request->file('image')->store('especies', 'public');
 
-        Species::create([
-            'nombre' => $validated['nombre'],
-            'nombre_cientifico' => $validated['nombre_cientifico'],
-            'descripcion' => $validated['descripcion'],
-            'habitat' => $validated['habitat'],
-            'location' => $validated['location'],
-            'image_path' => $imagePath,
-            'category_id' => $validated['category_id']
-        ]);
+    Species::create([
+        'nombre' => $validated['nombre'],
+        'nombre_cientifico' => $validated['nombre_cientifico'],
+        'descripcion' => $validated['descripcion'],
+        'habitat' => $validated['habitat'],
+        'location' => $validated['location'],
+        'image_path' => $imagePath,
+        'category_id' => $validated['category_id'],
+        'user_id' => Auth::id(), // Esto es lo que te faltaba
+    ]);
 
-        return redirect()->route('admin.especies.index')->with('success', 'Especie creada!');
-    }
+    return redirect()->route('admin.especies.index')->with('success', 'Especie creada!');
+}
 
     public function edit(Species $species)
     {
@@ -78,6 +80,7 @@ class AdminSpeciesController extends Controller
             'descripcion' => 'required',
             'habitat' => 'required',
             'location' => 'required',
+'category_id' => 'required',
             'image' => 'nullable|image|max:2048'
         ]);
 
@@ -89,7 +92,7 @@ class AdminSpeciesController extends Controller
 
         $species->update($validated);
 
-        return redirect()->route('admin.especies.index')->with('success', 'Especie!');
+        return redirect()->route('admin.especies.index')->with('success', 'Especie actulizada!');
     }
 
     public function destroy(Species $species)
