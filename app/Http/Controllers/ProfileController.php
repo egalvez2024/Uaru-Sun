@@ -17,12 +17,16 @@ class ProfileController extends Controller
 {
     
     public function index() {
-        
-
-
         $user = auth()->user();
-        $posts = $user->posts; // Suponiendo que haya una relación con Post
-        return view('profile.index', compact('user'))->with('posts', $user->posts ?? collect());
+        $posts = $user->posts;
+    
+        // Asumimos que cada post tiene una especie relacionada (ajusta según tu modelo)
+        $especies = $posts->flatMap(function($post) {
+            return $post->especies ?? collect(); // Asegúrate de tener esta relación definida
+        });
+    
+        return view('profile.index', compact('user', 'especies'))
+            ->with('posts', $posts ?? collect());
     }
 
 
