@@ -12,6 +12,11 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->after('id'); // Añadimos el campo después del ID
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('image')->nullable();
+        });
+        
     }
 
     public function down(): void
@@ -21,4 +26,5 @@ return new class extends Migration
             $table->dropColumn('user_id');
         });
     }
+    
 };

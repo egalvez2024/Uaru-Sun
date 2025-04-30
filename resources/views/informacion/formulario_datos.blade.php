@@ -76,9 +76,11 @@
                 <label for="foto_perfil" class="form-label">Foto de Perfil</label>
                 <input type="file" class="form-control" id="foto_perfil" name="foto_perfil" onchange="previewImage(event)">
                 <div class="mt-3 text-center">
-                    <img id="preview" src="{{ isset($informacion) && $informacion->foto_perfil ? asset('storage/' . $informacion->foto_perfil) : '#' }}"
+                    <img id="preview"
+                         src="#"
                          alt="Vista previa de la imagen"
-                         class="img-thumbnail rounded-circle shadow" style="display: {{ isset($informacion) && $informacion->foto_perfil ? 'block' : 'none' }}; max-width: 150px;">
+                         class="img-thumbnail rounded-circle shadow"
+                         style="display: none; max-width: 150px;">
                 </div>
             </div>
 
@@ -99,11 +101,13 @@
 <script>
     function previewImage(event) {
         const reader = new FileReader();
+        const output = document.getElementById('preview');
+
         reader.onload = function () {
-            const output = document.getElementById('preview');
             output.src = reader.result;
             output.style.display = 'block';
         };
+
         if (event.target.files.length > 0) {
             reader.readAsDataURL(event.target.files[0]);
         }

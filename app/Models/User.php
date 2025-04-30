@@ -6,13 +6,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Like;
 
 class User extends Authenticatable
 {
-    public function likes() {
-        return $this->hasMany(Like::class);
-    }
+
 
     public function posts()
 {
@@ -24,7 +21,15 @@ class User extends Authenticatable
 
     public function favoritos(){
         return $this->hasMany(Favorito::class);
+    
+    }
+    public function likes() {
+        return $this->hasMany(Like::class);
+    }
 
+    public function datos()
+    {
+        return $this->hasOne(Datousuario::class);
     }
     /**
      * The attributes that are mass assignable.
@@ -76,5 +81,6 @@ public function datousuario()
         // Si tu tabla de 'datousuarios' usa user_id como clave foránea:
         return $this->hasOne(Datousuario::class);
     }
+
 
 }

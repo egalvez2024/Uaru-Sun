@@ -10,17 +10,11 @@ use Illuminate\Support\Facades\Storage;
 
 class DatousuarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $usuario = Auth::user();
@@ -33,11 +27,18 @@ class DatousuarioController extends Controller
         return view('informacion.formulario_datos', compact('usuario'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
+        $request->validate([
+            'usuario_name' => 'required',
+            'email' => 'required|email',
+            'foto_perfil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'usuario_name.required' => 'El nombre es obligatorio.',
+            'email.required' => 'El email es obligatorio.',
+            'email.email' => 'El email debe ser válido.',
+        ]);
+
         $datos = new Datousuario;
         $datos->preferencias = $request->input('preferencias');
         $datos->fecha_nacimiento = $request->input('fecha_nacimiento');
@@ -47,20 +48,16 @@ class DatousuarioController extends Controller
         $datos->deportes = $request->input('deportes');
         $datos->animal_favorito = $request->input('animal_favorito');
         $datos->ocupacion = $request->input('ocupacion');
-        $datos->user_id = $request->input('user_id');
+        $datos->user_id = Auth::id();
 
+        // Manejo de imagen de perfil
         if ($request->hasFile('foto_perfil')) {
-            $file = $request->file('foto_perfil');
-            $path = $request->file('foto_perfil')->store('perfiles', 'public');
-            $datos->foto_perfil = $path;
-      
-            
+            $path = $request->file('foto_perfil')->store('public/fotos_perfil');
+            $datos->foto_perfil = basename($path);
         }
 
-        $usuario = Auth::user();
-        $usuario_id = $usuario->id;
-
-        $user = User::findOrFail($usuario_id);
+        // Actualizar datos del usuario
+        $user = Auth::user();
         $user->email = $request->input('email');
         $user->name = $request->input('usuario_name');
         $user->save();
@@ -68,19 +65,17 @@ class DatousuarioController extends Controller
         if ($datos->save()) {
             return redirect()->route('profile.index');
         }
+
+        $path = $request->file('foto_perfil')->store('perfiles', 'public');
+        $datos->foto_perfil = $path;
+
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $informacion = Datousuario::findOrFail($id);
@@ -88,15 +83,19 @@ class DatousuarioController extends Controller
         return view('informacion.formulario_datos', compact('informacion', 'usuario'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
 
-   
-
-    return redirect()->route('profile.index')->with('success', 'Información actualizada correctamente');
+        
+        $request->validate([
+            'usuario_name' => 'required',
+            'email' => 'required|email',
+            'foto_perfil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'usuario_name.required' => 'El nombre es obligatorio.',
+            'email.required' => 'El email es obligatorio.',
+            'email.email' => 'El email debe ser válido.',
+        ]);
 
         $datos = Datousuario::findOrFail($id);
         $datos->preferencias = $request->input('preferencias');
@@ -108,45 +107,31 @@ class DatousuarioController extends Controller
         $datos->animal_favorito = $request->input('animal_favorito');
         $datos->ocupacion = $request->input('ocupacion');
 
-    
-
+        // Manejo de imagen de perfil
         if ($request->hasFile('foto_perfil')) {
-            $file = $request->file('foto_perfil');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('perfil', $filename, 'public');
+            // Borra la imagen anterior si existe
+            if ($datos->foto_perfil) {
+                Storage::delete('public/fotos_perfil/' . $datos->foto_perfil);
+            }
+            $path = $request->file('foto_perfil')->store('public/fotos_perfil');
+            $datos->foto_perfil = basename($path);
+
+            $path = $request->file('foto_perfil')->store('perfiles', 'public');
             $datos->foto_perfil = $path;
+
         }
-        if ($request->hasFile('foto_perfil')) {
-            $file = $request->file('foto_perfil');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('perfil', $filename, 'public');
-            $informacion->foto_perfil = $path;
-        }
-    
-        $informacion->save();
 
-        
-        
-
-        $usuario = Auth::user();
-        $usuario_id = $usuario->id;
-
-        $user = User::findOrFail($usuario_id);
+        // Actualizar datos del usuario
+        $user = Auth::user();
         $user->email = $request->input('email');
         $user->name = $request->input('usuario_name');
         $user->save();
-
-        $datos->save();
-        return redirect()->route('profile.index')->with('success', 'Información actualizada correctamente');
 
         if ($datos->save()) {
             return redirect()->route('profile.index');
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //

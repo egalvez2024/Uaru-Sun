@@ -10,65 +10,65 @@
         background-size: cover;
     }
     .content-box {
-        background-color: rgba(30,28,28,0.67);
+        background-color: rgba(255, 255, 255, 0.6); /* Fondo más transparente */
         padding: 20px;
         border-radius: 10px;
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-        color: white;
-    }
-    .content-box h1 {
-        color: white;
-    }
-    .custom-table {
-        width: 100%;
-        background: rgba(30,28,28,0.67);
-        color: white;
-        font-size: 18px;
-        border-collapse: collapse;
-    }
-    .custom-table thead {
-        background-color: rgba(30,28,28,0.87);
-        font-weight: bold;
-    }
-    .custom-table th, .custom-table td {
-        padding: 15px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-    .custom-table td img {
-        max-width: 100%;
-        height: auto;
-    }
-    .table-responsive {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-    /* Botones de acciones */
-    .action-buttons {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); /* Efecto de transparencia en los bordes */
     }
     .action-buttons a, .action-buttons button {
-        margin: 5px 0;
-        font-size: 18px;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0;
-        border-radius: 8px;
+        width: 100%; /* Hace que los botones ocupen el ancho completo de la celda */
+        margin: 2px 0;
+        font-size: 12px; /* Reducir el tamaño de los botones */
     }
-    .action-buttons a:hover, .action-buttons button:hover {
-        opacity: 0.8;
-        transform: scale(1.05);
-        transition: all 0.2s ease;
+
+    /* Estilo para la tabla con tamaño fijo */
+    table {
+        table-layout: fixed; /* Hace que las columnas tengan el mismo tamaño */
+        width: 100%; /* Asegura que la tabla ocupe todo el ancho disponible */
+    }
+    td, th {
+        overflow: hidden; /* Evita que el contenido se desborde */
+        text-overflow: ellipsis; /* Agrega '...' cuando el contenido es demasiado largo */
+        white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+        padding: 10px;
+    }
+
+    /* Estilo específico para la imagen */
+    .image-cell {
+        width: 20%;
+    }
+    .name-cell {
+        width: 35%;
+    }
+    /* Columna de Hábitat con truncamiento */
+    .habitat-cell {
+        width: 35%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
     }
     .action-cell {
+        width: 20%; /* Ajustamos el tamaño de la columna de acciones */
         text-align: center;
-        vertical-align: top;
+        vertical-align: top; /* Asegura que los botones se alineen en la parte superior */
+    }
+
+    /* Estilo para apilar botones y ajustarlos */
+    .action-buttons {
+        display: flex;
+        flex-direction: column; /* Hace que los botones se apilen verticalmente */
+        align-items: center;
+    }
+
+    .action-buttons a, .action-buttons button {
+        margin: 5px 0; /* Espaciado entre los botones */
+    }
+
+    /* Tooltip al pasar el mouse sobre contenido largo */
+    .habitat-cell:hover {
+        overflow: visible;
+        white-space: normal;
+        background-color: #f0f0f0;
     }
 </style>
 
@@ -84,7 +84,7 @@
         <!-- Mostrar el filtro solo si el usuario es un administrador -->
         @can('admin') <!-- Aquí se verifica si el usuario tiene permisos de administrador -->
         <form method="GET" action="{{ route('admin.especies.index') }}">
-            <div class="row mb-3">
+            <div class="row">
                 <div class="col-2">
                     <select class="form-select" name="filtro">
                         <option value="nombre_comun" {{ request('filtro') == 'nombre_comun' ? 'selected' : '' }}>Nombre Común</option>
@@ -102,60 +102,52 @@
         @endcan
 
         @if(session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
+            <div class="alert alert-success bg-dark text-white border-secondary">{{ session('success') }}</div>
         @endif
 
-        <div class="table-responsive">
-            <table class="custom-table">
-                <thead>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Hábitat</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($species as $specie)
+                <tr>
+                    <!-- Imagen más grande -->
+                    <td class="image-cell">
+                        <img src="{{ asset('storage/' . $specie->image_path) }}" class="rounded" style="width: 120px; height: 120px; object-fit: cover;">
+                    </td>
+                    <!-- Nombre ajustado -->
+                    <td class="name-cell">{{ $specie->nombre }}</td>
+                    <!-- Hábitat ajustado, truncado si es necesario -->
+                    <td class="habitat-cell" title="{{ $specie->habitat }}">{{ $specie->habitat }}</td>
+
+                    <!-- Columna de acciones con botones apilados verticalmente -->
+                    <td class="action-cell">
+                        <div class="action-buttons">
+                            @can('edit-species') <!-- Solo los usuarios con el permiso 'edit-species' pueden ver este botón -->
+                                <a href="{{ route('admin.especies.edit', $specie->id) }}" class="btn btn-sm btn-success">Editar</a>
+                            @endcan
+
+                            @can('delete-species') <!-- Solo los usuarios con el permiso 'delete-species' pueden ver este botón -->
+                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $specie->id }}">Eliminar</button>
+                            @endcan
+
+                            <a href="{{ route('comentarios.create', $specie->id) }}" class="btn btn-sm btn-success" style="background-color: #28a745;">Comentarios</a>
+                        </div>
+                    </td>
+                </tr>
+                @empty
                     <tr>
-                        <th>Imagen</th>
-                        <th>Nombre</th>
-                        <th>Hábitat</th>
-                        <th>Acciones</th>
+                        <td colspan="4" class="text-center">No hay especies.</td>
                     </tr>
-                </thead>
-                <tbody>
-                    @forelse($species as $specie)
-                    <tr>
-                        <td>
-                            <img src="{{ asset('storage/' . $specie->image_path) }}" class="rounded" style="width: 120px; height: 120px; object-fit: cover;">
-                        </td>
-                        <td>{{ $specie->nombre }}</td>
-                        <td title="{{ $specie->habitat }}">{{ $specie->habitat }}</td>
-                        <td class="action-cell">
-                            <div class="action-buttons">
-                                <!-- Botón de editar -->
-                                <a href="{{ route('admin.especies.edit', $specie->id) }}" class="btn btn-success" title="Editar">
-    <img src="{{ asset('images/edit.png') }}" alt="Editar" style="width: 20px; height: 20px;">
-</a>
-
-</a>
-
-                                </a>
-                                <!-- Botón de eliminar -->
-                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $specie->id }}" title="Eliminar">
-    <img src="{{ asset('images/elim.png') }}" alt="Eliminar" style="width: 20px; height: 20px;">
-</button>
-    
-                                </button>
-                                <!-- Botón de comentarios -->
-                                <a href="{{ route('comentarios.create', $specie->id) }}" class="btn btn-primary" title="Comentarios">
-    <img src="{{ asset('images/comen.png') }}" alt="Comentarios" style="width: 20px; height: 20px;">
-</a>
-
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    @empty
-                        <tr>
-                            <td colspan="4" class="text-center">No hay especies.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
+                @endforelse
+            </tbody>
+        </table>
 
         {{ $species->appends(request()->query())->links() }}
     </div>
@@ -164,10 +156,10 @@
 <!-- Modal de confirmación de eliminación -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content text-dark">
+        <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="deleteModalLabel">Confirmar Eliminación</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 ¿Estás seguro de que deseas eliminar esta especie?
