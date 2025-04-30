@@ -86,15 +86,14 @@
             display: none;
             position: fixed;
             z-index: 1050;
-            padding-top: 80px;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
             background-color: rgba(0, 0, 0, 0.9);
             align-items: center;
             justify-content: center;
+            flex-direction: column;
         }
 
         .modal-content {
@@ -102,9 +101,10 @@
             max-height: 80vh;
             border-radius: 8px;
             box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
-            margin: auto;
             display: block;
+            margin: 0 auto;
             animation: fadeIn 0.4s ease-in-out;
+            object-fit: contain;
         }
 
         .close {
@@ -119,8 +119,7 @@
         }
 
         .close-button {
-            position: absolute;
-            bottom: 30px;
+            margin-top: 20px;
             background-color: #ffffff;
             color: #000000;
             border: none;
@@ -233,7 +232,6 @@
 <div id="myModal" class="modal">
     <span class="close" onclick="closeModal()">&times;</span>
     <img class="modal-content" id="img01">
-    <button class="close-button" onclick="closeModal()">Cerrar</button>
 </div>
 
 {{-- SCRIPTS --}}
@@ -259,7 +257,8 @@
         }
 
         document.querySelectorAll(".modal-trigger").forEach(el => {
-            el.addEventListener("click", () => {
+            el.addEventListener("click", (e) => {
+                e.preventDefault();
                 const src = el.getAttribute("data-src");
                 if (src) openModalWithSrc(src);
             });
