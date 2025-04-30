@@ -11,10 +11,10 @@
     }
 
     .content-box {
-        background-color: rgba(255, 255, 255, 0.85); /* Fondo más suave y elegante */
+        background-color: rgba(255, 255, 255, 0.85);
         padding: 30px;
         border-radius: 15px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra más suave */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         max-width: 800px;
         margin: 0 auto;
     }
@@ -37,7 +37,7 @@
     }
 
     .btn-primary {
-        background-color: #4CAF50; /* Verde brillante */
+        background-color: #4CAF50;
         border-color: #4CAF50;
     }
 
@@ -54,6 +54,21 @@
     .btn-secondary:hover {
         background-color: #bbb;
         border-color: #bbb;
+    }
+
+    /* Estilo para previsualización */
+    #preview-container {
+        margin-top: 15px;
+        text-align: center;
+    }
+
+    #preview {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        margin-top: 10px;
+        display: none;
     }
 </style>
 
@@ -102,13 +117,35 @@
             <div class="mb-3">
                 <label for="image" class="form-label">Imagen</label>
                 <input type="file" class="form-control" id="image" name="image" required accept="image/*">
+                
+                <!-- Previsualización -->
+                <div id="preview-container">
+                    <img id="preview" alt="Vista previa de la imagen seleccionada">
+                </div>
             </div>
         
-            <button type="submit" class="btn btn-primary">Guardar Publicacion</button>
-            
+            <button type="submit" class="btn btn-primary">Guardar Publicación</button>
             <a href="{{ route('UsuarioPost.index') }}" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
 </div>
 
+{{-- SCRIPT DE PREVISUALIZACIÓN --}}
+<script>
+    document.getElementById('image').addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        const preview = document.getElementById('preview');
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                preview.src = event.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = '';
+            preview.style.display = 'none';
+        }
+    });
+</script>
 @endsection

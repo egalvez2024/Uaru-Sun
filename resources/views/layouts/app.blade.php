@@ -24,6 +24,13 @@
     @stack('styles')
 
     <style>
+        @media (max-width: 992px) {
+        .navbar .form-select,
+        .navbar .form-control {
+        width: 100%;
+        margin-top: 5px;
+        }
+    }
         * {
             margin: 0;
             padding: 0;
