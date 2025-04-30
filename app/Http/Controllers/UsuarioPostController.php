@@ -8,6 +8,7 @@ use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class UsuarioPostController extends Controller
 {
@@ -23,12 +24,10 @@ class UsuarioPostController extends Controller
     }
 
     public function create()
-{
-    $categories = Categoria::all();
-    return view('UsuarioPost.create', compact('categories'));
-
-
-}
+    {
+        $categories = Categoria::all();
+        return view('UsuarioPost.create', compact('categories'));
+    }
 
 public function search(Request $request)
 {
@@ -42,30 +41,30 @@ public function search(Request $request)
 }
 
 
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'nombre' => 'required|max:255',
+            'nombre_cientifico' => 'required|max:255',
+            'descripcion' => 'required',
+            'habitat' => 'required',
+            'location' => 'required',
+            'image' => 'required|image|max:2048',
+            'category_id' => 'required|exists:categories,id'
+        ]);
 
-public function store(Request $request)
-{
-    $validated = $request->validate([
-        'nombre' => 'required|max:255',
-        'nombre_cientifico' => 'required|max:255',
-        'descripcion' => 'required',
-        'habitat' => 'required',
-        'location' => 'required',
-        'image' => 'required|image|max:2048',
-        'category_id' => 'required|exists:categories,id'
-    ]);
+        $imagePath = $request->file('image')->store('especies', 'public');
 
-    $imagePath = $request->file('image')->store('especies', 'public');
-
-    Species::create([
-        'nombre' => $validated['nombre'],
-        'nombre_cientifico' => $validated['nombre_cientifico'],
-        'descripcion' => $validated['descripcion'],
-        'habitat' => $validated['habitat'],
-        'location' => $validated['location'],
-        'image_path' => $imagePath,
-        'category_id' => $validated['category_id']
-    ]);
+        Species::create([
+            'nombre' => $validated['nombre'],
+            'nombre_cientifico' => $validated['nombre_cientifico'],
+            'descripcion' => $validated['descripcion'],
+            'habitat' => $validated['habitat'],
+            'location' => $validated['location'],
+            'image_path' => $imagePath,
+            'category_id' => $validated['category_id'],
+            'user_id' => Auth::id(), // ← Esta línea resuelve el error
+        ]);
 
     if($request->input('category_id') == 2) {
         $peligro = new Peligroso();
@@ -78,9 +77,8 @@ public function store(Request $request)
         $peligro->save();
     }
 
-    return redirect()->route('UsuarioPost.index')->with('success', 'Especie creada!');
-}
-
+        return redirect()->route('UsuarioPost.index')->with('success', 'Especie creada!');
+    }
 public function update(Request $request)
 {
     $validated = $request->validate([
