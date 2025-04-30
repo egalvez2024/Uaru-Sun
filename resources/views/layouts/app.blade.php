@@ -12,6 +12,7 @@
 
     <!-- Bootstrap 5 desde CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-papPjXvSxQy2tc+tdBO9e8z6mZ3KD+uHr1vwMDxQqnlG4EOGvD9B8FJ+ElZ6KkX5IewvOd3FY2NwlHbfe2E3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     <!-- Fuentes de Breeze (opcional) -->
     <link rel="preconnect" href="https://fonts.bunny.net">

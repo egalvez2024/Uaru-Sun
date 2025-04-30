@@ -68,182 +68,195 @@
     <div class="form-container">
         <h1>Agregar Nueva Especie</h1>
 
-        <form action="{{ route('admin.especies.store') }}" method="POST" enctype="multipart/form-data">
+        {{-- Errores de backend --}}
+        {{--
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        --}}
+
+        <form id="especieForm" action="{{ route('admin.especies.store') }}" method="POST" enctype="multipart/form-data" novalidate>
             @csrf
 
             <div class="mb-3">
-    <label for="nombre" class="form-label">Nombre Común</label>
-    <input type="text" class="form-control" id="nombre" name="nombre" maxlength="35" oninput="validarNombre()" required>
-    <div id="nombreError" style="color: red; display: none;">El nombre debe contener al menos dos letras y no debe tener más de un espacio consecutivo.</div>
-</div>
+                <label for="nombre" class="form-label">Nombre Común</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" maxlength="35" value="{{ old('nombre') }}" required oninput="validarNombre()">
+                <div id="nombreError" class="text-danger" style="display: none;">El nombre debe contener al menos dos letras y no debe tener más de un espacio consecutivo.</div>
+            </div>
 
             <div class="mb-3">
                 <label for="nombre_cientifico" class="form-label">Nombre Científico</label>
-                <input type="text" class="form-control" id="nombre_cientifico" name="nombre_cientifico" oninput="validarNombreCientifico()" required>
-                <div id="nombre_cientifico" class="text-danger" style="display:none;"></div>
-
+                <input type="text" class="form-control" id="nombre_cientifico" name="nombre_cientifico" value="{{ old('nombre_cientifico') }}" required oninput="validarNombreCientifico()">
+                <div id="nombreCientificoError" class="text-danger" style="display: none;">El nombre científico debe contener al menos dos letras.</div>
             </div>
 
             <div class="mb-3">
                 <label for="descripcion" class="form-label">Descripción</label>
-                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" oninput="validarDescripcion()" required></textarea>
-                <div id="descripcion" class="text-danger" style="display:none;"></div>
-
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required oninput="validarDescripcion()">{{ old('descripcion') }}</textarea>
+                <div id="descripcionError" class="text-danger" style="display: none;">La descripción debe tener al menos 5 caracteres.</div>
             </div>
 
             <div class="mb-3">
                 <label for="habitat" class="form-label">Hábitat</label>
-                <textarea class="form-control" id="habitat" name="habitat" rows="2" oninput="validarHabitat()" required></textarea>
-                <div id="habitat" class="text-danger" style="display:none;"></div>
-
+                <textarea class="form-control" id="habitat" name="habitat" rows="2" required oninput="validarHabitat()">{{ old('habitat') }}</textarea>
+                <div id="habitatError" class="text-danger" style="display: none;">El hábitat debe tener al menos 5 caracteres.</div>
             </div>
 
             <div class="mb-3">
                 <label for="location" class="form-label">Ubicación</label>
-                <input type="text" class="form-control" id="location" name="location" oninput="validarLocation()" required>
-                <div id="location" class="text-danger" style="display:none;"></div>
-
+                <input type="text" class="form-control" id="location" name="location" required oninput="validarLocation()" value="{{ old('location') }}">
+                <div id="locationError" class="text-danger" style="display: none;">La ubicación debe tener al menos 3 caracteres.</div>
             </div>
 
             <div class="mb-3">
                 <label for="category_id" class="form-label">Categoría</label>
-                <select class="form-control" id="category_id" name="category_id" onchange="validarCategoria()" required>
-                    <option value="" selected disabled>Seleccione una categoría</option>
+                <select class="form-control" id="category_id" name="category_id" required onchange="validarCategoria()">
+                    <option value="" disabled {{ old('category_id') ? '' : 'selected' }}>Seleccione una categoría</option>
                     @foreach($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->nombre }} ({{ $category->tipo }})</option>
+                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                            {{ $category->nombre }} ({{ $category->tipo }})
+                        </option>
                     @endforeach
                 </select>
+                <div id="categoriaError" class="text-danger" style="display: none;">Debe seleccionar una categoría.</div>
             </div>
 
             <div class="mb-3">
                 <label for="image" class="form-label">Imagen</label>
-                <input type="file" class="form-control" id="image" name="image" required accept="image/*"onchange="validarImagen()">
+                <input type="file" class="form-control" id="image" name="image" accept="image/*" onchange="validarImagen()" required>
+                <div id="imagenError" class="text-danger" style="display: none;">Debe subir una imagen válida.</div>
             </div>
 
             <div class="btn-group">
-                <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="submit" class="btn btn-primary" id="guardarBtn">
+    <span id="guardarIcono" class="me-2"><i class="fas fa-save"></i></span>
+    Guardar
+</button>
+
                 <a href="{{ route('admin.especies.index') }}" class="btn btn-secondary">Cancelar</a>
             </div>
         </form>
+
         <script>
-function validarNombre() {
-    const input = document.getElementById('nombre');
-    const error = document.getElementById('nombreError');
-    let valor = input.value;
+            function validarNombre() {
+                const input = document.getElementById('nombre');
+                const error = document.getElementById('nombreError');
+                let valor = input.value;
 
-    input.classList.remove('is-invalid', 'is-valid');
-    error.style.display = 'none';
+                valor = valor.replace(/[^a-zA-ZÁÉÍÓÚáéíóúñÑ\s]/g, '').replace(/\s{2,}/g, ' ').replace(/^\s+/, '').slice(0, 35);
+                input.value = valor;
 
-    valor = valor.replace(/[^a-zA-ZÁÉÍÓÚáéíóúñÑ\s]/g, '').replace(/\s{2,}/g, ' ').replace(/^\s+/, '').slice(0, 35);
-    input.value = valor;
+                const valido = valor.replace(/\s+/g, '').length >= 2;
+                error.style.display = valido ? 'none' : 'block';
+                input.classList.toggle('is-invalid', !valido);
+            }
 
-    if (valor.replace(/\s+/g, '').length < 2) {
-        input.classList.add('is-invalid');
-        error.style.display = 'block';
-    } else {
-        input.classList.add('is-valid');
+            function validarNombreCientifico() {
+                const input = document.getElementById('nombre_cientifico');
+                const error = document.getElementById('nombreCientificoError');
+                let valor = input.value;
+
+                valor = valor.replace(/[^a-zA-ZÁÉÍÓÚáéíóúñÑ\s]/g, '').replace(/\s{2,}/g, ' ').replace(/^\s+/, '').slice(0, 50);
+                input.value = valor;
+
+                const valido = valor.replace(/\s+/g, '').length >= 2;
+                error.style.display = valido ? 'none' : 'block';
+                input.classList.toggle('is-invalid', !valido);
+            }
+
+            function validarDescripcion() {
+                const input = document.getElementById('descripcion');
+                const error = document.getElementById('descripcionError');
+                const valor = input.value.trim();
+
+                const valido = valor.length >= 5;
+                error.style.display = valido ? 'none' : 'block';
+                input.classList.toggle('is-invalid', !valido);
+            }
+
+            function validarHabitat() {
+                const input = document.getElementById('habitat');
+                const error = document.getElementById('habitatError');
+                const valor = input.value.trim();
+
+                const valido = valor.length >= 5;
+                error.style.display = valido ? 'none' : 'block';
+                input.classList.toggle('is-invalid', !valido);
+            }
+
+            function validarLocation() {
+                const input = document.getElementById('location');
+                const error = document.getElementById('locationError');
+                const valor = input.value.trim();
+
+                const valido = valor.length >= 3;
+                error.style.display = valido ? 'none' : 'block';
+                input.classList.toggle('is-invalid', !valido);
+            }
+
+            function validarCategoria() {
+                const select = document.getElementById('category_id');
+                const error = document.getElementById('categoriaError');
+
+                const valido = !!select.value;
+                error.style.display = valido ? 'none' : 'block';
+                select.classList.toggle('is-invalid', !valido);
+            }
+
+            function validarImagen() {
+                const input = document.getElementById('image');
+                const error = document.getElementById('imagenError');
+
+                const valido = input.files && input.files.length > 0;
+                error.style.display = valido ? 'none' : 'block';
+                input.classList.toggle('is-invalid', !valido);
+            }
+
+            // Ejecutar validaciones si hay errores del backend
+            window.addEventListener('load', () => {
+                if ({{ $errors->any() ? 'true' : 'false' }}) {
+                    validarNombre();
+                    validarNombreCientifico();
+                    validarDescripcion();
+                    validarHabitat();
+                    validarLocation();
+                    validarCategoria();
+                    validarImagen();
+                }
+            });
+
+            document.getElementById('especieForm').addEventListener('submit', function (event) {
+    validarNombre();
+    validarNombreCientifico();
+    validarDescripcion();
+    validarHabitat();
+    validarLocation();
+    validarCategoria();
+    validarImagen();
+
+    const errores = document.querySelectorAll('.is-invalid');
+    if (errores.length > 0) {
+        event.preventDefault();
+        event.stopPropagation();
+        return;
     }
-}
 
-function validarNombreCientifico() {
-    const input = document.getElementById('nombre_cientifico');
-    const error = document.getElementById('nombreCientificoError');
-    let valor = input.value;
+    // Mostrar animación de carga
+    const btn = document.getElementById('guardarBtn');
+    const icono = document.getElementById('guardarIcono');
 
-    input.classList.remove('is-invalid', 'is-valid');
-    error.style.display = 'none';
-
-    valor = valor.replace(/[^a-zA-ZÁÉÍÓÚáéíóúñÑ\s]/g, '').replace(/\s{2,}/g, ' ').replace(/^\s+/, '').slice(0, 50);
-    input.value = valor;
-
-    if (valor.replace(/\s+/g, '').length < 2) {
-        input.classList.add('is-invalid');
-        error.style.display = 'block';
-    } else {
-        input.classList.add('is-valid');
-    }
-}
-
-function validarDescripcion() {
-    const input = document.getElementById('descripcion');
-    const error = document.getElementById('descripcionError');
-    let valor = input.value.trim();
-
-    input.classList.remove('is-invalid', 'is-valid');
-    error.style.display = 'none';
-
-    if (valor.length < 5) {
-        input.classList.add('is-invalid');
-        error.style.display = 'block';
-    } else {
-        input.classList.add('is-valid');
-    }
-}
-
-function validarHabitat() {
-    const input = document.getElementById('habitat');
-    const error = document.getElementById('habitatError');
-    let valor = input.value.trim();
-
-    input.classList.remove('is-invalid', 'is-valid');
-    error.style.display = 'none';
-
-    if (valor.length < 5) {
-        input.classList.add('is-invalid');
-        error.style.display = 'block';
-    } else {
-        input.classList.add('is-valid');
-    }
-}
-
-function validarLocation() {
-    const input = document.getElementById('location');
-    const error = document.getElementById('locationError');
-    let valor = input.value.trim();
-
-    input.classList.remove('is-invalid', 'is-valid');
-    error.style.display = 'none';
-
-    if (valor.length < 3) {
-        input.classList.add('is-invalid');
-        error.style.display = 'block';
-    } else {
-        input.classList.add('is-valid');
-    }
-}
-
-function validarCategoria() {
-    const select = document.getElementById('category_id');
-    const error = document.getElementById('categoriaError');
-
-    select.classList.remove('is-invalid', 'is-valid');
-    error.style.display = 'none';
-
-    if (!select.value) {
-        select.classList.add('is-invalid');
-        error.style.display = 'block';
-    } else {
-        select.classList.add('is-valid');
-    }
-}
-
-function validarImagen() {
-    const input = document.getElementById('image');
-    const error = document.getElementById('imagenError');
-
-    input.classList.remove('is-invalid', 'is-valid');
-    error.style.display = 'none';
-
-    if (!input.files || input.files.length === 0) {
-        input.classList.add('is-invalid');
-        error.style.display = 'block';
-    } else {
-        input.classList.add('is-valid');
-    }
-}
-</script>
+    btn.disabled = true;
+    icono.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`;
+});
 
 
+        </script>
     </div>
 </div>
 @endsection
