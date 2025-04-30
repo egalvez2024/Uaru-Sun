@@ -232,6 +232,14 @@
             });
 
             document.getElementById('especieForm').addEventListener('submit', function (event) {
+    const btn = document.getElementById('guardarBtn');
+    const icono = document.getElementById('guardarIcono');
+
+    // Mostrar animación de carga inmediatamente al hacer clic
+    btn.disabled = true;
+    icono.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`;
+
+    // Ejecutar validaciones
     validarNombre();
     validarNombreCientifico();
     validarDescripcion();
@@ -244,17 +252,12 @@
     if (errores.length > 0) {
         event.preventDefault();
         event.stopPropagation();
-        return;
+
+        // Revertir la animación porque hubo errores
+        btn.disabled = false;
+        icono.innerHTML = `<i class="fas fa-save"></i>`;
     }
-
-    // Mostrar animación de carga
-    const btn = document.getElementById('guardarBtn');
-    const icono = document.getElementById('guardarIcono');
-
-    btn.disabled = true;
-    icono.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`;
 });
-
 
         </script>
     </div>
