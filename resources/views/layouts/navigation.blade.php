@@ -46,13 +46,13 @@
                 </li>
             </ul>
             
-            <form class="d-flex ms-3" method="GET" action="{{ route('admin.especies.index') }}">
-                <select class="form-select form-select-sm me-2" name="filtro">
-                    <option value="nombre_comun" {{ request('filtro') == 'nombre_comun' ? 'selected' : '' }}>Nombre Común</option>
-                    <option value="habitat" {{ request('filtro') == 'habitat' ? 'selected' : '' }}>Hábitat</option>
-                </select>
-                <input type="text" class="form-control form-control-sm me-2" name="query" value="{{ request('query') }}" placeholder="Buscar especie...">
-                <button class="btn btn-outline-light btn-sm" type="submit">🔍</button>
+            <form class="d-flex align-items-center gap-1 ms-2 flex-wrap" method="GET" action="{{ route('admin.especies.index') }}">
+            <select class="form-select form-select-sm" name="filtro" style="max-width: 140px;">
+                <option value="nombre_comun" {{ request('filtro') == 'nombre_comun' ? 'selected' : '' }}>Nombre Común</option>
+                <option value="habitat" {{ request('filtro') == 'habitat' ? 'selected' : '' }}>Hábitat</option>
+            </select>
+            <input type="text" class="form-control form-control-sm" name="query" value="{{ request('query') }}" placeholder="Buscar especie..." style="max-width: 160px;">
+            <button class="btn btn-outline-light btn-sm" type="submit">🔍</button>
             </form>
 
             <!-- Menú Derecho -->

@@ -11,7 +11,7 @@
         </a>
     </div>
 
-    <h2 class="text-white">Especies que te han gustado</h2>
+    <h2 style="color: white; text-align: center; margin-top: 30px;">Especies que te han gustado</h2>
     
     <div class="row">
         @forelse($likes as $like)
@@ -26,7 +26,7 @@
     </div>
 </div>
         @empty
-            <p>No has dado like a ninguna especie aún.</p>
+            <p style="color: white; text-align: center; margin-top: 30px;"> No has dado like a ninguna especie aún.</p>
         @endforelse
     </div>
 </div>

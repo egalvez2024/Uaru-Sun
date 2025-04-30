@@ -202,26 +202,25 @@
         <div class="row row-cols-1 row-cols-md-3 g-4">
             @foreach($especies as $especie)
                 <div class="col">
-                    <div class="card h-100 shadow-lg custom-dark-card">
-                        @if($especie->image_path)
-                            <a href="{{ route('catalogo.show', $especie->id) }}" class="custom-card">
+                    <a href="{{ route('catalogo.show', $especie->id) }}" class="text-decoration-none">
+                        <div class="card h-100 shadow-lg custom-dark-card">
+                            @if($especie->image_path)
                                 <img src="{{ asset('storage/' . $especie->image_path) }}"
-                                     class="card-img-top modal-trigger"
-                                     data-src="{{ asset('storage/' . $especie->image_path) }}"
+                                     class="card-img-top"
                                      style="height: 200px; object-fit: cover;"
                                      alt="Imagen de {{ $especie->nombre }}">
-                            </a>
-                        @endif
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title" style="font-family: 'Roboto', sans-serif;">
-                                {{ $especie->nombre }}
-                            </h5>
-                            <p class="card-text flex-grow-1" style="font-family: 'Roboto', sans-serif;">
-                                <em>{{ $especie->nombre_cientifico }}</em>
-                            </p>
-                            <span class="custom-badge">Mamíferos (fauna)</span>
+                            @endif
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title" style="font-family: 'Roboto', sans-serif;">
+                                    {{ $especie->nombre }}
+                                </h5>
+                                <p class="card-text flex-grow-1" style="font-family: 'Roboto', sans-serif;">
+                                    <em>{{ $especie->nombre_cientifico }}</em>
+                                </p>
+                                <span class="custom-badge">Mamíferos (fauna)</span>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             @endforeach
         </div>
@@ -255,14 +254,6 @@
                 if (img) openModalWithSrc(img.src);
             });
         }
-
-        document.querySelectorAll(".modal-trigger").forEach(el => {
-            el.addEventListener("click", (e) => {
-                e.preventDefault();
-                const src = el.getAttribute("data-src");
-                if (src) openModalWithSrc(src);
-            });
-        });
 
         document.addEventListener("keydown", function (event) {
             if (event.key === "Escape") {
