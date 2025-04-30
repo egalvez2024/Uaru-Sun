@@ -65,6 +65,13 @@
         text-align: center;
         vertical-align: top;
     }
+    /* NUEVA CLASE PARA HABITAT */
+    .habitat-col {
+        max-width: 250px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 </style>
 
 <div class="container mt-4">
@@ -118,7 +125,7 @@
                             <img src="{{ asset('storage/' . $specie->image_path) }}" class="rounded" style="width: 120px; height: 120px; object-fit: cover;">
                         </td>
                         <td>{{ $specie->nombre }}</td>
-                        <td title="{{ $specie->habitat }}">{{ $specie->habitat }}</td>
+                        <td class="habitat-col" title="{{ $specie->habitat }}">{{ $specie->habitat }}</td>
                         <td class="action-cell">
                             <div class="action-buttons">
                                 @if(auth()->user()?->role === 'admin')
@@ -129,7 +136,6 @@
                                         <img src="{{ asset('images/elim.png') }}" alt="Eliminar" style="width: 20px; height: 20px;">
                                     </button>
                                 @endif
-
                                 <a href="{{ route('comentarios.create', $specie->id) }}" class="btn btn-primary" title="Comentarios">
                                     <img src="{{ asset('images/comen.png') }}" alt="Comentarios" style="width: 20px; height: 20px;">
                                 </a>
