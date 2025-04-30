@@ -9,7 +9,11 @@
     </div>
 
     <div class="card shadow-lg">
-        <img src="{{ asset($paisaje->url) }}" class="card-img-top" alt="Imagen del Paisaje" style="max-height: 400px; object-fit: cover;">
+        @if($paisaje->id <= 5)
+            <img src="{{ asset($paisaje->url) }}" class="card-img-top" alt="Imagen del Paisaje" style="max-height: 400px; object-fit: cover;">
+        @else
+            <img src="{{ asset('storage/' . $paisaje->url) }}" class="card-img-top" alt="Imagen del Paisaje" style="max-height: 400px; object-fit: cover;">
+        @endif
 
         <div class="card-body">
             <h4 class="card-title text-primary">Descripción</h4>
