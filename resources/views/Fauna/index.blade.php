@@ -3,9 +3,13 @@
 @section('title', 'Grupo de Faunas')
 
 @section('content')
-    <div class="container">
-        <h1 class="fas fa-leaf" style="color: white; text-align: center; margin-top: 30px;">Bienvenido a la Fauna Hondureña</h1>
-         <!-- Menú desplegable -->
+    <div class="container mt-5">
+
+    <div class="text-center mb-4">
+        <h1 class="mb-4 text-white" class="display-4 text-success">
+            <i class="fas fa-leaf" style="color: white; text-align: center; margin-top: 30px;"></i> Bienvenido a la Fauna Hondureña
+        </h1>
+    </div>         <!-- Menú desplegable -->
     <div class="d-flex justify-content-end mb-4">
         <div class="dropdown">
             <button class="btn btn-success me-md-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">

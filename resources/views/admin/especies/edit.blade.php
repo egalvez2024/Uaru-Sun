@@ -3,7 +3,7 @@
 @section('title', 'Editar Especie')
 
 @section('content')
-<div class="container">
+<div class="container mt-5">
     <h1>Editar {{ $species->nombre }}</h1>
 
     <form action="{{ route('admin.especies.update', $species->id) }}" method="POST" enctype="multipart/form-data">
