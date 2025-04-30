@@ -104,4 +104,14 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function myPosts(): View
+{
+    $user = auth()->user();
+    $posts = $user->posts()->latest()->get(); // Ordenar por los más recientes
+    $especies = $user->species()->latest()->get();
+
+    return view('profile.my_posts', compact('posts'));
+}
+
 }
