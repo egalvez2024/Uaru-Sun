@@ -4,82 +4,37 @@
 
 @section('content')
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4" style="margin-top: 50px">
+        <div class="d-flex justify-content-between align-items-center mb-4 mt-5">
             <h1 class="text-white mb-0">Bienvenido a Paisajes Naturales</h1>
-            <a href="{{route('paisajes.create')}}" class="btn btn-success">Agregar Paisaje</a>
+            <a href="{{ route('paisajes.create') }}" class="btn btn-success">Agregar Paisaje</a>
         </div>
 
-
-    @if(session('success'))
+        @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
-        <div class="table-responsive">
-            <table class="custom-table">
-                <thead>
-                <tr>
-                    <th>Imagen</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($paisajes as $paisaje)
-                    <tr>
-                        <td>
-                            <a href="{{ route('paisajes.show', $paisaje->id) }}">
-                                @if($paisaje->id <= 5)
-                                    <img src="{{ asset($paisaje->url) }}" width="500">
-                                @else
-                                    <img src="{{ asset('storage/' . $paisaje->url) }}" width="500">
-                                @endif
-                            </a>
-                        </td>
-                        <td>{{$paisaje->nombres}}</td>
-                        <td>{{$paisaje->descripcion}}</td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+        <div class="row">
+            @foreach($paisajes as $paisaje)
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow bg-dark text-white border-0">
+                        <a href="{{ route('paisajes.show', $paisaje->id) }}">
+                            @if($paisaje->id <= 5)
+                                <img src="{{ asset($paisaje->url) }}" class="card-img-top img-fluid" style="max-height: 250px; object-fit: cover;">
+                            @else
+                                <img src="{{ asset('storage/' . $paisaje->url) }}" class="card-img-top img-fluid" style="max-height: 250px; object-fit: cover;">
+                            @endif
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $paisaje->nombres }}</h5>
+                            <p class="card-text">{{ $paisaje->descripcion }}</p>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
         </div>
 
-        {{ $paisajes->links() }}
+        <div class="d-flex justify-content-center mt-4">
+            {{ $paisajes->links() }}
+        </div>
     </div>
-
-    <style>
-        .custom-table {
-            width: 100%;
-            background: rgba(30,28,28,0.67);
-            color: white;
-            font-size: 18px;
-            border-collapse: collapse;
-        }
-        .custom-table thead {
-            background-color: rgba(30,28,28,0.87);
-            font-weight: bold;
-        }
-
-        .custom-table th, .custom-table td {
-            padding: 15px;
-        }
-
-        .custom-table td img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .table-responsive {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        .custom-table .pagination {
-            margin-top: 20px;
-            text-align: center;
-        }
-        .text-center {
-            margin-top: 50px;
-        }
-    </style>
-
-
 @endsection
