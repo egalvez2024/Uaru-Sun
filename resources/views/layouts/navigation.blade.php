@@ -93,8 +93,17 @@
                                     <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
                                 </button>
                             </form>
+
+
                         </div>
+                     
+
                     </li>
+                  
+                           
+                <a href="{{ route('bitacora.bita') }}" class="btn btn-secondaryend">Bitácora</a>   
+                 
+                 
                 @endauth
             </ul>
         </div>

@@ -3,13 +3,27 @@
 @section('title', 'Inicio - Flora y Fauna de Honduras')
 
 @section('content')
-<div class="container mt-4">
+ 
+<div class="container mt-5">
     <div class="text-center mb-3">
         <h1 class="display-5 text-success">
             <i class="fas fa-leaf"></i> Biodiversidad Hondureña
         </h1>
         <p class="lead text-white">Descubre nuestra riqueza natural</p>
+        <!-- Usuarios conectados -->
+<div class="position-fixed bottom-0 end-0 m-3" style="width: 250px; z-index: 1050;">
+    <div class="bg-dark text-white rounded p-2 shadow-sm">
+        <h6 class="text-center mb-2" style="font-size: 0.9rem;">Usuarios en línea</h6>
+        <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+            @forelse ($onlineUsers as $user)
+                <li class="text-center">{{ $user->name }}<br><small>(activo {{ $user->last_seen->diffForHumans() }})</small></li>
+            @empty
+                <li class="text-center">No hay usuarios en línea</li>
+            @endforelse
+        </ul>
     </div>
+</div>
+
 
     <div class="kb-gallery-container">
         @foreach($species as $specie)
@@ -34,7 +48,7 @@
         @endforeach
     </div>
 
-    <div class="pagination-container mt-4">
+    <div class="pagination-container mt-5">
         {{ $species->links() }}
     </div>
 </div>
@@ -44,9 +58,9 @@
 .kb-gallery-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 15px;
     justify-content: center;
-    padding: 10px;
+    padding: 5px;
 }
 
 .kb-gallery-item {
@@ -78,7 +92,7 @@
 }
 
 .img-wrapper {
-    height: 280px; /* Fija el alto de la imagen */
+    height: 280px;
     width: 100%;
     background-color: #000;
     display: flex;
@@ -88,15 +102,15 @@
 }
 
 .img-wrapper img {
-    width: 100%;
+    width: 97%;
     height: 100%;
-    object-fit: cover; /* Recorta pero mantiene proporción */
+    object-fit: cover;
     display: block;
 }
 
 figcaption {
     height: 120px;
-    background-color: rgba(0, 0, 0, 0.85);
+    background-color: hsl(0, 2.70%, 7.30%);
     color: white;
     padding: 10px;
     font-size: 0.9em;
