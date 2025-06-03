@@ -13,7 +13,7 @@
         <!-- Usuarios conectados -->
 <div class="position-fixed bottom-0 end-0 m-3" style="width: 250px; z-index: 1050;">
     <div class="bg-dark text-white rounded p-2 shadow-sm">
-        <h6 class="text-center mb-2" style="font-size: 0.9rem;">Usuarios en línea</h6>
+        <h6 class="text-center mb-2" style="font-size: 0.9rem;">Usuarios conectados</h6>
         <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
             @forelse ($onlineUsers as $user)
                 <li class="text-center">{{ $user->name }}<br><small>(activo {{ $user->last_seen->diffForHumans() }})</small></li>
