@@ -45,7 +45,7 @@
                     <a class="nav-link" href="{{ route('profile.index') }}">Mi Perfil</a>
                 </li>
             </ul>
-            
+
             <form class="d-flex align-items-center gap-1 ms-2 flex-wrap" method="GET" action="{{ route('admin.especies.index') }}">
             <select class="form-select form-select-sm" name="filtro" style="max-width: 140px;">
                 <option value="nombre_comun" {{ request('filtro') == 'nombre_comun' ? 'selected' : '' }}>Nombre Común</option>
@@ -78,6 +78,16 @@
                             <a class="dropdown-item" href="{{ route('flora.index') }}">
                                 <i class="fas fa-leaf me-2"></i>Flora
                             </a>
+                            @if(Auth::user()->role === 'admin')
+                                <a class="dropdown-item" href="{{ route('reportes.index') }}">
+                                    <i class="fas fa-triangle-exclamation me-2"></i>Ver actividades ilegales
+                                </a>
+                            @endif
+                            @if(Auth::user()->role === 'user')
+                                <a class="dropdown-item" href="{{ route('reportes.create') }}">
+                                    <i class="fas fa-triangle-exclamation me-2"></i>Reportar actividad ilegal
+                                </a>
+                            @endif
                         </div>
                     </li>
 

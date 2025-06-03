@@ -23,6 +23,8 @@ use App\Http\Controllers\AnfibiosController;
 use App\Http\Controllers\ArbolesController;
 use App\Http\Controllers\MamiferosController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\ReporteController;
+use App\Http\Controllers\MedicinaController;
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -52,14 +54,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/nuevaz', [PeligroExtincionController::class, 'index'])->name('peligro.index');
     Route::get('/veR', [AnfibiosController::class, 'index'])->name('anfibio.index');
     Route::get('/usar', [ArbolesController::class, 'index'])->name('arboles.index');
-    Route::get('/mamiferos', [MamiferosController::class, 'index'])->name('mamiferos.index'); 
+    Route::get('/mamiferos', [MamiferosController::class, 'index'])->name('mamiferos.index');
     Route::get('/aves', [AvesController::class, 'index'])->name('ave.index');
     Route::get('/flora', [FloraController::class, 'index'])->name('flora.index');
     Route::get('/agricola', [FloraagricolaController::class, 'index'])->name('agricola.index');
     Route::get('/jardin', [FlorajardinController::class, 'index'])->name('jardin.index');
     Route::get('/arboles', [ArbolesController::class, 'index'])->name('arboles.index');
-    
-    
+
+
 
 
 
@@ -80,6 +82,8 @@ Route::get('/index', [PaisajeController::class, 'index'])->name('paisajes.index_
 
 Route::resource('/peligrosos', PeligrosoController::class);
 Route::get('/index', [PeligrosoController::class, 'index'])->name('peligrosos.index_peligroso');
+Route::resource('/reportes', ReporteController::class);
+Route::resource('/medicinas', MedicinaController::class);
 
 Route::resource('/comidas', AlimentoController::class);
 
