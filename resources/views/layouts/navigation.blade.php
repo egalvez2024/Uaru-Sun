@@ -129,9 +129,7 @@
 
 <?php if(in_array(Auth::user()->role, ['user', 'admin'])): ?>
     <li>
-        <a class="dropdown-item <?php echo e(request()->routeIs('usuarios.explorar') ? 'active' : ''); ?>" href="<?php echo e(route('usuarios.explorar')); ?>">
-            <i class="fas fa-users me-1"></i> Explorar Usuarios
-        </a>
+       
     </li>
 <?php endif; ?>
 
