@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 @section('content')
 <div class="container text-white">
@@ -31,7 +30,7 @@
                 </div>
                 @if (auth()->id() !== $usuario->id)
                     <div style="margin-left: 8px;">
-                        @livewire('boton-seguir', ['userId' => $usuario->id], key('destacado-' . $usuario->id))
+                        {!! \Livewire\Livewire::mount('boton-seguir', ['userId' => $usuario->id], key('destacado-' . $usuario->id))->html() !!}
                     </div>
                 @endif
             </div>
@@ -78,7 +77,7 @@
 
                 @if (auth()->id() !== $usuario->id)
                     <div style="margin-left: 8px;">
-                        @livewire('boton-seguir', ['userId' => $usuario->id], key($usuario->id))
+                        {!! \Livewire\Livewire::mount('boton-seguir', ['userId' => $usuario->id], key($usuario->id))->html() !!}
                     </div>
                 @endif
             </div>
@@ -92,5 +91,3 @@
 
 </div>
 @endsection
-
-
