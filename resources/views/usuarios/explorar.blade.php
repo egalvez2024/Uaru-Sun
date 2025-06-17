@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 @section('content')
 <div class="container text-white">
@@ -30,7 +31,7 @@
                 </div>
                 @if (auth()->id() !== $usuario->id)
                     <div style="margin-left: 8px;">
-                        {!! \Livewire\Livewire::mount('boton-seguir', ['userId' => $usuario->id], key('destacado-' . $usuario->id))->html() !!}
+                    <livewire:boton-seguir :user-id="$usuario->id" :wire:key="'destacado-'.$usuario->id" />
                     </div>
                 @endif
             </div>
@@ -77,7 +78,7 @@
 
                 @if (auth()->id() !== $usuario->id)
                     <div style="margin-left: 8px;">
-                        {!! \Livewire\Livewire::mount('boton-seguir', ['userId' => $usuario->id], key($usuario->id))->html() !!}
+                        @livewire('boton-seguir', ['userId' => $usuario->id], key($usuario->id))
                     </div>
                 @endif
             </div>
