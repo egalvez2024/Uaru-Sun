@@ -23,9 +23,18 @@ use App\Http\Controllers\AnfibiosController;
 use App\Http\Controllers\ArbolesController;
 use App\Http\Controllers\MamiferosController;
 use App\Http\Controllers\LikeController;
-use App\Http\Controllers\ReporteController;
-use App\Http\Controllers\MedicinaController;
+use App\Http\Controllers\BitaController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+
+//Route::middleware(['auth', 'admin'])->get('/admin/users', [UserController::class, 'index'])->name('admin.users');
+Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
+
+
+
+Route::get('/bita', function () {
+    return view('bita');
+})->name('bita');
 
 
 
@@ -40,6 +49,8 @@ Route::get('/UsuarioPost', [UsuarioPostController::class, 'index'])->name('Usuar
 Route::get('/UsuarioPost/create', [UsuarioPostController::class, 'create'])->name('UsuarioPost.create');
 Route::post('/UsuarioPost', [UsuarioPostController::class, 'store'])->name('UsuarioPost.store');
 Route::get('/mamiferos', [\App\Http\Controllers\MamiferosController::class, 'index'])->name('mamiferos.index');
+Route::middleware(['auth', 'is_admin'])->get('/admin/usuarios', [AdminController::class, 'verUsuarios'])->name('admin.usuarios');
+
 
 
 
@@ -62,13 +73,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/agricola', [FloraagricolaController::class, 'index'])->name('agricola.index');
     Route::get('/jardin', [FlorajardinController::class, 'index'])->name('jardin.index');
     Route::get('/arboles', [ArbolesController::class, 'index'])->name('arboles.index');
-
-
-
-
-
+    Route::get('/bita', [BitaController::class, 'index'])->name('bitacora.bita');
 
 });
+Route::resource('bitaco', BitaController::class);
 Route::resource('arboles', ArbolesController::class);
 Route::resource('Anfibio', AnfibiosController::class);
 Route::resource('extintos', PeligroExtincionController::class);
