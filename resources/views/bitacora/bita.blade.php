@@ -3,15 +3,32 @@
 @section('title', 'Bitácora')
 
 @section('content')
-<div class="container mt-4">
-   
-        <h1 class="mb-3 text-white">Bitácora del Sistema</h1>
-
+<div class="container mt-5">
+    <h1 class="mb-3 text-white">Bitácora del Sistema</h1>
 
     @if($registros->isEmpty())
-       <p class="text-white">No hay registros para mostrar.</p>
+        <p class="text-white">No hay registros para mostrar.</p>
     @else
-    <table class="table table-bordered">
+    <style>
+        /* Estilos exactos aplicados a la tabla para transparencia real */
+        .bitacora-table {
+            background-color: transparent !important;
+            color: white;
+        }
+        .bitacora-table thead th {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            color: white;
+        }
+        .bitacora-table tbody tr {
+            background-color: rgba(255, 255, 255, 0.05) !important;
+            color: white;
+        }
+        .bitacora-table td, .bitacora-table th {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+
+    <table class="table table-bordered bitacora-table">
         <thead>
             <tr>
                 <th>Fecha</th>

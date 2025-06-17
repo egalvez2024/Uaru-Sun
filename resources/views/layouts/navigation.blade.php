@@ -102,8 +102,12 @@
                   
                            
                 <a href="{{ route('bitacora.bita') }}" class="btn btn-secondaryend">Bitácora</a>   
-                 
-                 
+              <a href="{{ url('/admin/users') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    Registrados
+</a>
+
+
+
                 @endauth
             </ul>
         </div>
