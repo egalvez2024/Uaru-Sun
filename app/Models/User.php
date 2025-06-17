@@ -21,7 +21,7 @@ class User extends Authenticatable
 
     public function favoritos(){
         return $this->hasMany(Favorito::class);
-    
+
     }
     public function likes() {
         return $this->hasMany(Like::class);
@@ -70,7 +70,17 @@ class User extends Authenticatable
         return $this->hasMany(Comentario::class);
     }
 
-    
+    public function evento()
+    {
+        return $this->hasMany(Evento::class);
+    }
+
+    public function nuevos()
+    {
+        return $this->hasMany(Nuevo::class);
+    }
+
+
 public function publicaciones()
 {
     return $this->hasMany(Publicacion::class);
