@@ -93,6 +93,10 @@
         width: 100%;
     }
     </style>
+
+<!-- En el <head> -->
+@livewireStyles
+    
 </head>
 <body class="font-sans antialiased d-flex flex-column min-vh-100">
     <!-- Navbar de Bootstrap -->
@@ -143,6 +147,9 @@
     <footer>
      {{ ('') }} Biodiversidad Hondureña.
 </footer>
+
+<!-- Antes de cerrar </body> -->
+@livewireScripts
 </body>
 
 </html>

@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm fixed-top">
     <div class="container">
         <!-- Logo -->
@@ -16,22 +17,21 @@
             <!-- Menú Izquierdo -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 @auth
-                    @if(Auth::user()->role === 'admin')
+                    @if(Auth::user()->role === 'user' || Auth::user()->role === 'admin')
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('admin.especies.index') ? 'active' : '' }}" href="{{ route('admin.especies.index') }}">
-                                <i class="fas fa-cog me-1"></i>Administrar Publicaciones
+                            <a class="nav-link {{ request()->routeIs('fauna.index') ? 'active' : '' }}" href="{{ route('fauna.index') }}">
+                                <i class="fas fa-paw me-1"></i> Fauna
                             </a>
                         </li>
                     @endif
 
-                    @if(Auth::user()->role === 'user')
+                    @if(Auth::user()->role === 'user' || Auth::user()->role === 'admin')
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('UsuarioPost.create') ? 'active' : '' }}" href="{{ route('UsuarioPost.create') }}">
-                                <i class="fas fa-plus-circle me-1"></i>Crear Publicación
+                            <a class="nav-link {{ request()->routeIs('flora.index') ? 'active' : '' }}" href="{{ route('flora.index') }}">
+                                <i class="fas fa-leaf me-1"></i> Flora
                             </a>
                         </li>
                     @endif
-
 
                     @if(Auth::user()->role === 'user' || Auth::user()->role === 'admin')
                         <li class="nav-item">
@@ -43,6 +43,29 @@
 
                 @endauth
             </ul>
+            
+            <style>
+    .filtro-dropdown {
+        position: absolute;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 5px 10px;
+        z-index: 1000;
+        display: none;
+    }
+
+    .filtro-dropdown label {
+        display: block;
+        cursor: pointer;
+        margin-bottom: 5px;
+    }
+
+    .filtro-container {
+        position: relative;
+        display: inline-block;
+    }
+</style>
 
 <form class="d-flex align-items-center gap-1 ms-2 flex-wrap" method="GET" action="{{ route('admin.especies.index') }}">
     <div class="filtro-container">
@@ -55,7 +78,6 @@
     </div>
     <button class="btn btn-outline-light btn-sm" type="submit">🔍</button>
 </form>
-
 
 
 
@@ -80,48 +102,75 @@
             </li>
             @endguest
 
-                @auth
-                    <!-- Menú desplegable de opciones -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="menuDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-bars me-1"></i>Flora y Fauna
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="menuDropdown">
-                            <a class="dropdown-item" href="{{ route('fauna.index') }}">
-                                <i class="fas fa-paw me-2"></i>Fauna
-                            </a>
-                            <a class="dropdown-item" href="{{ route('flora.index') }}">
-                                <i class="fas fa-leaf me-2"></i>Flora
-                            </a>
-                            @if(Auth::user()->role === 'admin')
-                                <a class="dropdown-item" href="{{ route('reportes.index') }}">
-                                    <i class="fas fa-triangle-exclamation me-2"></i>Ver actividades ilegales
-                                </a>
-                            @endif
-                            @if(Auth::user()->role === 'user')
-                                <a class="dropdown-item" href="{{ route('reportes.create') }}">
-                                    <i class="fas fa-triangle-exclamation me-2"></i>Reportar actividad ilegal
-                                </a>
-                            @endif
-                        </div>
-                    </li>
+            @auth
+            @if(Auth::user()->role === 'admin')
+                <li>
+                    <a class="dropdown-item {{ request()->routeIs('admin.especies.index') ? 'active' : '' }}" href="{{ route('admin.especies.index') }}">
+                        <i class="fas fa-cog me-1"></i> Administrar Publicaciones
+                    </a>
+                </li>
+            @endif
 
-                    <!-- Dropdown Usuario -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user-circle me-1"></i>{{ Auth::user()->name }}
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="dropdown-item text-danger">
-                                    <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
-                                </button>
-                            </form>
-                        </div>
-                    </li>
-                @endauth
+            <?php if(Auth::user()->role === 'user'): ?>
+            <li>
+                <a class="dropdown-item <?php echo e(request()->routeIs('UsuarioPost.create') ? 'active' : ''); ?>" href="<?php echo e(route('UsuarioPost.create')); ?>">
+                    <i class="fas fa-plus-circle me-1"></i> Crear Publicación
+                </a>
+            </li>
+            <?php endif; ?>
+
+<?php if(in_array(Auth::user()->role, ['user', 'admin'])): ?>
+    <li>
+        <a class="dropdown-item <?php echo e(request()->routeIs('profile.index') ? 'active' : ''); ?>" href="<?php echo e(route('profile.index')); ?>">
+            <i class="fas fa-user me-1"></i> Mi perfil
+        </a>
+    </li>
+<?php endif; ?>
+
+<?php if(in_array(Auth::user()->role, ['user', 'admin'])): ?>
+    <li>
+        <a class="dropdown-item <?php echo e(request()->routeIs('usuarios.explorar') ? 'active' : ''); ?>" href="<?php echo e(route('usuarios.explorar')); ?>">
+            <i class="fas fa-users me-1"></i> Explorar Usuarios
+        </a>
+    </li>
+<?php endif; ?>
+
+<?php if(Auth::check() && Auth::user()->role === 'admin'): ?>
+    <li>
+        <a class="dropdown-item <?php echo e(request()->routeIs('reportes.index') ? 'active' : ''); ?>" href="<?php echo e(route('reportes.index')); ?>">
+            <i class="fas fa-triangle-exclamation me-2"></i> Ver actividades ilegales
+        </a>
+    </li>
+<?php elseif(Auth::check() && Auth::user()->role === 'user'): ?>
+    <li>
+        <a class="dropdown-item <?php echo e(request()->routeIs('reportes.create') ? 'active' : ''); ?>" href="<?php echo e(route('reportes.create')); ?>">
+            <i class="fas fa-triangle-exclamation me-2"></i> Reportar actividad ilegal
+        </a>
+    </li>
+<?php endif; ?>
+
+
+
+            <li><hr class="dropdown-divider"></li>
+
+            <li>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="dropdown-item text-danger">
+                        <i class="fas fa-sign-out-alt me-1"></i> Cerrar Sesión
+                    </button>
+                </form>
+            </li>
+            @endauth
+            </ul>
+            </li>
+
+            
+        </ul>
+</li>
+
             </ul>
         </div>
     </div>
 </nav>
+

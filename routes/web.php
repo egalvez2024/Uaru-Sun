@@ -25,6 +25,8 @@ use App\Http\Controllers\MamiferosController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\MedicinaController;
+use App\Http\Controllers\UserController;
+
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -127,7 +129,9 @@ Route::post('/likes', [LikeController::class, 'store'])->name('likes.store');
 Route::delete('/likes/{id}', [LikeController::class, 'destroy'])->name('likes.destroy');
 Route::get('/mis-likes', [LikeController::class, 'misLikes'])->name('likes.mislikes');
 
-
+Route::middleware(['auth'])->group(function () {
+    Route::get('/explorar-usuarios', [UserController::class, 'explorar'])->name('usuarios.explorar');
+});
 
 
 
