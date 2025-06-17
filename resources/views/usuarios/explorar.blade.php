@@ -31,7 +31,7 @@
                 </div>
                 @if (auth()->id() !== $usuario->id)
                     <div style="margin-left: 8px;">
-                    <livewire:boton-seguir :user-id="$usuario->id" :wire:key="'destacado-'.$usuario->id" />
+                        @livewire('boton-seguir', ['userId' => $usuario->id], key('destacado-' . $usuario->id))
                     </div>
                 @endif
             </div>
@@ -92,3 +92,5 @@
 
 </div>
 @endsection
+
+
