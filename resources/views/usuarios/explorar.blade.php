@@ -30,9 +30,9 @@
                     <p style="font-size: 12px;">{{ $usuario->seguidores_count }} seguidores</p>
                 </div>
                 @if (auth()->id() !== $usuario->id)
-                    <div style="margin-left: 8px;">
-                        @livewire('boton-seguir', ['userId' => $usuario->id], key('destacado-' . $usuario->id))
-                    </div>
+                <div style="margin-left: 8px;">
+                     <livewire:boton-seguir :user-id="$usuario->id" :wire:key="'destacado-'.$usuario->id" />
+                </div>
                 @endif
             </div>
         @endforeach
@@ -77,9 +77,9 @@
                 </div>
 
                 @if (auth()->id() !== $usuario->id)
-                    <div style="margin-left: 8px;">
-                        @livewire('boton-seguir', ['userId' => $usuario->id], key($usuario->id))
-                    </div>
+                <div style="margin-left: 8px;">
+                    <livewire:boton-seguir :user-id="$usuario->id" :wire:key="$usuario->id" />
+                </div>
                 @endif
             </div>
         @endforeach
