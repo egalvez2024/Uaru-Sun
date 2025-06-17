@@ -29,6 +29,9 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             //\App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            
+            \App\Http\Middleware\UpdateLastUserActivity::class,
+
         ],
 
         'api' => [
@@ -45,5 +48,11 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\AdminMiddleware::class, // Agregamos el middleware de admin
         //'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
 
-    ];
+        'auth' => \App\Http\Middleware\Authenticate::class,
+'is_admin' => \App\Http\Middleware\IsAdmin::class,
+    'admin' => \App\Http\Middleware\AdminMiddleware::class,
+];
+
+
+    
 }
