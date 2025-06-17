@@ -26,34 +26,9 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\MedicinaController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\EnfermedadPlantaController;
-use App\Http\Controllers\ReporteController;
 
 
 
-// Perfil, tienda y cursos
-Route::middleware(['auth'])->group(function () {
-    Route::get('/perfil', [ProfileController::class, 'index'])->name('profile.index');
-    Route::get('/store', [StoreController::class, 'index'])->name('store.index');
-    Route::get('/courses', [CourseController::class, 'index'])->name('course.index');
-});
-
-
-// Rutas de enfermedades en plantas
-Route::resource('enfermedades', EnfermedadPlantaController::class);
-
-// Usuarios admin
-Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
-
-// ❌ Ruta duplicada y conflictiva con '/bita', solo muestra vista. Comentada para evitar conflicto.
-// Route::get('/bita', function () {
-//     return view('bita');
-// })->name('bita');
-
-// ✅ Ruta correcta para la bitácora usando controlador
-Route::get('/bita', [BitaController::class, 'index'])->name('bitacora.bita');
-
-// Página principal y dashboard
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
