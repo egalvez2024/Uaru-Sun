@@ -32,7 +32,7 @@ public function siguiendo()
 
     public function favoritos(){
         return $this->hasMany(Favorito::class);
-    
+
     }
     public function likes() {
         return $this->hasMany(Like::class);
@@ -81,7 +81,17 @@ public function siguiendo()
         return $this->hasMany(Comentario::class);
     }
 
-    
+    public function evento()
+    {
+        return $this->hasMany(Evento::class);
+    }
+
+    public function nuevos()
+    {
+        return $this->hasMany(Nuevo::class);
+    }
+
+
 public function publicaciones()
 {
     return $this->hasMany(Publicacion::class);
@@ -94,4 +104,3 @@ public function datousuario()
     }
 
 }
-

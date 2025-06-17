@@ -25,8 +25,6 @@ use App\Http\Controllers\MamiferosController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\MedicinaController;
-use App\Http\Controllers\UserController;
-
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -86,6 +84,8 @@ Route::resource('/peligrosos', PeligrosoController::class);
 Route::get('/index', [PeligrosoController::class, 'index'])->name('peligrosos.index_peligroso');
 Route::resource('/reportes', ReporteController::class);
 Route::resource('/medicinas', MedicinaController::class);
+Route::resource('/eventos', EventoController::class);
+Route::resource('/nuevos', NuevoController::class);
 
 Route::resource('/comidas', AlimentoController::class);
 
