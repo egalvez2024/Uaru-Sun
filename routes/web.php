@@ -23,18 +23,9 @@ use App\Http\Controllers\AnfibiosController;
 use App\Http\Controllers\ArbolesController;
 use App\Http\Controllers\MamiferosController;
 use App\Http\Controllers\LikeController;
-use App\Http\Controllers\BitaController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ReporteController;
+use App\Http\Controllers\MedicinaController;
 use App\Http\Controllers\UserController;
-
-//Route::middleware(['auth', 'admin'])->get('/admin/users', [UserController::class, 'index'])->name('admin.users');
-Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
-
-
-
-Route::get('/bita', function () {
-    return view('bita');
-})->name('bita');
 
 
 
@@ -94,6 +85,8 @@ Route::resource('/peligrosos', PeligrosoController::class);
 Route::get('/index', [PeligrosoController::class, 'index'])->name('peligrosos.index_peligroso');
 Route::resource('/reportes', ReporteController::class);
 Route::resource('/medicinas', MedicinaController::class);
+Route::resource('/eventos', EventoController::class);
+Route::resource('/nuevos', NuevoController::class);
 
 Route::resource('/comidas', AlimentoController::class);
 
