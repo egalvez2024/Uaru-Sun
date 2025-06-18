@@ -223,7 +223,28 @@
         </a>
     </li>
 <?php endif; ?>
+<?php if(Auth::check() && (Auth::user()->role === 'admin' || Auth::user()->role === 'user')): ?>
+                                <li>
+                                    <a class="dropdown-item <?php echo e(request()->routeIs('eventos.index') ? 'active' : ''); ?>" href="<?php echo e(route('eventos.index')); ?>">
+                                        <i class="fas fa-calendar-alt me-2"></i> Eventos
+                                    </a>
+                                </li>
 
+                            <?php endif; ?>
+
+                            <?php if(Auth::check() && Auth::user()->role === 'admin'): ?>
+                                <li>
+                                    <a class="dropdown-item <?php echo e(request()->routeIs('nuevos.index') ? 'active' : ''); ?>" href="<?php echo e(route('nuevos.index')); ?>">
+                                        <i class="fas fa-lightbulb me-2 text-warning"></i> Ver recomendaciones de secciones
+                                    </a>
+                                </li>
+                                <?php elseif(Auth::check() && Auth::user()->role === 'user'): ?>
+                                <li>
+                                    <a class="dropdown-item <?php echo e(request()->routeIs('nuevos.create') ? 'active' : ''); ?>" href="<?php echo e(route('nuevos.create')); ?>">
+                                        <i class="fas fa-lightbulb me-2 text-warning"></i> Recomendaciones de secciones nuevas
+                                    </a>
+                                </li>
+                                <?php endif; ?>
 
 
             <li><hr class="dropdown-divider"></li>
