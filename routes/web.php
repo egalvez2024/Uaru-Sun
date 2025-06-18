@@ -29,6 +29,7 @@ use App\Http\Controllers\EventoController;
 use App\Http\Controllers\NuevoController;
 
 
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', function () {
     return view('dashboard');
