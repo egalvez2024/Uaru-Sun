@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-5">
         <h2>Lista de Usuarios Suscritos</h2>
         <table class="table">
             <thead>

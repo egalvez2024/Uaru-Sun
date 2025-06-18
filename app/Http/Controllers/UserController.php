@@ -37,6 +37,13 @@ class UserController extends Controller
 
     return view('usuarios.explorar', compact('usuarios', 'destacados'));
 }
+public function index()
+{
+    $users = \App\Models\User::all(); // o paginate si prefieres paginar
+
+    return view('admin.users', compact('users'));
+}
+
 
 }
 

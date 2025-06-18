@@ -16,7 +16,7 @@ class ConfirmablePasswordController extends Controller
      */
     public function show(): View
     {
-        return view('auth.confirm-password');
+        return view('confirmación de contraseña de autenticación');
     }
 
     /**
@@ -33,7 +33,7 @@ class ConfirmablePasswordController extends Controller
             ]);
         }
 
-        $request->session()->put('auth.password_confirmed_at', time());
+        $request->session()->put('Contraseña de autenticación confirmada', time());
 
         return redirect()->intended(route('home', absolute: false));
     }
