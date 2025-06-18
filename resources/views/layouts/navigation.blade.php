@@ -138,6 +138,37 @@
     </li>
 <?php endif; ?>
 
+<?php if(Auth::check() && Auth::user()->role === 'admin'): ?>
+    <li>
+        <a class="dropdown-item <?php echo e(request()->routeIs('reportes.index') ? 'active' : ''); ?>" href="<?php echo e(route('reportes.index')); ?>">
+            <i class="fas fa-triangle-exclamation me-2"></i> Ver actividades ilegales
+        </a>
+        
+    </li>
+
+ @if(Auth::check() && Auth::user()->role === 'admin')
+    <li>
+        <a class="dropdown-item {{ request()->routeIs('bitacora.bita') ? 'active' : '' }}" href="{{ route('bitacora.bita') }}">
+            <i class="fas fa-clipboard-list me-2"></i> Ver Bitácora
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-item {{ request()->is('admin/users') ? 'active' : '' }}" href="{{ url('/admin/users') }}">
+            <i class="fas fa-users me-2"></i> Registrados
+        </a>
+    </li>
+@endif
+
+
+<?php elseif(Auth::check() && Auth::user()->role === 'user'): ?>
+    <li>
+        <a class="dropdown-item <?php echo e(request()->routeIs('reportes.create') ? 'active' : ''); ?>" href="<?php echo e(route('reportes.create')); ?>">
+            <i class="fas fa-triangle-exclamation me-2"></i> Reportar actividad ilegal
+      
+    </li>
+   
+    
+<?php endif; ?>
 
 
             <li><hr class="dropdown-divider"></li>
