@@ -13,6 +13,10 @@
             <div class="alert alert-success shadow-sm">{{ session('success') }}</div>
         @endif
 
+        @if(session('danger'))
+            <div class="alert alert-danger shadow-sm">{{ session('danger') }}</div>
+        @endif
+
         <div class="row">
             @forelse($eventos as $evento)
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
@@ -51,6 +55,22 @@
                                     <li><strong>👤 Registrado por:</strong> {{ $evento->user->email ?? 'correo no disponible' }}</li>
                                 </ul>
                             </div>
+                            <hr>
+                            @if($usuario->role == 'admin')
+                                <div class="d-flex flex-column gap-2 mt-2">
+                                    <a href="{{ route('eventos.edit', $evento->id) }}" class="btn btn-outline-info w-100">
+                                        ✏️ Editar
+                                    </a>
+
+                                    <form action="{{ route('eventos.destroy', $evento->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este evento?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger w-100">
+                                            🗑️ Eliminar
+                                        </button>
+                                    </form>
+                                </div>
+                            @endif
 
                             <div class="mt-auto text-end">
                                 <small class="text-white-50">Creado el {{ $evento->created_at->format('d/m/Y') }}</small>

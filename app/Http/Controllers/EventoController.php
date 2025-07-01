@@ -14,7 +14,8 @@ class EventoController extends Controller
     public function index()
     {
         $eventos = Evento::orderBy('id', 'desc')->paginate(10);
-        return view('eventos.evento_index', compact('eventos'));
+        $usuario = Auth::user();
+        return view('eventos.evento_index', compact('eventos', 'usuario'));
     }
 
     /**
@@ -71,7 +72,9 @@ class EventoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $evento = Evento::findOrfail($id);
+        $usuario = Auth::user();
+        return view('eventos.evento_create', compact('evento'));
     }
 
     /**
@@ -79,7 +82,29 @@ class EventoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $evento = Evento::findOrfail($id);
+        $request->validate([
+            'descripcion' => 'required|string|max:300',
+            'fecha_evento' => 'required|date',
+            'hora_evento' => 'required',
+            'direccion' => 'required|string|max:300',
+        ], [
+            'descripcion.required' => 'La descripción del evento es obligatoria.',
+            'fecha_evento.required' => 'La fecha del evento es obligatoria.',
+            'hora_evento.required' => 'La hora del evento es obligatoria.',
+            'direccion.required' => 'La dirección del evento es obligatoria.',
+        ]);
+
+        $evento->descripcion = $request->input('descripcion');
+        $evento->fecha_evento = $request->input('fecha_evento');
+        $evento->hora_evento = $request->input('hora_evento');
+        $evento->url = $request->input('direccion');
+        $evento->user_id = $evento->user_id;
+
+        $evento->save();
+
+        return redirect()->route('eventos.index')->with('success', 'Evento editado correctamente.');
+
     }
 
     /**
@@ -87,6 +112,10 @@ class EventoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $evento = Evento::findOrfail($id);
+        if($evento->delete()){
+            return redirect()->route('eventos.index')->with('danger', 'Evento eliminado correctamente.');
+        }
+
     }
 }

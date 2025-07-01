@@ -80,6 +80,8 @@
                                 <li><a class="dropdown-item" href="{{ route('UsuarioPost.create') }}"><i class="fas fa-plus-circle me-1"></i> Crear Publicación</a></li>
                                 <li><a class="dropdown-item" href="{{ route('reportes.create') }}"><i class="fas fa-triangle-exclamation me-1"></i> Reportar actividad ilegal</a></li>
                             @endif
+                             <li><a class="dropdown-item" href="{{route('eventos.index')}}"><i class="fas fa-calendar-alt me-2"></i> Eventos</a></li>
+                            <li><a class="dropdown-item" href="{{route('nuevos.index')}}"><i class="fas fa-lightbulb me-2 text-warning"></i> Ver recomendaciones de secciones</a></li>
 
                             <li><a class="dropdown-item" href="{{ route('profile.index') }}"><i class="fas fa-user me-1"></i> Mi perfil</a></li>
                             <li><a class="dropdown-item" href="{{ route('usuarios.explorar') }}"><i class="fas fa-users me-1"></i> Explorar Usuarios</a></li>

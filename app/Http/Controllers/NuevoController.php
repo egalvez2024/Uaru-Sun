@@ -13,8 +13,15 @@ class NuevoController extends Controller
      */
     public function index()
     {
-        $nuevos = Nuevo::orderBy('id', 'desc')->paginate(10);
-        return view('nuevos.nuevo_index', compact('nuevos'));
+        $usuario = Auth::user();
+        if($usuario->role == 'admin'){
+            $nuevos = Nuevo::orderBy('id', 'desc')->paginate(10);
+        }
+        else{
+            $nuevos = Nuevo::where('user_id', $usuario->id)->orderBy('id', 'desc')->paginate(10);
+        }
+
+        return view('nuevos.nuevo_index', compact('nuevos', 'usuario'));
     }
 
     /**
@@ -42,6 +49,7 @@ class NuevoController extends Controller
         $nuevo->dato = $request->input('dato');
         $nuevo->fecha = date('Y-m-d');
         $nuevo->user_id = $usuario->id;
+        $nuevo->estado = 'Pendiente';
 
         $nuevo->save();
 
@@ -61,7 +69,9 @@ class NuevoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $usuario = Auth::user();
+        $nuevo = Nuevo::findOrfail($id);
+        return view('nuevos.nuevo_create', compact('nuevo', 'usuario'));
     }
 
     /**
@@ -69,7 +79,32 @@ class NuevoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        if ($request->input('tipo') == 'editar'){
+            $request->validate([
+                'dato' => 'required|string|max:300',
+                'estado' => 'required',
+            ], [
+                'dato.required' => 'La recomendación es obligatoria.',
+                'estado.required' => 'El estado es requerido',
+            ]);
+        }
+        else{
+            $request->validate([
+                'dato' => 'required|string|max:300',
+            ], [
+                'dato.required' => 'La recomendación es obligatoria.',
+            ]);
+        }
+
+        $nuevo = Nuevo::findOrfail($id);
+        $nuevo->dato = $request->input('dato');
+        $nuevo->fecha = date('Y-m-d');
+        $nuevo->user_id = $nuevo->user_id;
+        $nuevo->estado = $request->input('estado') ?? 'Pendiente';
+
+        $nuevo->save();
+
+        return redirect()->route('nuevos.index')->with('success', 'Recomendación editada correctamente.');
     }
 
     /**
@@ -77,6 +112,9 @@ class NuevoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $nuevo = Nuevo::findOrfail($id);
+        if($nuevo->delete()){
+            return redirect()->route('nuevos.index')->with('danger', 'Sugerencia eliminada correctamente.');
+        }
     }
 }
