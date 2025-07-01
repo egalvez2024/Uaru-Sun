@@ -6,6 +6,11 @@
 <div class="container mt-5">
     <h1 class="mb-3 text-white">Bitácora del Sistema</h1>
 
+    <!-- Botón de regresar -->
+    <a href="{{ url()->previous() }}" class="btn btn-outline-light mb-3">
+        <i class="fas fa-arrow-left me-1"></i> Regresar
+    </a>
+
     @if($registros->isEmpty())
         <p class="text-white">No hay registros para mostrar.</p>
     @else

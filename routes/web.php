@@ -26,6 +26,10 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\BitaController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EnfermedadPlantaController;
+
+Route::resource('enfermedades', EnfermedadPlantaController::class);
+
 
 //Route::middleware(['auth', 'admin'])->get('/admin/users', [UserController::class, 'index'])->name('admin.users');
 Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
