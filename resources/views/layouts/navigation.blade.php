@@ -72,8 +72,16 @@
                             @if(Auth::user()->role === 'admin')
                                 <li><a class="dropdown-item" href="{{ route('admin.especies.index') }}"><i class="fas fa-cog me-1"></i> Administrar Publicaciones</a></li>
                                 <li><a class="dropdown-item" href="{{ route('bitacora.bita') }}"><i class="fas fa-clipboard-list me-1"></i> Ver Bitácora</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/admin/users') }}"><i class="fas fa-users me-1"></i> Registrados</a></li>
+                                <li><a class="dropdown-item" href="{{ url('/admin/users') }}"><i class="fas fa-users me-1"></i> usuarios suscriptos </a></li>
                                 <li><a class="dropdown-item" href="{{ route('reportes.index') }}"><i class="fas fa-triangle-exclamation me-1"></i> Ver actividades ilegales</a></li>
+                                <li>
+    <a class="dropdown-item" href="{{ route('enfermedades.index') }}">
+        <i class="fas fa-virus me-1"></i> Enfermedades de Plantas
+    </a>
+</li>
+                                <li class="nav-item">
+</li>
+
                             @endif
 
                             @if(Auth::user()->role === 'user')
@@ -85,6 +93,14 @@
 
                             <li><a class="dropdown-item" href="{{ route('profile.index') }}"><i class="fas fa-user me-1"></i> Mi perfil</a></li>
                             <li><a class="dropdown-item" href="{{ route('usuarios.explorar') }}"><i class="fas fa-users me-1"></i> Explorar Usuarios</a></li>
+                           <li>
+  
+</li>
+<li>
+    <a class="dropdown-item" href="{{ route('enfermedades.index') }}">
+        <i class="fas fa-leaf me-1"></i> Enfermedades de Plantas
+    </a>
+</li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
@@ -97,6 +113,7 @@
                         @endauth
                     </ul>
                 </li>
+                
             </ul>
         </div>
     </div>
