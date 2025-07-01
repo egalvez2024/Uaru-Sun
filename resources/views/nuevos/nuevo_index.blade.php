@@ -16,6 +16,10 @@
             <div class="alert alert-success shadow-sm">{{ session('success') }}</div>
         @endif
 
+        @if(session('danger'))
+            <div class="alert alert-danger shadow-sm">{{ session('danger') }}</div>
+        @endif
+
         <div class="row">
             @forelse($nuevos as $nuevo)
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
@@ -27,8 +31,26 @@
                                 </h5>
                                 <ul class="list-unstyled text-secondary small">
                                     <li><strong>👤 Usuario:</strong> {{ $nuevo->user->email ?? 'No disponible' }}</li>
+                                    <li><strong>📌 Estado:</strong> {{ $nuevo->estado ?? 'No disponible' }}</li>
                                 </ul>
                             </div>
+                            @if($nuevo->estado == 'Pendiente')
+                                <hr>
+                                <div class="d-flex flex-column gap-2 mt-2">
+                                    <a href="{{ route('nuevos.edit', $nuevo->id) }}" class="btn btn-outline-info w-100">
+                                        ✏️ Editar
+                                    </a>
+
+                                    <form action="{{ route('nuevos.destroy', $nuevo->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta sugerencia?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger w-100">
+                                            🗑️ Eliminar
+                                        </button>
+                                    </form>
+                                </div>
+                                <hr>
+                            @endif
 
                             <div class="text-end mt-auto">
                                 <small class="text-muted">📅Enviado el {{ date('d-m-Y', strtotime($nuevo->fecha)) }}</small>

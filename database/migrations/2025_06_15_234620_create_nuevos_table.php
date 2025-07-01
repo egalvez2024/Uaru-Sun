@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('dato');
             $table->date('fecha');
+            $table->enum('estado', ['Pendiente', 'Aprobada', 'Rechazada']);
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
