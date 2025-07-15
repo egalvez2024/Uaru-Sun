@@ -46,8 +46,6 @@ Route::get('/UsuarioPost', [UsuarioPostController::class, 'index'])->name('Usuar
 Route::get('/UsuarioPost/create', [UsuarioPostController::class, 'create'])->name('UsuarioPost.create');
 Route::post('/UsuarioPost', [UsuarioPostController::class, 'store'])->name('UsuarioPost.store');
 Route::get('/mamiferos', [\App\Http\Controllers\MamiferosController::class, 'index'])->name('mamiferos.index');
-Route::middleware(['auth', 'is_admin'])->get('/admin/usuarios', [AdminController::class, 'verUsuarios'])->name('admin.usuarios');
-
 
 
 
@@ -74,10 +72,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/agricola', [FloraagricolaController::class, 'index'])->name('agricola.index');
     Route::get('/jardin', [FlorajardinController::class, 'index'])->name('jardin.index');
     Route::get('/arboles', [ArbolesController::class, 'index'])->name('arboles.index');
-    Route::get('/bita', [BitaController::class, 'index'])->name('bitacora.bita');
+
+
+
+
+
 
 });
-Route::resource('bitaco', BitaController::class);
 Route::resource('arboles', ArbolesController::class);
 Route::resource('Anfibio', AnfibiosController::class);
 Route::resource('extintos', PeligroExtincionController::class);
@@ -146,9 +147,7 @@ Route::post('/likes', [LikeController::class, 'store'])->name('likes.store');
 Route::delete('/likes/{id}', [LikeController::class, 'destroy'])->name('likes.destroy');
 Route::get('/mis-likes', [LikeController::class, 'misLikes'])->name('likes.mislikes');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/explorar-usuarios', [UserController::class, 'explorar'])->name('usuarios.explorar');
-});
+
 
 
 
