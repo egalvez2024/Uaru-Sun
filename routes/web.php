@@ -27,6 +27,8 @@ use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\MedicinaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EnfermedadPlantaController;
+use App\Http\Controllers\ReporteController;
+
 
 
 // Perfil, tienda y cursos

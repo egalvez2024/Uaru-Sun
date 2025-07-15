@@ -29,6 +29,8 @@
             color: white;
         }
         .bitacora-table td, .bitacora-table th {
+                background-color: rgba(197, 208, 175, 0.8); /* verde claro semitransparente */
+
             border-color: rgba(255, 255, 255, 0.2);
         }
     </style>

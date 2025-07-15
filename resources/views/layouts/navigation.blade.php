@@ -96,7 +96,7 @@
                            <li>
   
 </li>
-<li>
+    <li>
     <a class="dropdown-item" href="{{ route('enfermedades.index') }}">
         <i class="fas fa-leaf me-1"></i> Enfermedades de Plantas
     </a>
