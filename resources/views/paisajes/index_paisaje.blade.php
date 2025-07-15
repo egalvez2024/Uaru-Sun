@@ -38,15 +38,6 @@
         </div>
     </div>
     @push('styles')
-<style>
-    body {
-        background-image: url('{{ asset('fonds.jpg') }}'); /* ← aquí va tu imagen */
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-    }
-</style>
-@endpush
+
 
 @endsection

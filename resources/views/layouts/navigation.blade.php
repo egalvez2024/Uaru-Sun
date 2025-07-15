@@ -256,23 +256,23 @@
 
 
 
+                             endif; ?>
 
-                            <?php endif; ?>
-
-                            <?php if(Auth::check() && Auth::user()->role === 'admin'): ?>
-                                <li>
-                                    <a class="dropdown-item <?php echo e(request()->routeIs('nuevos.index') ? 'active' : ''); ?>" href="<?php echo e(route('nuevos.inde>
-                                        <i class="fas fa-lightbulb me-2 text-warning"></i> Ver recomendaciones de secciones
-                                    </a>
-                                </li>
-                                <?php elseif(Auth::check() && Auth::user()->role === 'user'): ?>
-                                <li>
-                                    <a class="dropdown-item <?php echo e(request()->routeIs('nuevos.create') ? 'active' : ''); ?>" href="<?php echo e(route('nuevos.cre>
-                                        <i class="fas fa-lightbulb me-2 text-warning"></i> Recomendaciones de secciones nuevas
-                                    </a>
-                                </li>
-                              
-                                <?php endif; ?>
+                    @auth
+    @if(Auth::user()->role === 'admin')
+        <li>
+            <a class="dropdown-item {{ request()->routeIs('nuevos.index') ? 'active' : '' }}" href="{{ route('nuevos.index') }}">
+                <i class="fas fa-lightbulb me-2 text-warning"></i> Ver recomendaciones de secciones
+            </a>
+        </li>
+    @elseif(Auth::user()->role === 'user')
+        <li>
+            <a class="dropdown-item {{ request()->routeIs('nuevos.create') ? 'active' : '' }}" href="{{ route('nuevos.create') }}">
+                <i class="fas fa-lightbulb me-2 text-warning"></i> Recomendaciones de secciones nuevas
+            </a>
+        </li>
+    @endif
+@endauth
 
 
 
