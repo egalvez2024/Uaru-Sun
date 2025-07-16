@@ -26,34 +26,12 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\MedicinaController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\EnfermedadPlantaController;
-use App\Http\Controllers\ReporteController;
+use App\Http\Controllers\EventoController;
+use App\Http\Controllers\NuevoController;
+use App\Http\Controllers\BitaController;
 
 
 
-// Perfil, tienda y cursos
-Route::middleware(['auth'])->group(function () {
-    Route::get('/perfil', [ProfileController::class, 'index'])->name('profile.index');
-    Route::get('/store', [StoreController::class, 'index'])->name('store.index');
-    Route::get('/courses', [CourseController::class, 'index'])->name('course.index');
-});
-
-
-// Rutas de enfermedades en plantas
-Route::resource('enfermedades', EnfermedadPlantaController::class);
-
-// Usuarios admin
-Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
-
-// ❌ Ruta duplicada y conflictiva con '/bita', solo muestra vista. Comentada para evitar conflicto.
-// Route::get('/bita', function () {
-//     return view('bita');
-// })->name('bita');
-
-// ✅ Ruta correcta para la bitácora usando controlador
-Route::get('/bita', [BitaController::class, 'index'])->name('bitacora.bita');
-
-// Página principal y dashboard
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
@@ -67,14 +45,10 @@ Route::get('/especies/{id}', [EspeciesController::class, 'show'])->name('catalog
 Route::get('/UsuarioPost', [UsuarioPostController::class, 'index'])->name('UsuarioPost.index');
 Route::get('/UsuarioPost/create', [UsuarioPostController::class, 'create'])->name('UsuarioPost.create');
 Route::post('/UsuarioPost', [UsuarioPostController::class, 'store'])->name('UsuarioPost.store');
+Route::get('/mamiferos', [\App\Http\Controllers\MamiferosController::class, 'index'])->name('mamiferos.index');
 
-// Mamíferos
-Route::get('/mamiferos', [MamiferosController::class, 'index'])->name('mamiferos.index');
 
-// Admin usuarios
-Route::middleware(['auth', 'is_admin'])->get('/admin/usuarios', [AdminController::class, 'verUsuarios'])->name('admin.usuarios');
 
-// Grupo de rutas autenticadas
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -98,11 +72,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/agricola', [FloraagricolaController::class, 'index'])->name('agricola.index');
     Route::get('/jardin', [FlorajardinController::class, 'index'])->name('jardin.index');
     Route::get('/arboles', [ArbolesController::class, 'index'])->name('arboles.index');
-    Route::get('/bita', [BitaController::class, 'index'])->name('bitacora.bita'); // ya está arriba también
-});
 
-// Recursos
-Route::resource('bitaco', BitaController::class);
+
+
+
+
+
+});
 Route::resource('arboles', ArbolesController::class);
 Route::resource('Anfibio', AnfibiosController::class);
 Route::resource('extintos', PeligroExtincionController::class);
@@ -159,5 +135,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/perfil', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/store', [StoreController::class, 'index'])->name('store.index');
+    Route::get('/courses', [CourseController::class, 'index'])->name('course.index');
+});
+
+
+Route::post('/likes', [LikeController::class, 'store'])->name('likes.store');
+Route::delete('/likes/{id}', [LikeController::class, 'destroy'])->name('likes.destroy');
+Route::get('/mis-likes', [LikeController::class, 'misLikes'])->name('likes.mislikes');
+
+
+
+
 
 require __DIR__.'/auth.php';
