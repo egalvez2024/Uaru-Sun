@@ -29,6 +29,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\NuevoController;
 use App\Http\Controllers\BitaController;
+use App\Http\Controllers\EnfermedadController;
+
 
 
 
@@ -101,6 +103,7 @@ Route::get('/index', [PeligrosoController::class, 'index'])->name('peligrosos.in
 
 // Otros recursos
 Route::resource('/reportes', ReporteController::class);
+Route::resource('eventos', EventoController::class);
 Route::resource('/medicinas', MedicinaController::class);
 
 Route::resource('/comidas', AlimentoController::class);
@@ -148,7 +151,12 @@ Route::delete('/likes/{id}', [LikeController::class, 'destroy'])->name('likes.de
 Route::get('/mis-likes', [LikeController::class, 'misLikes'])->name('likes.mislikes');
 
 
-
+Route::get('/eventos', [EventoController::class, 'index'])->name('eventos.index');
+Route::get('/nuevos', [NuevoController::class, 'index'])->name('nuevos.index');
+Route::get('/enfermedades', [EnfermedadController::class, 'index'])->name('enfermedades.index');
+Route::get('/bitacora', [BitacoraController::class, 'bita'])->name('bitacora.bita');
+Route::get('/eventos/create', [EventoController::class, 'create'])->name('eventos.create');
+Route::get('/nuevos/create', [NuevoController::class, 'create'])->name('nuevos.create');
 
 
 require __DIR__.'/auth.php';
