@@ -169,7 +169,7 @@
             </div>
 
             <div class="col">
-                <div class="card shadow-sm border-0 h-100">
+               <div class="card h-100 shadow bg-success bg-opacity-50 text-white position-relative rounded-4">
                     <div class="card-body">
                         <h5 class="card-title"><i class="fas fa-info-circle me-2"></i>Detalles Adicionales</h5>
                         <p><i class="fas fa-phone me-2 text-muted"></i><strong>Teléfono:</strong> {{ $user->datos->telefono ?? 'Dato no disponible' }}</p>
