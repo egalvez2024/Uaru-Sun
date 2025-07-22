@@ -105,7 +105,7 @@ Route::get('/index', [PeligrosoController::class, 'index'])->name('peligrosos.in
 Route::resource('/reportes', ReporteController::class);
 Route::resource('eventos', EventoController::class);
 Route::resource('/medicinas', MedicinaController::class);
-
+Route::resource('/nuevos', NuevoController::class);
 Route::resource('/comidas', AlimentoController::class);
 Route::resource('/informacion', DatousuarioController::class);
 
