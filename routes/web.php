@@ -110,10 +110,6 @@ Route::resource('/reportes', ReporteController::class);
 Route::resource('eventos', EventoController::class);
 Route::resource('/medicinas', MedicinaController::class);
 Route::resource('/nuevos', NuevoController::class);
-<<<<<<< HEAD
-=======
-
->>>>>>> 4e39d04cc1555363416b5d2225d6166052c28a23
 Route::resource('/comidas', AlimentoController::class);
 Route::resource('/informacion', DatousuarioController::class);
 
