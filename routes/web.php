@@ -74,6 +74,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/agricola', [FloraagricolaController::class, 'index'])->name('agricola.index');
     Route::get('/jardin', [FlorajardinController::class, 'index'])->name('jardin.index');
     Route::get('/arboles', [ArbolesController::class, 'index'])->name('arboles.index');
+  Route::get('/bitacora', [BitaController::class, 'bita'])->name('bitacora.bita');
+
 
 
 
@@ -81,6 +83,8 @@ Route::middleware('auth')->group(function () {
 
 
 });
+Route::resource('bitaco', BitaController::class);
+
 Route::resource('arboles', ArbolesController::class);
 Route::resource('Anfibio', AnfibiosController::class);
 Route::resource('extintos', PeligroExtincionController::class);
@@ -106,6 +110,10 @@ Route::resource('/reportes', ReporteController::class);
 Route::resource('eventos', EventoController::class);
 Route::resource('/medicinas', MedicinaController::class);
 Route::resource('/nuevos', NuevoController::class);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4e39d04cc1555363416b5d2225d6166052c28a23
 Route::resource('/comidas', AlimentoController::class);
 Route::resource('/informacion', DatousuarioController::class);
 
@@ -154,7 +162,7 @@ Route::get('/mis-likes', [LikeController::class, 'misLikes'])->name('likes.misli
 Route::get('/eventos', [EventoController::class, 'index'])->name('eventos.index');
 Route::get('/nuevos', [NuevoController::class, 'index'])->name('nuevos.index');
 Route::get('/enfermedades', [EnfermedadController::class, 'index'])->name('enfermedades.index');
-Route::get('/bitacora', [BitacoraController::class, 'bita'])->name('bitacora.bita');
+Route::get('/bitacora', [BitaController::class, 'bita'])->name('bitacora.bita');
 Route::get('/eventos/create', [EventoController::class, 'create'])->name('eventos.create');
 Route::get('/nuevos/create', [NuevoController::class, 'create'])->name('nuevos.create');
 
