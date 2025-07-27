@@ -1,7 +1,8 @@
+@import '@fortawesome/fontawesome-free/css/all.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import '@fortawesome/fontawesome-free/css/all.css';
 
 .dropdown-menu {
     display: block;
@@ -15,10 +16,9 @@
     opacity: 1;
 }
 
-
-
 .bg-custom {
     background-color: #e0f7fa;
     padding: 20px;
     border-radius: 10px;
 }
+
