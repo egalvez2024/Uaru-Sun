@@ -30,6 +30,7 @@ use App\Http\Controllers\EnfermedadPlantaController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\NuevoController;
+use App\Http\Controllers\MedicinaController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;

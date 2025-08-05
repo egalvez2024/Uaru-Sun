@@ -86,8 +86,6 @@
         <li><a class="dropdown-item" href="{{ route('UsuarioPost.create') }}"><i class="fas fa-plus-circle me-1"></i> Crear Publicación</a></li>
         <li><a class="dropdown-item" href="{{ route('reportes.create') }}"><i class="fas fa-triangle-exclamation me-1"></i> Reportar Actividad Ilegal</a></li>
         <li><a class="dropdown-item" href="{{ route('nuevos.create') }}"><i class="fas fa-lightbulb me-2 text-warning"></i> Recomendaciones de Secciones Nuevas</a></li>
-        <li><a class="dropdown-item" href="{{ route('store') }}"><i class="fas fa-store me-2 text-dark"></i>Tienda</a></li>
-        <li><a class="dropdown-item" href="{{ route('cart.view') }}"><i class="fas fa-shopping-cart me-2 text-dark"></i>Carrito</a></li>  
     @endif
 
     <li><a class="dropdown-item" href="{{ route('eventos.index') }}"><i class="fas fa-calendar-alt me-2"></i> Eventos</a></li>
