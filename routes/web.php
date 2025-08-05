@@ -34,6 +34,14 @@ use App\Http\Controllers\MedicinaController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ReporteController;
+use App\Http\Controllers\MedicinaController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\EventoController;
+use App\Http\Controllers\NuevoController;
+use App\Http\Controllers\BitaController;
+use App\Http\Controllers\EnfermedadController;
+
 
 
 
@@ -62,6 +70,7 @@ Route::get('/bita', [BitaController::class, 'index'])->name('bitacora.bita');
 
 
 // Página principal y dashboard
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
@@ -76,6 +85,7 @@ Route::get('/UsuarioPost', [UsuarioPostController::class, 'index'])->name('Usuar
 Route::get('/UsuarioPost/create', [UsuarioPostController::class, 'create'])->name('UsuarioPost.create');
 Route::post('/UsuarioPost', [UsuarioPostController::class, 'store'])->name('UsuarioPost.store');
 
+
 // Mamíferos
 Route::get('/mamiferos', [MamiferosController::class, 'index'])->name('mamiferos.index');
 
@@ -83,6 +93,12 @@ Route::get('/mamiferos', [MamiferosController::class, 'index'])->name('mamiferos
 Route::middleware(['auth', 'is_admin'])->get('/admin/usuarios', [AdminController::class, 'verUsuarios'])->name('admin.usuarios');
 
 // Grupo de rutas autenticadas
+
+Route::get('/mamiferos', [\App\Http\Controllers\MamiferosController::class, 'index'])->name('mamiferos.index');
+
+
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -110,6 +126,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/eventos', [EventoController::class, 'index'])->name('eventos.index');
     Route::get('/eventos/create', [EventoController::class, 'create'])->name('eventos.create');
     Route::get('/nuevos', [NuevoController::class, 'index'])->name('nuevos.index');
+
+  Route::get('/bitacora', [BitaController::class, 'bita'])->name('bitacora.bita');
+
 
 });
 
@@ -140,6 +159,7 @@ Route::get('/index', [PeligrosoController::class, 'index'])->name('peligrosos.in
 // Otros recursos
 Route::resource('/reportes', ReporteController::class);
 Route::resource('/medicinas', MedicinaController::class);
+Route::resource('/nuevos', NuevoController::class);
 Route::resource('/comidas', AlimentoController::class);
 Route::resource('/informacion', DatousuarioController::class);
 
@@ -173,10 +193,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
+
 Route::middleware('auth')->group(function () {
     Route::get('/store', [ProductController::class, 'index'])->name('store');
     Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
     Route::get('/cart', [CartController::class, 'view'])->name('cart.view');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/perfil', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/store', [StoreController::class, 'index'])->name('store.index');
+    Route::get('/courses', [CourseController::class, 'index'])->name('course.index');
+
 });
 
 Route::put('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
